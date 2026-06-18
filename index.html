@@ -19,7 +19,6 @@
       --text:        #0f172a;
       --muted:       #64748b;
       --border:      #e2e8f0;
-      --radius:      20px;
     }
     body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:100px; }
 
@@ -34,27 +33,22 @@
 
     /* STATS */
     .page { max-width:700px; margin:0 auto; padding:0 20px; }
-    .stats-row { display:flex; gap:12px; margin-top:0; padding-top:28px; margin-bottom:32px; flex-wrap:wrap; }
-    .stat-chip { background:var(--card); border-radius:16px; border:1.5px solid var(--border); padding:16px 20px; flex:1; min-width:100px; text-align:center; }
+    .stats-row { display:flex; gap:12px; margin-top:20px; margin-bottom:32px; }
+    .stat-chip { background:var(--card); border-radius:16px; border:1.5px solid var(--border); padding:16px 20px; flex:1; text-align:center; }
     .stat-chip .sc-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:26px; font-weight:800; }
     .stat-chip .sc-lbl { font-size:11px; color:var(--muted); font-weight:600; margin-top:2px; }
     .stat-chip.lessons .sc-num { color:var(--teal); }
     .stat-chip.vocab   .sc-num { color:var(--indigo); }
-    .stat-chip.streak  .sc-num { color:var(--amber); }
 
-    /* SECTION LABEL */
+    /* СТИЛИ ОСТАЛЬНЫХ БЛОКОВ (оставлены без изменений) */
     .section-title { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin:28px 0 14px; }
-
-    /* NAV CARDS */
     .nav-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:28px; }
     .nav-card { background:var(--card); border-radius:18px; border:1.5px solid var(--border); padding:22px 20px; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:10px; transition:all .2s; }
     .nav-card:hover { border-color:var(--teal-light); box-shadow:0 8px 28px rgba(13,148,136,.12); transform:translateY(-2px); }
-    .nav-card .nc-icon { font-size:28px; }
-    .nav-card .nc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; }
-    .nav-card .nc-desc { font-size:12px; color:var(--muted); line-height:1.5; }
-    .nav-card .nc-arrow { font-size:18px; color:var(--teal); margin-top:auto; }
-
-    /* PROGRESS */
+    .nc-icon { font-size:28px; }
+    .nc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; }
+    .nc-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+    .nc-arrow { font-size:18px; color:var(--teal); margin-top:auto; }
     .progress-card { background:var(--card); border-radius:18px; border:1.5px solid var(--border); padding:20px 22px; margin-bottom:14px; }
     .pc-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
     .pc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; }
@@ -62,17 +56,12 @@
     .pc-bar { background:var(--bg); border-radius:100px; height:8px; overflow:hidden; margin-bottom:8px; }
     .pc-fill { height:100%; background:linear-gradient(90deg,var(--teal),var(--teal-light)); border-radius:100px; transition:width .8s ease; }
     .pc-sub { font-size:12px; color:var(--muted); }
-
-    /* FLOATING NAV */
-    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; white-space:nowrap; }
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; }
     .nav-pill a { color:rgba(255,255,255,.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
     .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
-
-    /* MOTIVATIONAL */
     .motto-card { background:linear-gradient(135deg,var(--teal-pale),#e0f2fe); border:1.5px solid rgba(13,148,136,.2); border-radius:18px; padding:22px; margin-bottom:28px; }
-    .motto-card p { font-size:15px; line-height:1.7; color:var(--text); }
-    .motto-card .motto-en { font-size:17px; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; color:var(--teal); margin-bottom:6px; }
-    .motto-card .motto-ru { font-size:13px; color:var(--muted); }
+    .motto-en { font-size:17px; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; color:var(--teal); margin-bottom:6px; }
+    .motto-ru { font-size:13px; color:var(--muted); }
   </style>
 </head>
 <body>
@@ -84,9 +73,7 @@
     <p class="hero-sub">Твоё пространство для подготовки к экзамену. Грамматика, лексика, домашки — всё в одном месте, <span class="hero-name">Zakiya!</span></p>
   </div>
   <div class="hero-wave">
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,60 C360,0 1080,0 1440,60 L1440,60 L0,60 Z" fill="#f0fdf9"/>
-    </svg>
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,60 C360,0 1080,0 1440,60 L1440,60 L0,60 Z" fill="#f0fdf9"/></svg>
   </div>
 </div>
 
@@ -94,6 +81,7 @@
   <div class="stats-row">
     <div class="stat-chip lessons"><div class="sc-num" id="stat-lessons">0</div><div class="sc-lbl">Уроков</div></div>
     <div class="stat-chip vocab">  <div class="sc-num" id="stat-vocab">0</div>  <div class="sc-lbl">Слов</div></div>
+  </div>
 
   <div class="motto-card">
     <div class="motto-en">"Every expert was once a beginner."</div>
