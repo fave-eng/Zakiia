@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grammar — Zakiya's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --teal:#0d9488; --teal-l:#ccfbf1; --teal-d:#0f766e;
+      --indigo:#6366f1; --indigo-l:#e0e7ff;
+      --amber:#f59e0b; --amber-l:#fef3c7;
+      --rose:#f43f5e; --rose-l:#ffe4e6;
+      --green:#10b981; --green-l:#d1fae5;
+      --purple:#7c3aed; --purple-l:#ede9fe;
+      --bg:#f0fdf9; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --radius:16px; --radius-sm:10px;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:100px; }
+
+    .hero { background:linear-gradient(135deg,#0d9488,#6366f1); padding:2.5rem 1.5rem 4rem; position:relative; }
+    .hero-wave { position:absolute; bottom:-1px; left:0; right:0; line-height:0; }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:26px; font-weight:800; color:#fff; margin-bottom:6px; }
+    .hero p { font-size:14px; color:rgba(255,255,255,.8); }
+    .page { max-width:700px; margin:0 auto; padding:0 1.25rem; }
+
+    .topic-nav { display:flex; gap:8px; flex-wrap:wrap; margin:1.5rem 0; }
+    .tnav { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; padding:7px 14px; border-radius:99px; border:1.5px solid var(--border); background:var(--card); color:var(--muted); cursor:pointer; text-decoration:none; transition:all .15s; }
+    .tnav.t1 { background:var(--teal-l);   border-color:var(--teal);   color:var(--teal-d); }
+    .tnav.t2 { background:var(--indigo-l); border-color:var(--indigo); color:var(--indigo); }
+    .tnav.t3 { background:var(--amber-l);  border-color:var(--amber);  color:#92400e; }
+    .tnav.t4 { background:var(--rose-l);   border-color:var(--rose);   color:#9f1239; }
+    .tnav.t5 { background:var(--green-l);  border-color:var(--green);  color:#065f46; }
+    .tnav.t6 { background:var(--purple-l); border-color:var(--purple); color:var(--purple); }
+
+    /* ACCORDION */
+    .gr-sec { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:14px; overflow:hidden; }
+    .gr-hd { padding:1.1rem 1.25rem; display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none; }
+    .gr-ico { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .gr-tw { flex:1; }
+    .gr-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; }
+    .gr-sub { font-size:12px; color:var(--muted); margin-top:2px; }
+    .gr-chev { font-size:18px; color:var(--muted); transition:transform .2s; }
+    .gr-sec.open .gr-chev { transform:rotate(180deg); }
+    .gr-body { display:none; padding:0 1.25rem 1.25rem; }
+    .gr-sec.open .gr-body { display:block; }
+
+    /* CONTENT */
+    .formula { background:#f8fafc; border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:.9rem 1.1rem; margin-bottom:10px; font-size:13px; line-height:2; }
+    .f-lbl { font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+    .kw { background:var(--teal-l); padding:1px 6px; border-radius:4px; color:var(--teal-d); font-weight:700; font-family:'Inter',sans-serif; font-size:13px; }
+    .pos-c { color:#065f46; font-weight:700; }
+    .neg-c { color:#991b1b; font-weight:700; }
+    .que-c { color:#1e40af; font-weight:700; }
+
+    .ex-list { display:flex; flex-direction:column; gap:7px; margin-bottom:10px; }
+    .ex { display:flex; gap:10px; padding:9px 12px; border-radius:var(--radius-sm); align-items:flex-start; }
+    .ex.p { background:var(--green-l); } .ex.n { background:var(--rose-l); } .ex.q { background:var(--indigo-l); } .ex.w { background:var(--amber-l); }
+    .ex-s { font-size:14px; font-weight:700; flex-shrink:0; width:18px; }
+    .ex-en { font-size:14px; font-weight:500; }
+    .ex-ru { font-size:12px; color:var(--muted); margin-top:2px; }
+
+    .rule { border-radius:var(--radius-sm); padding:.85rem 1rem; margin-bottom:8px; font-size:13px; line-height:1.6; }
+    .rule h4 { font-size:13px; font-weight:700; margin-bottom:5px; }
+    .rule ul { padding-left:16px; }
+    .rule.blue   { background:var(--indigo-l); border:1px solid rgba(99,102,241,.2); }
+    .rule.green  { background:var(--green-l);  border:1px solid rgba(16,185,129,.2); }
+    .rule.amber  { background:var(--amber-l);  border:1px solid rgba(245,158,11,.2); }
+    .rule.teal   { background:var(--teal-l);   border:1px solid rgba(13,148,136,.2); }
+
+    .gr-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:10px; }
+    .gr-table th { background:#f8fafc; padding:8px 10px; text-align:left; font-weight:600; border-bottom:1.5px solid var(--border); }
+    .gr-table td { padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+    .gr-table tr:last-child td { border-bottom:none; }
+    .good { color:#065f46; font-weight:500; }
+
+    /* TEST BLOCK */
+    .test-block { background:#f8fafc; border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:1rem 1.1rem; margin-top:14px; }
+    .test-block h4 { font-size:14px; font-weight:700; color:var(--teal-d); margin-bottom:12px; }
+    .tq { margin-bottom:12px; }
+    .tq-q { font-size:14px; margin-bottom:7px; font-weight:500; }
+    .tq-opts { display:flex; flex-wrap:wrap; gap:6px; }
+    .tq-opt { font-family:'Inter',sans-serif; font-size:13px; padding:7px 16px; border-radius:99px; border:1.5px solid var(--border); background:var(--card); cursor:pointer; transition:all .15s; }
+    .tq-opt:hover:not(:disabled) { border-color:var(--teal); background:var(--teal-l); }
+    .tq-opt.ok   { background:var(--green-l); border-color:var(--green); color:#065f46; }
+    .tq-opt.bad  { background:var(--rose-l);  border-color:var(--rose);  color:#9f1239; }
+    .tq-fb { font-size:12px; margin-top:5px; display:none; padding:5px 9px; border-radius:var(--radius-sm); }
+    .tq-fb.show { display:block; }
+    .tq-fb.ok-fb  { background:var(--green-l); color:#065f46; }
+    .tq-fb.bad-fb { background:var(--rose-l); color:#9f1239; }
+
+    .test-btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; padding:9px 20px; border-radius:var(--radius-sm); border:none; background:var(--teal); color:#fff; cursor:pointer; margin-top:10px; display:block; }
+    .test-btn:hover { background:var(--teal-d); }
+
+    .test-result { display:none; margin-top:12px; padding:14px 16px; border-radius:var(--radius-sm); text-align:center; }
+    .test-result.show { display:block; }
+    .test-result.pass { background:var(--green-l); border:1.5px solid var(--green); }
+    .test-result.fail { background:var(--rose-l);  border:1.5px solid var(--rose); }
+    .tr-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:18px; font-weight:800; margin-bottom:4px; }
+    .tr-title.pass-t { color:#065f46; }
+    .tr-title.fail-t { color:#9f1239; }
+    .tr-sub { font-size:13px; color:var(--muted); }
+    .retry-btn { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; margin-top:8px; padding:6px 14px; border-radius:99px; border:1.5px solid; cursor:pointer; background:transparent; transition:all .15s; }
+    .retry-btn.pass-r { border-color:var(--green); color:#065f46; }
+    .retry-btn.fail-r { border-color:var(--rose);  color:#9f1239; }
+    .retry-btn:hover { opacity:.75; }
+
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; white-space:nowrap; }
+    .nav-pill a { color:rgba(255,255,255,.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
+    .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
+  </style>
+</head>
+<body>
+<div class="hero">
+  <div class="page" style="position:relative;z-index:1">
+    <a href="./index.html" class="hero-back">← На главную</a>
+    <h1>📐 Grammar Guide</h1>
+    <p>Объяснения + тест на понимание в каждой теме</p>
+  </div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,0 1440,40 L1440,40 L0,40 Z" fill="#f0fdf9"/></svg></div>
+</div>
+
+<div class="page">
+  <div class="topic-nav">
+    <a class="tnav t1" href="#ps">Present Simple</a>
+    <a class="tnav t2" href="#wo">Порядок слов</a>
+    <a class="tnav t3" href="#art">Артикли</a>
+    <a class="tnav t4" href="#prep">Предлоги</a>
+    <a class="tnav t5" href="#mod">Модальные</a>
+    <a class="tnav t6" href="#past">Past Simple</a>
+  </div>
+
+  <!-- ══ 1. PRESENT SIMPLE ══ -->
+  <div class="gr-sec open" id="ps">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:var(--teal-l)">🕐</div>
+      <div class="gr-tw"><div class="gr-title">Present Simple</div><div class="gr-sub">Факты, привычки, расписание</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+      <div class="rule teal"><h4>Когда использовать?</h4><ul><li>Факты: <em>Water boils at 100°C.</em></li><li>Привычки: <em>She checks vitals every hour.</em></li><li>Инструкции: <em>Take 2 tablets daily.</em></li></ul></div>
+      <div class="formula">
+        <div class="f-lbl">Формула</div>
+        <div class="pos-c">+ I/You/We/They <span class="kw">work</span> &nbsp;·&nbsp; He/She/It <span class="kw">works</span></div>
+        <div class="neg-c">− I/You <span class="kw">don't work</span> &nbsp;·&nbsp; He/She <span class="kw">doesn't work</span></div>
+        <div class="que-c">? <span class="kw">Do</span> you work? &nbsp;·&nbsp; <span class="kw">Does</span> she work?</div>
+      </div>
+      <div class="ex-list">
+        <div class="ex p"><span class="ex-s">+</span><div><div class="ex-en">She <strong>works</strong> at City Hospital.</div><div class="ex-ru">Она работает в городской больнице.</div></div></div>
+        <div class="ex n"><span class="ex-s">−</span><div><div class="ex-en">He <strong>doesn't speak</strong> Russian.</div><div class="ex-ru">Он не говорит по-русски.</div></div></div>
+        <div class="ex q"><span class="ex-s">?</span><div><div class="ex-en"><strong>Does</strong> the patient have allergies?</div><div class="ex-ru">У пациента есть аллергии?</div></div></div>
+      </div>
+      <div class="rule amber"><h4>⚠ Частая ошибка</h4><p>После <strong>does / doesn't</strong> глагол всегда без -s!<br>❌ Does she <s>works</s>? → ✅ Does she <strong>work</strong>?</p></div>
+
+      <div class="test-block" id="test-ps">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq" id="ps-q1">
+          <div class="tq-q">1. He ___ (work) night shifts.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('ps',1,this,'ok','He → works (3-е лицо ед.ч. → +s)')">works</button>
+            <button class="tq-opt" onclick="tqa('ps',1,this,'bad','He → 3-е лицо → нужен works')">work</button>
+            <button class="tq-opt" onclick="tqa('ps',1,this,'bad','is work — неправильная форма')">is work</button>
+          </div>
+          <div class="tq-fb" id="ps-fb1"></div>
+        </div>
+        <div class="tq" id="ps-q2">
+          <div class="tq-q">2. ___ they have a break now?</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('ps',2,this,'bad','Does — для he/she/it, не they')">Does</button>
+            <button class="tq-opt" onclick="tqa('ps',2,this,'ok','Do они → Do they')">Do</button>
+            <button class="tq-opt" onclick="tqa('ps',2,this,'bad','Are — для to be, не смыслового глагола')">Are</button>
+          </div>
+          <div class="tq-fb" id="ps-fb2"></div>
+        </div>
+        <div class="tq" id="ps-q3">
+          <div class="tq-q">3. She ___ (not/speak) Russian at work.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('ps',3,this,'ok','She → doesn\'t speak (без -s после doesn\'t)')">doesn't speak</button>
+            <button class="tq-opt" onclick="tqa('ps',3,this,'bad','don\'t — для I/you/we/they, не she')">don't speak</button>
+            <button class="tq-opt" onclick="tqa('ps',3,this,'bad','doesn\'t speaks — нельзя, после doesn\'t глагол без -s')">doesn't speaks</button>
+          </div>
+          <div class="tq-fb" id="ps-fb3"></div>
+        </div>
+        <div class="tq" id="ps-q4">
+          <div class="tq-q">4. What ___ you usually do on weekends?</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('ps',4,this,'ok','Do you → правильный вспомогательный')">do</button>
+            <button class="tq-opt" onclick="tqa('ps',4,this,'bad','does — для he/she/it')">does</button>
+            <button class="tq-opt" onclick="tqa('ps',4,this,'bad','are — для to be')">are</button>
+          </div>
+          <div class="tq-fb" id="ps-fb4"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('ps',4)">Проверить тест →</button>
+        <div class="test-result" id="ps-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 2. WORD ORDER ══ -->
+  <div class="gr-sec" id="wo">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:var(--indigo-l)">🗂️</div>
+      <div class="gr-tw"><div class="gr-title">Порядок слов</div><div class="gr-sub">Главное правило английского — фиксированный порядок</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+      <div class="rule blue"><h4>Главное отличие от русского</h4><p>В русском порядок слов свободный. В английском — <strong>строго фиксированный</strong>. Подлежащее всегда перед сказуемым.</p></div>
+      <div class="formula">
+        <div class="f-lbl">Утвердительное предложение</div>
+        <div class="pos-c"><span class="kw">Subject</span> + <span class="kw">Verb</span> + <span class="kw">Object</span> + <span class="kw">Place</span> + <span class="kw">Time</span></div>
+      </div>
+      <table class="gr-table">
+        <tr><th>Подлежащее</th><th>Глагол</th><th>Дополнение</th><th>Место</th><th>Время</th></tr>
+        <tr><td>The nurse</td><td>checks</td><td>blood pressure</td><td>in the room</td><td>every hour</td></tr>
+        <tr><td>She</td><td>takes</td><td>the patient</td><td>to X-ray</td><td>at 9 AM</td></tr>
+      </table>
+      <div class="formula">
+        <div class="f-lbl">Вопросительное предложение</div>
+        <div class="que-c"><span class="kw">Aux</span> + <span class="kw">Subject</span> + <span class="kw">Verb</span> + <span class="kw">…?</span></div>
+      </div>
+      <div class="ex-list">
+        <div class="ex q"><span class="ex-s">?</span><div><div class="ex-en"><strong>Does</strong> she <strong>work</strong> nights?</div></div></div>
+        <div class="ex q"><span class="ex-s">?</span><div><div class="ex-en"><strong>Where does</strong> the patient <strong>feel</strong> pain?</div></div></div>
+        <div class="ex w"><span class="ex-s">⚠</span><div><div class="ex-en">❌ <s>Works she nights?</s> → ✅ <strong>Does</strong> she work nights?</div></div></div>
+      </div>
+      <div class="rule green"><h4>Wh-вопросы</h4><p>Wh-word + aux + subject + verb<br>What <strong>does</strong> the patient <strong>need</strong>? · Where <strong>do</strong> you <strong>work</strong>?<br><em>Исключение: Who/What = подлежащее → aux не нужен: Who called the doctor?</em></p></div>
+
+      <div class="test-block" id="test-wo">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq">
+          <div class="tq-q">1. Выбери правильный порядок слов:</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('wo',1,this,'ok','Subject + Verb + Object — правильный порядок')">She checks vitals every morning.</button>
+            <button class="tq-opt" onclick="tqa('wo',1,this,'bad','Глагол не может стоять первым')">Checks she vitals every morning.</button>
+            <button class="tq-opt" onclick="tqa('wo',1,this,'bad','Время ставится в конец предложения')">Every morning she vitals checks.</button>
+          </div>
+          <div class="tq-fb" id="wo-fb1"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">2. Как задать вопрос «Ты работаешь здесь?»</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('wo',2,this,'bad','Work you here — нет вспомогательного глагола')">Work you here?</button>
+            <button class="tq-opt" onclick="tqa('wo',2,this,'ok','Do you work here? — правильно: aux + subject + verb')">Do you work here?</button>
+            <button class="tq-opt" onclick="tqa('wo',2,this,'bad','You work here — это утверждение, не вопрос')">You work here?</button>
+          </div>
+          <div class="tq-fb" id="wo-fb2"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">3. Где стоит наречие частотности usually?</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('wo',3,this,'ok','She usually works — наречие перед смысловым глаголом')">She <u>usually</u> works nights.</button>
+            <button class="tq-opt" onclick="tqa('wo',3,this,'bad','Usually в конце — нестандартный порядок')">She works nights <u>usually</u>.</button>
+            <button class="tq-opt" onclick="tqa('wo',3,this,'bad','Usually she works — возможно, но менее нейтрально')"><u>Usually</u> she works nights.</button>
+          </div>
+          <div class="tq-fb" id="wo-fb3"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('wo',3)">Проверить тест →</button>
+        <div class="test-result" id="wo-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 3. ARTICLES ══ -->
+  <div class="gr-sec" id="art">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:var(--amber-l)">📌</div>
+      <div class="gr-tw"><div class="gr-title">Артикли: a / an / the</div><div class="gr-sub">Самая частая ошибка русскоговорящих</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+      <table class="gr-table">
+        <tr><th>Артикль</th><th>Когда</th><th>Пример</th></tr>
+        <tr><td><strong>a / an</strong></td><td>Первое упоминание, один из многих, профессия</td><td class="good">She is <strong>a</strong> nurse. I need <strong>an</strong> hour.</td></tr>
+        <tr><td><strong>the</strong></td><td>Конкретный, уже упомянутый, единственный</td><td class="good">Call <strong>the</strong> doctor. <strong>The</strong> patient is in room 3.</td></tr>
+        <tr><td><strong>—</strong></td><td>Имена, страны, профессии с to be, общие понятия</td><td class="good">I am from <strong>Russia</strong>. She studies <strong>medicine</strong>.</td></tr>
+      </table>
+      <div class="rule amber"><h4>a vs an</h4><p><strong>an</strong> — перед гласным звуком: an <em>hour</em>, an <em>urgent</em> case, an <em>RN</em><br><strong>a</strong> — перед согласным: a <em>hospital</em>, a <em>nurse</em>, a <em>uniform</em></p></div>
+
+      <div class="test-block" id="test-art">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq">
+          <div class="tq-q">1. She is ___ doctor.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('art',1,this,'ok','Профессия → a doctor')">a</button>
+            <button class="tq-opt" onclick="tqa('art',1,this,'bad','the — для конкретного, а не профессии')">the</button>
+            <button class="tq-opt" onclick="tqa('art',1,this,'bad','Без артикля нельзя с профессией после to be')">—</button>
+          </div>
+          <div class="tq-fb" id="art-fb1"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">2. Please call ___ nurse. (мы знаем, какую именно)</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('art',2,this,'bad','a — для первого упоминания')">a</button>
+            <button class="tq-opt" onclick="tqa('art',2,this,'ok','the — конкретная медсестра, которую мы имеем в виду')">the</button>
+            <button class="tq-opt" onclick="tqa('art',2,this,'bad','an — только перед гласным звуком')">an</button>
+          </div>
+          <div class="tq-fb" id="art-fb2"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">3. I need ___ umbrella. It is raining.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('art',3,this,'bad','a — перед согласным звуком, umbrella начинается на гласный')">a</button>
+            <button class="tq-opt" onclick="tqa('art',3,this,'ok','an umbrella — перед гласным звуком u')">an</button>
+            <button class="tq-opt" onclick="tqa('art',3,this,'bad','the — она не упоминалась раньше')">the</button>
+          </div>
+          <div class="tq-fb" id="art-fb3"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">4. I work at ___ City Hospital. (название)</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('art',4,this,'bad','a — перед именами собственными артикль не нужен')">a</button>
+            <button class="tq-opt" onclick="tqa('art',4,this,'bad','the — обычно не ставится перед именем больницы')">the</button>
+            <button class="tq-opt" onclick="tqa('art',4,this,'ok','Перед именами собственными артикль не нужен')">—</button>
+          </div>
+          <div class="tq-fb" id="art-fb4"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('art',4)">Проверить тест →</button>
+        <div class="test-result" id="art-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 4. PREPOSITIONS ══ -->
+  <div class="gr-sec" id="prep">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:var(--rose-l)">📍</div>
+      <div class="gr-tw"><div class="gr-title">Предлоги: in / on / at</div><div class="gr-sub">Время, место и медицинские контексты</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+      <table class="gr-table">
+        <tr><th>Предлог</th><th>Время</th><th>Место</th></tr>
+        <tr><td><strong>in</strong></td><td>in the morning, in 2025, in January</td><td>in the room, in the hospital, in the US</td></tr>
+        <tr><td><strong>on</strong></td><td>on Monday, on June 18, on my shift</td><td>on the floor (этаж), on the table, on duty</td></tr>
+        <tr><td><strong>at</strong></td><td>at 9 AM, at night, at noon</td><td>at the clinic, at work, at the desk</td></tr>
+      </table>
+      <div class="rule teal"><h4>Медицинские предлоги — запомни</h4><ul>
+        <li>pain <strong>in</strong> the chest</li>
+        <li>allergic <strong>to</strong> penicillin</li>
+        <li>suffer <strong>from</strong> diabetes</li>
+        <li>admitted <strong>to</strong> hospital</li>
+        <li><strong>on</strong> medication · <strong>on</strong> duty</li>
+      </ul></div>
+
+      <div class="test-block" id="test-prep">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq">
+          <div class="tq-q">1. The patient is ___ room 204.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('prep',1,this,'ok','in a room — в комнате/палате')">in</button>
+            <button class="tq-opt" onclick="tqa('prep',1,this,'bad','on a room — не используется')">on</button>
+            <button class="tq-opt" onclick="tqa('prep',1,this,'bad','at room — нет такого выражения')">at</button>
+          </div>
+          <div class="tq-fb" id="prep-fb1"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">2. I work ___ City Hospital.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('prep',2,this,'bad','in — для городов, стран, но не учреждений')">in</button>
+            <button class="tq-opt" onclick="tqa('prep',2,this,'bad','on — не используется с больницей')">on</button>
+            <button class="tq-opt" onclick="tqa('prep',2,this,'ok','at — работать в учреждении')">at</button>
+          </div>
+          <div class="tq-fb" id="prep-fb2"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">3. She starts her shift ___ 7 AM.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('prep',3,this,'bad','in — для периодов: in the morning')">in</button>
+            <button class="tq-opt" onclick="tqa('prep',3,this,'bad','on — для дней: on Monday')">on</button>
+            <button class="tq-opt" onclick="tqa('prep',3,this,'ok','at — для конкретного времени: at 7 AM')">at</button>
+          </div>
+          <div class="tq-fb" id="prep-fb3"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">4. He is allergic ___ penicillin.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('prep',4,this,'ok','allergic to — устойчивое выражение')">to</button>
+            <button class="tq-opt" onclick="tqa('prep',4,this,'bad','allergic from — не существует')">from</button>
+            <button class="tq-opt" onclick="tqa('prep',4,this,'bad','allergic of — не существует')">of</button>
+          </div>
+          <div class="tq-fb" id="prep-fb4"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('prep',4)">Проверить тест →</button>
+        <div class="test-result" id="prep-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 5. MODAL VERBS ══ -->
+  <div class="gr-sec" id="mod">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:var(--green-l)">🎯</div>
+      <div class="gr-tw"><div class="gr-title">Модальные глаголы</div><div class="gr-sub">can, must, should, may — критично для NCLEX</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+      <div class="rule green"><h4>Главное правило</h4><p>После модального — инфинитив без to.<br>✅ She <strong>can speak</strong> English. &nbsp; ❌ <s>She can speaks / can to speak</s></p></div>
+      <table class="gr-table">
+        <tr><th>Глагол</th><th>Значение</th><th>Пример</th></tr>
+        <tr><td><strong>can</strong></td><td>умею, могу</td><td class="good">I <strong>can</strong> take your BP now.</td></tr>
+        <tr><td><strong>can't</strong></td><td>не могу, нельзя</td><td class="good">You <strong>can't</strong> eat before the procedure.</td></tr>
+        <tr><td><strong>must</strong></td><td>обязан (строго)</td><td class="good">You <strong>must</strong> take this daily.</td></tr>
+        <tr><td><strong>should</strong></td><td>следует, рекомендуется</td><td class="good">The patient <strong>should</strong> rest 3 days.</td></tr>
+        <tr><td><strong>may</strong></td><td>возможно, разрешение</td><td class="good">You <strong>may</strong> feel dizzy at first.</td></tr>
+        <tr><td><strong>need to</strong></td><td>нужно сделать</td><td class="good">You <strong>need to</strong> sign this form.</td></tr>
+      </table>
+
+      <div class="test-block" id="test-mod">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq">
+          <div class="tq-q">1. You ___ take this pill every 8 hours. (обязательно)</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('mod',1,this,'ok','must — строгая обязанность')">must</button>
+            <button class="tq-opt" onclick="tqa('mod',1,this,'bad','can — умение, а не обязанность')">can</button>
+            <button class="tq-opt" onclick="tqa('mod',1,this,'bad','may — разрешение, не обязанность')">may</button>
+          </div>
+          <div class="tq-fb" id="mod-fb1"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">2. She ___ perform surgery — she is a nurse, not a surgeon.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('mod',2,this,'ok','can\'t — не может по роли')">can't</button>
+            <button class="tq-opt" onclick="tqa('mod',2,this,'bad','must — обязан, не подходит по смыслу')">must</button>
+            <button class="tq-opt" onclick="tqa('mod',2,this,'bad','should — рекомендация, не запрет')">should</button>
+          </div>
+          <div class="tq-fb" id="mod-fb2"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">3. The patient ___ rest for 3 days. (рекомендация врача)</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('mod',3,this,'bad','must — слишком строго для рекомендации')">must</button>
+            <button class="tq-opt" onclick="tqa('mod',3,this,'ok','should — мягкая рекомендация')">should</button>
+            <button class="tq-opt" onclick="tqa('mod',3,this,'bad','can — умение, не рекомендация')">can</button>
+          </div>
+          <div class="tq-fb" id="mod-fb3"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">4. You ___ feels dizzy — правильно ли это предложение?</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('mod',4,this,'bad','Нет, правильно: You may feel dizzy (без -s после модального)')">Да, правильно</button>
+            <button class="tq-opt" onclick="tqa('mod',4,this,'ok','После модального глагола инфинитив без -s: may feel')">Нет, должно быть: You may feel</button>
+          </div>
+          <div class="tq-fb" id="mod-fb4"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('mod',4)">Проверить тест →</button>
+        <div class="test-result" id="mod-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 6. PAST SIMPLE ══ -->
+  <div class="gr-sec" id="past">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:var(--purple-l)">⏮️</div>
+      <div class="gr-tw"><div class="gr-title">Past Simple</div><div class="gr-sub">История болезни, рассказ о событиях</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+      <div class="formula">
+        <div class="f-lbl">Формула</div>
+        <div class="pos-c">+ Subject + <span class="kw">verb-ed / irregular</span></div>
+        <div class="neg-c">− Subject + <span class="kw">didn't</span> + verb (base)</div>
+        <div class="que-c">? <span class="kw">Did</span> + Subject + verb (base)?</div>
+      </div>
+      <div class="ex-list">
+        <div class="ex p"><span class="ex-s">+</span><div><div class="ex-en">The patient <strong>arrived</strong> at 3 AM with chest pain.</div></div></div>
+        <div class="ex n"><span class="ex-s">−</span><div><div class="ex-en">He <strong>didn't take</strong> his medication yesterday.</div></div></div>
+        <div class="ex q"><span class="ex-s">?</span><div><div class="ex-en"><strong>Did</strong> she have any allergic reactions?</div></div></div>
+      </div>
+      <div class="rule" style="background:var(--purple-l);border:1px solid rgba(124,58,237,.2)">
+        <h4>Неправильные глаголы (медицина)</h4>
+        <table class="gr-table" style="margin:0"><tr><th>Base</th><th>Past</th><th>Значение</th></tr>
+          <tr><td>come</td><td class="good">came</td><td>пришёл</td></tr>
+          <tr><td>feel</td><td class="good">felt</td><td>чувствовал</td></tr>
+          <tr><td>give</td><td class="good">gave</td><td>дал</td></tr>
+          <tr><td>take</td><td class="good">took</td><td>принял</td></tr>
+          <tr><td>tell</td><td class="good">told</td><td>сказал</td></tr>
+        </table>
+      </div>
+
+      <div class="test-block" id="test-past">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq">
+          <div class="tq-q">1. The patient ___ (come) in yesterday with chest pain.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('past',1,this,'bad','comed — неправильный глагол, нет такой формы')">comed</button>
+            <button class="tq-opt" onclick="tqa('past',1,this,'ok','came — неправильный глагол, Past Simple от come')">came</button>
+            <button class="tq-opt" onclick="tqa('past',1,this,'bad','comes — это Present Simple, не Past')">comes</button>
+          </div>
+          <div class="tq-fb" id="past-fb1"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">2. She ___ (not/take) her medication last night.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('past',2,this,'ok','didn\'t take — отрицание Past Simple + инфинитив')">didn't take</button>
+            <button class="tq-opt" onclick="tqa('past',2,this,'bad','doesn\'t take — это Present Simple')">doesn't take</button>
+            <button class="tq-opt" onclick="tqa('past',2,this,'bad','didn\'t took — нельзя: после didn\'t инфинитив без изменений')">didn't took</button>
+          </div>
+          <div class="tq-fb" id="past-fb2"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">3. ___ the patient feel pain during the night?</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('past',3,this,'ok','Did — вспомогательный для Past Simple вопроса')">Did</button>
+            <button class="tq-opt" onclick="tqa('past',3,this,'bad','Does — Present Simple')">Does</button>
+            <button class="tq-opt" onclick="tqa('past',3,this,'bad','Was — для to be, не смыслового глагола')">Was</button>
+          </div>
+          <div class="tq-fb" id="past-fb3"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('past',3)">Проверить тест →</button>
+        <div class="test-result" id="past-result"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.page -->
+
+<div class="nav-pill">
+  <a href="index.html">🏠 Home</a>
+  <a href="homework.html">📝 HW</a>
+  <a href="grammar.html" class="active">📐 Grammar</a>
+  <a href="vocabulary.html">💊 Vocab</a>
+</div>
+
+<script>
+function tog(hd) { hd.parentElement.classList.toggle('open'); }
+
+// Per-test state: testId -> { qN: 'ok'|'bad' }
+const testState = {};
+
+function tqa(testId, qnum, btn, verdict, msg) {
+  if (!testState[testId]) testState[testId] = {};
+  if (testState[testId][qnum] !== undefined) return;
+  testState[testId][qnum] = verdict;
+  btn.parentElement.querySelectorAll('.tq-opt').forEach(b => { b.disabled = true; b.style.pointerEvents = 'none'; });
+  btn.classList.add(verdict === 'ok' ? 'ok' : 'bad');
+  const fb = document.getElementById(testId + '-fb' + qnum);
+  fb.className = 'tq-fb show ' + (verdict === 'ok' ? 'ok-fb' : 'bad-fb');
+  fb.textContent = (verdict === 'ok' ? '✓ ' : '✗ ') + msg;
+}
+
+function checkTest(testId, total) {
+  const s = testState[testId] || {};
+  const answered = Object.keys(s).length;
+  if (answered < total) {
+    alert('Ответь на все вопросы теста!');
+    return;
+  }
+  const correct = Object.values(s).filter(v => v === 'ok').length;
+  const passed = correct === total;
+  const res = document.getElementById(testId + '-result');
+  res.className = 'test-result show ' + (passed ? 'pass' : 'fail');
+  res.innerHTML = `
+    <div class="tr-title ${passed ? 'pass-t' : 'fail-t'}">${passed ? '✅ Тема усвоена!' : '❌ Повтори тему ещё раз'}</div>
+    <div class="tr-sub">${correct} из ${total} правильно${passed ? ' — отлично!' : '. Перечитай объяснение выше.'}</div>
+    ${!passed ? `<button class="retry-btn fail-r" onclick="retryTest('${testId}',${total})">Попробовать снова</button>` : ''}
+  `;
+}
+
+function retryTest(testId, total) {
+  testState[testId] = {};
+  // Reset all question buttons and feedbacks
+  const block = document.getElementById('test-' + testId);
+  block.querySelectorAll('.tq-opt').forEach(b => {
+    b.disabled = false; b.style.pointerEvents = '';
+    b.classList.remove('ok', 'bad');
+  });
+  block.querySelectorAll('.tq-fb').forEach(fb => { fb.className = 'tq-fb'; fb.textContent = ''; });
+  document.getElementById(testId + '-result').className = 'test-result';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HW 1 — Zakiya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --teal:#0d9488; --teal-l:#ccfbf1; --teal-d:#0f766e;
+      --bg:#f0fdf9; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --green:#10b981; --green-l:#d1fae5;
+      --red:#ef4444; --red-l:#fee2e2;
+      --amber:#f59e0b; --amber-l:#fef3c7;
+      --purple:#6366f1; --purple-l:#e0e7ff;
+      --radius:16px; --radius-sm:10px;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding:0 0 5rem; }
+
+    .hero { background:linear-gradient(135deg,#185FA5,#3C3489); padding:2.5rem 1.5rem 4rem; position:relative; }
+    .hero-wave { position:absolute; bottom:-1px; left:0; right:0; line-height:0; }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; color:#fff; margin-bottom:6px; }
+    .hero p { font-size:14px; color:rgba(255,255,255,.8); }
+    .progress-row { display:flex; align-items:center; gap:12px; margin-top:14px; max-width:400px; }
+    .prog-bar { flex:1; height:6px; background:rgba(255,255,255,.25); border-radius:99px; overflow:hidden; }
+    .prog-fill { height:100%; background:#fff; border-radius:99px; transition:width .4s; }
+    .prog-lbl { font-size:12px; color:rgba(255,255,255,.8); white-space:nowrap; }
+
+    .page { max-width:680px; margin:0 auto; padding:0 1.25rem; }
+    .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:1.5rem 0 .75rem; }
+
+    /* TASK CARD */
+    .task { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:14px; overflow:hidden; }
+    .task-head { padding:1rem 1.25rem; display:flex; align-items:flex-start; gap:12px; }
+    .task-num { width:34px; height:34px; border-radius:99px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+    .tn-blue   { background:var(--purple-l); color:var(--purple); }
+    .tn-amber  { background:var(--amber-l);  color:#92400e; }
+    .tn-green  { background:var(--green-l);  color:#065f46; }
+    .tn-teal   { background:var(--teal-l);   color:var(--teal-d); }
+    .task-meta { flex:1; }
+    .task-lbl  { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+    .task-title{ font-size:15px; font-weight:600; margin-bottom:3px; }
+    .task-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+    .task-body { padding:0 1.25rem 1.25rem; }
+
+    /* GRAMMAR REMINDER */
+    .gr-box { background:var(--purple-l); border:1.5px solid rgba(99,102,241,.2); border-radius:var(--radius-sm); padding:1rem 1.25rem; margin-bottom:14px; }
+    .gr-box h3 { font-size:13px; font-weight:700; color:var(--purple); margin-bottom:8px; }
+    .gr-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .gr-table td { padding:4px 8px 4px 0; vertical-align:top; }
+    .gr-table td:first-child { font-weight:700; color:var(--purple); width:30px; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .chip { font-size:12px; padding:3px 10px; border-radius:99px; background:var(--purple); color:#fff; }
+
+    /* SENTENCE ITEMS */
+    .sentence-item { background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; font-size:14px; margin-bottom:8px; }
+    .snum { font-size:11px; font-weight:700; color:var(--muted); margin-right:6px; }
+
+    /* INPUT ROWS */
+    .input-row { display:flex; align-items:flex-start; gap:10px; background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:6px; }
+    .input-sign { font-size:12px; font-weight:700; color:var(--muted); margin-top:3px; white-space:nowrap; min-width:18px; }
+    .input-row textarea { flex:1; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); resize:none; outline:none; line-height:1.5; min-height:22px; }
+
+    /* MCQ */
+    .q-block { margin-bottom:14px; }
+    .q-text { font-size:14px; font-weight:500; margin-bottom:8px; }
+    .q-opts { display:flex; flex-wrap:wrap; gap:6px; }
+    .q-opt { font-family:'Inter',sans-serif; font-size:13px; padding:8px 16px; border-radius:99px; border:1.5px solid var(--border); background:#f8fafc; cursor:pointer; transition:all .15s; }
+    .q-opt:hover { border-color:var(--teal); background:var(--teal-l); }
+    .q-opt.correct { background:var(--green-l); border-color:var(--green); color:#065f46; pointer-events:none; }
+    .q-opt.wrong   { background:var(--red-l);   border-color:var(--red);  color:#991b1b; pointer-events:none; }
+    .q-fb { font-size:12px; margin-top:5px; display:none; padding:6px 10px; border-radius:var(--radius-sm); }
+    .q-fb.show { display:block; }
+    .q-fb.ok  { background:var(--green-l); color:#065f46; }
+    .q-fb.bad { background:var(--red-l); color:#991b1b; }
+
+    /* TRANSLATION */
+    .tr-item { background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:8px; }
+    .tr-ru { font-size:13px; color:var(--muted); margin-bottom:5px; }
+    .tr-input { width:100%; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); outline:none; resize:none; min-height:22px; }
+
+    /* ANSWERS */
+    .answers { display:none; margin-top:10px; }
+    .answers.show { display:block; }
+    .ans-item { display:flex; gap:8px; padding:8px 10px; border-radius:var(--radius-sm); margin-bottom:5px; font-size:13px; }
+    .ans-item.ok   { background:var(--green-l); }
+    .ans-item.note { background:var(--amber-l); }
+    .ans-snum { font-weight:700; color:var(--muted); font-size:11px; white-space:nowrap; margin-top:1px; }
+    .ans-text .a { font-weight:700; color:#065f46; }
+    .ans-text .n { font-weight:700; color:#92400e; }
+
+    /* BUTTONS */
+    .btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:500; padding:8px 18px; border-radius:var(--radius-sm); border:1.5px solid; cursor:pointer; transition:all .15s; margin-top:8px; }
+    .btn-blue  { background:var(--purple-l); border-color:var(--purple); color:var(--purple); }
+    .btn-blue:hover  { background:var(--purple); color:#fff; }
+    .btn-green { background:var(--green-l); border-color:var(--green); color:#065f46; }
+    .btn-green:hover { background:var(--green); color:#fff; }
+    .btn-send { font-family:'Inter',sans-serif; background:linear-gradient(135deg,#0d9488,#0891b2); border:none; color:#fff; font-size:15px; font-weight:600; padding:14px 28px; width:100%; border-radius:14px; cursor:pointer; margin-top:6px; }
+    .btn-send:hover { opacity:.9; }
+    .btn-send:disabled { opacity:.5; cursor:not-allowed; }
+
+    /* LIFE QUESTIONS */
+    .life-card { background:linear-gradient(135deg,var(--green-l),#f0faf7); border:1.5px solid rgba(16,185,129,.2); border-radius:var(--radius); padding:1.25rem 1.5rem; margin-bottom:14px; }
+    .life-card h3 { font-size:14px; font-weight:600; color:#065f46; margin-bottom:10px; }
+    .life-q { padding:8px 0; border-bottom:1px solid rgba(16,185,129,.12); }
+    .life-q:last-child { border-bottom:none; }
+    .life-q .lq-en { font-size:14px; }
+    .life-q .lq-ru { font-size:12px; color:var(--muted); margin-top:2px; }
+
+    /* SCORE + SEND */
+    .score-section { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); padding:1.25rem; margin-bottom:14px; display:none; }
+    .score-section.show { display:block; }
+    .score-big { font-family:'Plus Jakarta Sans',sans-serif; font-size:40px; font-weight:800; color:var(--teal); text-align:center; }
+    .score-sub { text-align:center; font-size:14px; color:var(--muted); margin-top:4px; }
+    .sb { display:flex; justify-content:space-between; font-size:13px; padding:6px 10px; border-radius:var(--radius-sm); background:#f8fafc; margin-top:6px; }
+    .sb span:last-child { font-weight:600; color:var(--teal); }
+
+    .send-section { background:var(--teal-l); border:1.5px solid rgba(13,148,136,.25); border-radius:var(--radius); padding:1.25rem; margin-bottom:14px; }
+    .send-section h3 { font-size:15px; font-weight:600; color:var(--teal-d); margin-bottom:4px; }
+    .send-section p  { font-size:13px; color:var(--muted); margin-bottom:10px; }
+    .send-status { font-size:13px; font-weight:500; margin-top:8px; padding:8px 12px; border-radius:var(--radius-sm); display:none; }
+    .send-status.ok  { background:var(--green-l); color:#065f46; display:block; }
+    .send-status.err { background:var(--red-l); color:#991b1b; display:block; }
+  </style>
+</head>
+<body>
+<div class="hero">
+  <div class="page" style="position:relative;z-index:1">
+    <a href="./homework.html" class="hero-back">← Назад к домашкам</a>
+    <h1>Homework 1 · Урок 1</h1>
+    <p>Present Simple · Наречия частотности · Перевод</p>
+    <div class="progress-row">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+      <span class="prog-lbl" id="prog-lbl">0 / 10</span>
+    </div>
+  </div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,0 1440,40 L1440,40 L0,40 Z" fill="#f0fdf9"/></svg></div>
+</div>
+
+<div class="page">
+
+  <!-- GRAMMAR REMINDER -->
+  <div class="gr-box" style="margin-top:1.5rem">
+    <h3>📌 Запомни перед выполнением</h3>
+    <table class="gr-table">
+      <tr><td>+</td><td>I <strong>work</strong> at a hospital. / She <strong>works</strong> at a clinic.</td></tr>
+      <tr><td>−</td><td>I <strong>don't work</strong> on Sundays. / She <strong>doesn't work</strong> at home.</td></tr>
+      <tr><td>?</td><td><strong>Do</strong> you work here? / <strong>Does</strong> she work here?</td></tr>
+    </table>
+    <div style="font-size:12px;color:var(--muted);margin-top:8px">Наречия — ПЕРЕД глаголом, ПОСЛЕ to be:</div>
+    <div class="chips">
+      <span class="chip">always</span><span class="chip">usually</span><span class="chip">often</span>
+      <span class="chip">sometimes</span><span class="chip">seldom</span><span class="chip">not often</span>
+    </div>
+  </div>
+
+  <!-- PART A: Отрицание и вопрос -->
+  <div class="section-title">Часть A · Отрицательная и вопросительная форма</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-blue">A</div>
+      <div class="task-meta">
+        <div class="task-lbl">Упражнение I · стр. 85</div>
+        <div class="task-title">Поставь в отрицательную и вопросительную форму</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div style="margin-bottom:12px">
+        <div class="sentence-item"><span class="snum">1.</span> I often meet this patient here.</div>
+        <div class="input-row"><span class="input-sign">−</span><textarea rows="1" oninput="grow(this);countQ()" id="t1a"></textarea></div>
+        <div class="input-row"><span class="input-sign">?</span><textarea rows="1" oninput="grow(this);countQ()" id="t1b"></textarea></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div class="sentence-item"><span class="snum">2.</span> She usually checks vital signs in the morning.</div>
+        <div class="input-row"><span class="input-sign">−</span><textarea rows="1" oninput="grow(this);countQ()" id="t2a"></textarea></div>
+        <div class="input-row"><span class="input-sign">?</span><textarea rows="1" oninput="grow(this);countQ()" id="t2b"></textarea></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div class="sentence-item"><span class="snum">3.</span> They often read medical textbooks at home.</div>
+        <div class="input-row"><span class="input-sign">−</span><textarea rows="1" oninput="grow(this);countQ()" id="t3a"></textarea></div>
+        <div class="input-row"><span class="input-sign">?</span><textarea rows="1" oninput="grow(this);countQ()" id="t3b"></textarea></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div class="sentence-item"><span class="snum">4.</span> He always gives patients their prescriptions.</div>
+        <div class="input-row"><span class="input-sign">−</span><textarea rows="1" oninput="grow(this);countQ()" id="t4a"></textarea></div>
+        <div class="input-row"><span class="input-sign">?</span><textarea rows="1" oninput="grow(this);countQ()" id="t4b"></textarea></div>
+      </div>
+      <button class="btn btn-blue" onclick="showA1()">Проверить ответы →</button>
+      <div class="answers" id="ans1">
+        <div class="ans-item ok"><span class="ans-snum">1−</span><div class="ans-text"><span class="a">I don't often meet this patient here.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">1?</span><div class="ans-text"><span class="a">Do I often meet this patient here?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">2−</span><div class="ans-text"><span class="a">She doesn't usually check vital signs in the morning.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">2?</span><div class="ans-text"><span class="a">Does she usually check vital signs in the morning?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">3−</span><div class="ans-text"><span class="a">They don't often read medical textbooks at home.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">3?</span><div class="ans-text"><span class="a">Do they often read medical textbooks at home?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">4−</span><div class="ans-text"><span class="a">He doesn't always give patients their prescriptions.</span></div></div>
+        <div class="ans-item note"><span class="ans-snum">4?</span><div class="ans-text"><span class="n">Does he always give patients their prescriptions?</span> — ⚠ после does глагол без -s!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART B: MCQ наречия -->
+  <div class="section-title">Часть B · Замени наречие often</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-amber">B</div>
+      <div class="task-meta">
+        <div class="task-lbl">Упражнение II · стр. 85</div>
+        <div class="task-title">Выбери подходящее наречие вместо often</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="q-block">
+        <div class="q-text">1. We don't <u>often</u> have dictations at our nursing class.</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'b1','bad','always в отрицании звучит неестественно')">always</button>
+          <button class="q-opt" onclick="mcq(this,'b1','ok','usually — да, это звучит естественно')">usually</button>
+          <button class="q-opt" onclick="mcq(this,'b1','ok','sometimes — тоже подходит')">sometimes</button>
+        </div>
+        <div class="q-fb" id="fb-b1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">2. They don't <u>often</u> speak Russian at work.</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'b2','ok','usually — правильно')">usually</button>
+          <button class="q-opt" onclick="mcq(this,'b2','ok','always — тоже возможно')">always</button>
+          <button class="q-opt" onclick="mcq(this,'b2','bad','often нельзя заменить на often — это то же самое слово')">often</button>
+        </div>
+        <div class="q-fb" id="fb-b2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">3. I don't <u>often</u> read English medical journals.</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'b3','ok','sometimes — подходит, звучит естественно')">sometimes</button>
+          <button class="q-opt" onclick="mcq(this,'b3','ok','seldom — редко, тоже правильно')">seldom</button>
+          <button class="q-opt" onclick="mcq(this,'b3','bad','always в отрицании — противоречие по смыслу')">always</button>
+        </div>
+        <div class="q-fb" id="fb-b3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART C: Перевод -->
+  <div class="section-title">Часть C · Переведи на английский</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-green">C</div>
+      <div class="task-meta">
+        <div class="task-lbl">Упражнение V · стр. 86</div>
+        <div class="task-title">Переведи предложения</div>
+        <div class="task-desc">Используй Present Simple и наречия. Пиши своими словами.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="tr-item"><div class="tr-ru">1. Что ты обычно читаешь по утрам?</div><textarea class="tr-input" id="c1" rows="1" oninput="grow(this);countQ()"></textarea></div>
+      <div class="tr-item"><div class="tr-ru">2. Она часто встречает коллег после работы.</div><textarea class="tr-input" id="c2" rows="1" oninput="grow(this);countQ()"></textarea></div>
+      <div class="tr-item"><div class="tr-ru">3. Читают ли твои пациенты инструкции к лекарствам?</div><textarea class="tr-input" id="c3" rows="1" oninput="grow(this);countQ()"></textarea></div>
+      <div class="tr-item"><div class="tr-ru">4. Мы обычно не говорим по-русски в больнице.</div><textarea class="tr-input" id="c4" rows="1" oninput="grow(this);countQ()"></textarea></div>
+      <div class="tr-item"><div class="tr-ru">5. Что ты делаешь каждое утро перед работой?</div><textarea class="tr-input" id="c5" rows="1" oninput="grow(this);countQ()"></textarea></div>
+      <button class="btn btn-green" onclick="showA3()">Посмотреть примеры ответов →</button>
+      <div class="answers" id="ans3">
+        <div class="ans-item ok"><span class="ans-snum">1.</span><div class="ans-text"><span class="a">What do you usually read in the morning?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">2.</span><div class="ans-text"><span class="a">She often meets her colleagues after work.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">3.</span><div class="ans-text"><span class="a">Do your patients read the instructions for their medication?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">4.</span><div class="ans-text"><span class="a">We usually don't speak Russian at the hospital.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div class="ans-text"><span class="a">What do you do every morning before work?</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART D: MCQ Present Simple (из hw1 прежнего) -->
+  <div class="section-title">Часть D · To Be · Выбери правильный вариант</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-teal">D</div>
+      <div class="task-meta">
+        <div class="task-lbl">To Be + Present Simple</div>
+        <div class="task-title">Choose the correct form</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="q-block">
+        <div class="q-text">1. She ___ a nurse at City Hospital.</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'d1','bad','I → am, She → is, They → are')">am</button>
+          <button class="q-opt" onclick="mcq(this,'d1','ok','She → is. Единственное число 3-е лицо.')">is</button>
+          <button class="q-opt" onclick="mcq(this,'d1','bad','are — для you/we/they')">are</button>
+        </div>
+        <div class="q-fb" id="fb-d1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">2. ___ you from Russia?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'d2','bad','Is — для he/she/it')">Is</button>
+          <button class="q-opt" onclick="mcq(this,'d2','ok','Are you — правильный вопрос')">Are</button>
+          <button class="q-opt" onclick="mcq(this,'d2','bad','Am — только для I')">Am</button>
+        </div>
+        <div class="q-fb" id="fb-d2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">3. The patients ___ in room 204.</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'d3','ok','Patients — множественное число → are')">are</button>
+          <button class="q-opt" onclick="mcq(this,'d3','bad','is — для единственного числа')">is</button>
+          <button class="q-opt" onclick="mcq(this,'d3','bad','am — только для I')">am</button>
+        </div>
+        <div class="q-fb" id="fb-d3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">4. I ___ not a doctor. I ___ a registered nurse.</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'d4','ok','I → am. Оба раза am.')">am / am</button>
+          <button class="q-opt" onclick="mcq(this,'d4','bad','is — для he/she/it, не для I')">is / is</button>
+          <button class="q-opt" onclick="mcq(this,'d4','bad','Второй тоже I → am')">am / is</button>
+        </div>
+        <div class="q-fb" id="fb-d4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">5. ___ the doctor in the clinic right now?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'d5','ok','The doctor = he/she → Is…?')">Is</button>
+          <button class="q-opt" onclick="mcq(this,'d5','bad','Are — для you/we/they')">Are</button>
+          <button class="q-opt" onclick="mcq(this,'d5','bad','Do — для смыслового глагола, не to be')">Do</button>
+        </div>
+        <div class="q-fb" id="fb-d5"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BONUS: Живые вопросы -->
+  <div class="section-title">⭐ Бонус — живые вопросы</div>
+  <div class="life-card">
+    <h3>Ответь вслух или письменно — по-английски</h3>
+    <div class="life-q"><div class="lq-en">1. What do you usually read in the morning — news, social media, or medical materials?</div><div class="lq-ru">Что обычно читаешь утром?</div></div>
+    <div class="life-q"><div class="lq-en">2. Do you often speak English at home?</div><div class="lq-ru">Ты часто говоришь по-английски дома?</div></div>
+    <div class="life-q"><div class="lq-en">3. Where do you usually study English — at home, on the bus, or during breaks?</div><div class="lq-ru">Где обычно учишь английский?</div></div>
+    <div class="life-q"><div class="lq-en">4. Do you always understand American nurses when they speak fast?</div><div class="lq-ru">Всегда понимаешь американских медсестёр?</div></div>
+    <div class="life-q" style="border:none"><div class="lq-en">5. What do you usually do after your English class?</div><div class="lq-ru">Что делаешь после урока?</div></div>
+  </div>
+
+  <!-- SCORE + SEND -->
+  <div class="score-section" id="score-section">
+    <div class="score-big" id="score-display">—</div>
+    <div class="score-sub" id="score-sub"></div>
+    <div id="score-breakdown"></div>
+  </div>
+
+  <div class="send-section">
+    <h3>✈️ Отправить преподавателю</h3>
+    <p>Нажми кнопку — результаты уйдут в Telegram автоматически.</p>
+    <button class="btn-send" id="send-btn" onclick="submitAll()">Отправить результаты в Telegram</button>
+    <div class="send-status" id="send-status"></div>
+  </div>
+
+</div>
+
+<script>
+// ── CONFIG ──
+const BOT_TOKEN = '8665767534:AAFXSwg_aTaGlwwo-vamfN53NYFPMG78aRk';
+const CHAT_ID   = '1004358925459';
+const SB_URL    = 'https://plkwitrcyoqjwbicdufs.supabase.co';
+const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
+const STUDENT   = 'zakiya';
+
+async function sbFetch(path, opts = {}) {
+  return fetch(SB_URL + path, {
+    ...opts,
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer || '',
+      ...(opts.headers || {})
+    }
+  });
+}
+
+// ── HW STATE ──
+const mcqDone = {}, mcqScore = {};
+let writtenFilled = 0;
+const WRITTEN_TOTAL = 13;
+
+function grow(el) { el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+
+function countQ() {
+  let filled = 0;
+  ['t1a','t1b','t2a','t2b','t3a','t3b','t4a','t4b','c1','c2','c3','c4','c5'].forEach(id => {
+    if (document.getElementById(id)?.value?.trim()) filled++;
+  });
+  writtenFilled = filled;
+  const mcqDoneCount = Object.keys(mcqDone).length;
+  const total = WRITTEN_TOTAL + 8;
+  const done = filled + mcqDoneCount;
+  const pct = Math.min(Math.round(done / total * 100), 100);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('prog-lbl').textContent = done + ' / ' + total;
+}
+
+function mcq(btn, key, verdict, msg) {
+  if (mcqDone[key]) return;
+  mcqDone[key] = verdict;
+  mcqScore[key] = verdict === 'ok' ? 1 : 0;
+  btn.parentElement.querySelectorAll('.q-opt').forEach(b => b.style.pointerEvents='none');
+  btn.classList.add(verdict === 'ok' ? 'correct' : 'wrong');
+  const fb = document.getElementById('fb-' + key);
+  fb.className = 'q-fb show ' + (verdict === 'ok' ? 'ok' : 'bad');
+  fb.textContent = (verdict === 'ok' ? '✓ ' : '✗ ') + msg;
+  countQ();
+}
+
+function showA1() { document.getElementById('ans1').classList.add('show'); }
+function showA3() { document.getElementById('ans3').classList.add('show'); }
+
+async function submitAll() {
+  const btn    = document.getElementById('send-btn');
+  const status = document.getElementById('send-status');
+
+  const mcqTotal = Object.keys(mcqScore).length;
+  const mcqRight = Object.values(mcqScore).reduce((a,b)=>a+b,0);
+
+  const translations = [1,2,3,4,5].map(i => {
+    const v = document.getElementById('c'+i)?.value?.trim();
+    return `  ${i}. ${v||'—'}`;
+  }).join('\n');
+  const partA = [1,2,3,4].map(i =>
+    `  ${i}−: ${document.getElementById('t'+i+'a')?.value?.trim()||'—'}\n  ${i}?: ${document.getElementById('t'+i+'b')?.value?.trim()||'—'}`
+  ).join('\n');
+
+  const scoreStr = `${mcqRight}/${mcqTotal} (MCQ)`;
+
+  // ── Show score UI ──
+  const ss = document.getElementById('score-section');
+  ss.classList.add('show');
+  document.getElementById('score-display').textContent = scoreStr;
+  document.getElementById('score-sub').textContent =
+    mcqRight === mcqTotal ? '🎉 Все тесты верно!' :
+    mcqRight >= Math.floor(mcqTotal * 0.7) ? '👍 Хорошо!' : '📚 Повтори материал';
+  document.getElementById('score-breakdown').innerHTML =
+    `<div class="sb"><span>Part B (наречия MCQ)</span><span>${['b1','b2','b3'].filter(k=>mcqScore[k]).length}/3</span></div>` +
+    `<div class="sb"><span>Part D (To Be MCQ)</span><span>${['d1','d2','d3','d4','d5'].filter(k=>mcqScore[k]).length}/5</span></div>` +
+    `<div class="sb"><span>Part A, C (письменно)</span><span>На проверке у преподавателя</span></div>`;
+
+  // ── Save to localStorage ──
+  localStorage.setItem('zakiya_hw1_score', scoreStr);
+  const done = JSON.parse(localStorage.getItem('zakiya_hw_done')||'[]');
+  if (!done.includes('1')) done.push('1');
+  localStorage.setItem('zakiya_hw_done', JSON.stringify(done));
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляю…';
+
+  const now = new Date().toISOString();
+  let sbOk = false, tgOk = false;
+
+  // ── 1. Save to Supabase ──
+  try {
+    const res = await sbFetch('/rest/v1/homework_results', {
+      method: 'POST',
+      prefer: 'return=minimal',
+      body: JSON.stringify({
+        student_id:   STUDENT,
+        hw_id:        'hw1',
+        score:        scoreStr,
+        part_a:       partA,
+        part_c:       translations,
+        submitted_at: now
+      })
+    });
+    sbOk = res.ok;
+  } catch(e) { console.warn('Supabase HW save failed', e); }
+
+  // ── 2. Send to Telegram ──
+  const msg = `📝 *Homework 1 · Zakiya*\n📅 ${new Date().toLocaleString('ru-RU')}\n\n*MCQ результат: ${scoreStr}*\n\n*Part A — отрицание/вопрос:*\n${partA}\n\n*Part C — Переводы:*\n${translations}`;
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown' })
+    });
+    const data = await res.json();
+    tgOk = data.ok;
+  } catch(e) { console.warn('Telegram send failed', e); }
+
+  // ── Status message ──
+  if (sbOk && tgOk) {
+    status.className = 'send-status ok';
+    status.textContent = '✓ Сохранено в облаке ☁️ и отправлено преподавателю в Telegram!';
+    btn.textContent = '✓ Отправлено';
+  } else if (sbOk) {
+    status.className = 'send-status ok';
+    status.textContent = '✓ Сохранено в облаке ☁️. Telegram — укажи токен для отправки.';
+    btn.textContent = '✓ Сохранено';
+  } else if (tgOk) {
+    status.className = 'send-status ok';
+    status.textContent = '✓ Отправлено в Telegram! (Supabase: проверь настройки)';
+    btn.textContent = '✓ Отправлено';
+  } else {
+    status.className = 'send-status err';
+    status.textContent = '⚠ Ошибка отправки. Покажи экран преподавателю.';
+    btn.disabled = false;
+    btn.textContent = 'Повторить';
+  }
+}
+
+// ── On load: restore score if already submitted ──
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('zakiya_hw1_score');
+  if (saved) {
+    document.getElementById('score-section').classList.add('show');
+    document.getElementById('score-display').textContent = saved;
+    document.getElementById('score-sub').textContent = 'Задание уже было отправлено';
+    document.getElementById('send-btn').textContent = 'Отправить повторно';
+    document.getElementById('send-btn').disabled = false;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Homework — Zakiya's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --teal:#0d9488; --teal-l:#ccfbf1; --teal-d:#0f766e;
+      --rose:#f43f5e; --amber:#f59e0b; --emerald:#10b981;
+      --bg:#f0fdf9; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --radius:18px;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:100px; }
+
+    .hero { background:linear-gradient(135deg,#0d9488,#0891b2,#6366f1); padding:40px 24px 100px; position:relative; }
+    .hero-wave { position:absolute; bottom:-1px; left:0; right:0; line-height:0; }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:20px; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.3); color:#fff; font-size:12px; font-weight:600; padding:5px 14px; border-radius:100px; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(26px,5vw,40px); font-weight:800; color:#fff; letter-spacing:-.5px; margin-bottom:8px; }
+    .hero p { color:rgba(255,255,255,.75); font-size:15px; }
+    .progress-bar-wrap { background:rgba(255,255,255,.15); border-radius:100px; height:6px; margin-top:18px; max-width:340px; overflow:hidden; }
+    .progress-bar-fill { height:100%; background:#fff; border-radius:100px; transition:width .8s ease; }
+    .progress-label { color:rgba(255,255,255,.8); font-size:12px; font-weight:600; margin-top:6px; }
+
+    .page { max-width:700px; margin:0 auto; padding:0 20px; }
+
+    .stats-row { display:flex; gap:12px; margin-top:0; padding-top:28px; margin-bottom:32px; flex-wrap:wrap; }
+    .stat-chip { background:var(--card); border-radius:14px; border:1.5px solid var(--border); padding:14px 20px; flex:1; min-width:100px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .stat-chip .sc-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; }
+    .stat-chip .sc-lbl { font-size:11px; color:var(--muted); font-weight:600; margin-top:2px; }
+    .stat-chip.done  .sc-num { color:var(--emerald); }
+    .stat-chip.total .sc-num { color:var(--teal); }
+    .stat-chip.pct   .sc-num { color:var(--amber); }
+
+    .section-title { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin:28px 0 14px; }
+
+    .lesson-card { background:var(--card); border-radius:var(--radius); border:1.5px solid var(--border); margin-bottom:14px; overflow:hidden; transition:all .2s; }
+    .lesson-card.active:hover { border-color:var(--teal); box-shadow:0 8px 28px rgba(13,148,136,.12); transform:translateY(-2px); }
+    .lesson-card.locked { opacity:.55; }
+    .lc-main { padding:20px 22px; display:flex; align-items:center; gap:16px; }
+    .lc-num { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:800; flex-shrink:0; }
+    .lc-num.done-num   { background:#d1fae5; color:#065f46; }
+    .lc-num.active-num { background:linear-gradient(135deg,#0d9488,#0891b2); color:#fff; }
+    .lc-num.locked-num { background:#f1f5f9; color:#94a3b8; }
+    .lc-info { flex:1; min-width:0; }
+    .lc-lesson-label { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+    .lc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .lc-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .lc-status-pill { font-size:11px; font-weight:700; padding:3px 10px; border-radius:100px; }
+    .pill-done    { background:#d1fae5; color:#065f46; }
+    .pill-current { background:var(--teal-l); color:var(--teal-d); }
+    .pill-locked  { background:#f1f5f9; color:#94a3b8; }
+    .lc-score     { font-size:12px; color:var(--muted); }
+    .lc-arrow     { font-size:20px; color:var(--teal); opacity:0; transition:opacity .2s; }
+    .lesson-card.active:hover .lc-arrow { opacity:1; }
+    .lc-vocab-strip { border-top:1px solid var(--border); padding:10px 22px; display:flex; align-items:center; justify-content:space-between; background:#f8fffd; }
+    .lvs-left { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); }
+    .lvs-left span { font-weight:600; color:var(--text); }
+    .lvs-link { font-size:12px; font-weight:700; color:var(--rose); text-decoration:none; display:flex; align-items:center; gap:4px; transition:gap .2s; }
+    .lvs-link:hover { gap:8px; }
+    .locked-strip { border-top:1px solid var(--border); padding:10px 22px; background:#f8fafc; font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:6px; }
+
+    .tg-status { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); padding:16px 20px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
+    .tg-info .tg-title { font-size:14px; font-weight:600; margin-bottom:2px; }
+    .tg-info .tg-desc  { font-size:12px; color:var(--muted); }
+    .tg-badge { margin-left:auto; font-size:11px; font-weight:700; padding:4px 12px; border-radius:100px; background:var(--teal-l); color:var(--teal-d); white-space:nowrap; }
+
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; white-space:nowrap; }
+    .nav-pill a { color:rgba(255,255,255,.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
+    .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="page" style="position:relative;z-index:1">
+    <a href="./index.html" class="hero-back">← На главную</a>
+    <div class="hero-badge">📝 Homework Board</div>
+    <h1>Домашние задания</h1>
+    <p>Выполняй — результат автоматически уйдёт преподавателю в Telegram</p>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="heroProgress" style="width:0%"></div></div>
+    <div class="progress-label" id="heroLabel">0 из 5 выполнено</div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f0fdf9"/>
+    </svg>
+  </div>
+</div>
+
+<div class="page">
+  <div class="stats-row">
+    <div class="stat-chip done" ><div class="sc-num" id="statDone">0</div><div class="sc-lbl">Выполнено</div></div>
+    <div class="stat-chip total"><div class="sc-num">5</div>               <div class="sc-lbl">Всего</div></div>
+    <div class="stat-chip pct"  ><div class="sc-num" id="statPct">0%</div> <div class="sc-lbl">Прогресс</div></div>
+  </div>
+
+  <div class="tg-status">
+    <span style="font-size:28px">✈️</span>
+    <div class="tg-info">
+      <div class="tg-title">Отчёты → Telegram</div>
+      <div class="tg-desc">Результаты каждого задания отправляются преподавателю автоматически</div>
+    </div>
+    <span class="tg-badge">Активно</span>
+  </div>
+
+  <div id="section-done" style="display:none"><div class="section-title">✅ Выполнено</div></div>
+  <div class="section-title">📌 Текущее задание</div>
+
+  <!-- LESSON 1 — активное -->
+  <div class="lesson-card active" id="card-1">
+    <a href="./hw1.html" style="text-decoration:none;color:inherit;">
+      <div class="lc-main">
+        <div class="lc-num active-num" id="num-1">1</div>
+        <div class="lc-info">
+          <div class="lc-lesson-label">Lesson 1</div>
+          <div class="lc-title">Present Simple · Наречия · Перевод</div>
+          <div class="lc-meta">
+            <span class="lc-status-pill pill-current" id="pill-1">📝 Выполнить</span>
+            <span class="lc-score" id="score-1"></span>
+          </div>
+        </div>
+        <div class="lc-arrow">→</div>
+      </div>
+    </a>
+    <div class="lc-vocab-strip">
+      <div class="lvs-left">💊 <span>Лексика:</span> Hospital & Clinic</div>
+      <a href="./vocabulary.html" class="lvs-link">Тренировать <span>→</span></a>
+    </div>
+  </div>
+
+  <div class="section-title">🔒 Предстоящие</div>
+
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num locked-num">2</div>
+      <div class="lc-info"><div class="lc-lesson-label">Lesson 2</div><div class="lc-title">Coming soon…</div><div class="lc-meta"><span class="lc-status-pill pill-locked">🔒 Скоро</span></div></div>
+    </div>
+    <div class="locked-strip">🔒 Откроется после урока 2</div>
+  </div>
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num locked-num">3</div>
+      <div class="lc-info"><div class="lc-lesson-label">Lesson 3</div><div class="lc-title">Coming soon…</div><div class="lc-meta"><span class="lc-status-pill pill-locked">🔒 Скоро</span></div></div>
+    </div>
+    <div class="locked-strip">🔒 Откроется после урока 3</div>
+  </div>
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num locked-num">4</div>
+      <div class="lc-info"><div class="lc-lesson-label">Lesson 4</div><div class="lc-title">Coming soon…</div><div class="lc-meta"><span class="lc-status-pill pill-locked">🔒 Скоро</span></div></div>
+    </div>
+    <div class="locked-strip">🔒 Откроется после урока 4</div>
+  </div>
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num locked-num">5</div>
+      <div class="lc-info"><div class="lc-lesson-label">Lesson 5</div><div class="lc-title">Coming soon…</div><div class="lc-meta"><span class="lc-status-pill pill-locked">🔒 Скоро</span></div></div>
+    </div>
+    <div class="locked-strip">🔒 Откроется после урока 5</div>
+  </div>
+</div>
+
+<div class="nav-pill">
+  <a href="index.html">🏠 Home</a>
+  <a href="homework.html" class="active">📝 HW</a>
+  <a href="grammar.html">📐 Grammar</a>
+  <a href="vocabulary.html">💊 Vocab</a>
+</div>
+
+<script>
+const SB_URL  = 'https://plkwitrcyoqjwbicdufs.supabase.co';
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
+const STUDENT = 'zakiya';
+
+function renderDone(done) {
+  const total = 5, count = done.length, pct = Math.round(count / total * 100);
+  document.getElementById('statDone').textContent = count;
+  document.getElementById('statPct').textContent  = pct + '%';
+  document.getElementById('heroProgress').style.width = pct + '%';
+  document.getElementById('heroLabel').textContent = `${count} из ${total} выполнено`;
+  if (count > 0) document.getElementById('section-done').style.display = '';
+  done.forEach(id => {
+    const num  = document.getElementById('num-'  + id);
+    const pill = document.getElementById('pill-' + id);
+    const sc   = document.getElementById('score-'+ id);
+    if (!num) return;
+    num.className = 'lc-num done-num'; num.textContent = '✓';
+    pill.className = 'lc-status-pill pill-done'; pill.textContent = 'Сдано';
+    const saved = localStorage.getItem('zakiya_hw' + id + '_score');
+    if (saved && sc) sc.textContent = 'Результат: ' + saved;
+  });
+}
+
+window.addEventListener('load', async () => {
+  // Show localStorage immediately (instant UI)
+  const localDone = JSON.parse(localStorage.getItem('zakiya_hw_done') || '[]');
+  renderDone(localDone);
+
+  // Then sync from Supabase and update if different
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/homework_results?student_id=eq.${STUDENT}&select=hw_id,score,submitted_at&order=submitted_at.desc`,
+      { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+    );
+    if (!res.ok) return;
+    const rows = await res.json();
+
+    // Build done list from Supabase (unique hw_ids)
+    const sbDone = [...new Set(rows.map(r => r.hw_id.replace('hw', '')))];
+
+    // Merge with localStorage (take union)
+    const merged = [...new Set([...localDone, ...sbDone])];
+    localStorage.setItem('zakiya_hw_done', JSON.stringify(merged));
+
+    // Update scores from latest Supabase records
+    const latestByHw = {};
+    rows.forEach(r => {
+      if (!latestByHw[r.hw_id]) latestByHw[r.hw_id] = r; // already ordered desc
+    });
+    Object.entries(latestByHw).forEach(([hwId, r]) => {
+      const num = hwId.replace('hw', '');
+      localStorage.setItem('zakiya_hw' + num + '_score', r.score);
+    });
+
+    if (merged.length !== localDone.length) renderDone(merged);
+    // Refresh scores on already-rendered cards
+    merged.forEach(id => {
+      const sc = document.getElementById('score-' + id);
+      const saved = localStorage.getItem('zakiya_hw' + id + '_score');
+      if (sc && saved) sc.textContent = 'Результат: ' + saved;
+    });
+  } catch(e) { console.warn('Supabase HW sync failed', e); }
+});
+</script>
+</body>
+</html>

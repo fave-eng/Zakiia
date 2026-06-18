@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vocabulary — Zakiya's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --teal:#0d9488; --teal-l:#ccfbf1; --teal-d:#0f766e;
+      --indigo:#6366f1; --indigo-l:#e0e7ff;
+      --amber:#f59e0b; --amber-l:#fef3c7;
+      --green:#10b981; --green-l:#d1fae5;
+      --rose:#f43f5e; --rose-l:#ffe4e6;
+      --purple:#7c3aed; --purple-l:#ede9fe;
+      --bg:#f0fdf9; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --radius:16px; --radius-sm:10px;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:100px; }
+
+    .hero { background:linear-gradient(135deg,#0d9488,#10b981); padding:2.5rem 1.5rem 4rem; position:relative; }
+    .hero-wave { position:absolute; bottom:-1px; left:0; right:0; line-height:0; }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:26px; font-weight:800; color:#fff; margin-bottom:6px; }
+    .hero p { font-size:14px; color:rgba(255,255,255,.8); }
+    .page { max-width:700px; margin:0 auto; padding:0 1.25rem; }
+
+    /* STATS */
+    .stats-row { display:flex; gap:12px; margin-top:0; padding-top:24px; margin-bottom:24px; flex-wrap:wrap; }
+    .stat-chip { background:var(--card); border-radius:14px; border:1.5px solid var(--border); padding:14px 18px; flex:1; min-width:90px; text-align:center; }
+    .sc-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; color:var(--teal); }
+    .sc-lbl { font-size:11px; color:var(--muted); font-weight:600; margin-top:2px; }
+
+    /* TOPIC GRID */
+    .topic-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+    @media(max-width:480px) { .topic-grid { grid-template-columns:1fr; } }
+    .topic-card { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; cursor:pointer; transition:all .2s; text-decoration:none; color:inherit; display:block; }
+    .topic-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(13,148,136,.1); }
+    .tc-icon { font-size:28px; margin-bottom:10px; }
+    .tc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; margin-bottom:4px; }
+    .tc-count { font-size:12px; color:var(--muted); margin-bottom:10px; }
+    .tc-bar { height:5px; background:var(--border); border-radius:99px; overflow:hidden; }
+    .tc-fill { height:100%; background:var(--teal); border-radius:99px; transition:width .4s; }
+    .tc-pct { font-size:11px; font-weight:600; color:var(--teal); margin-top:4px; }
+
+    .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:1.5rem 0 .75rem; }
+
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; white-space:nowrap; }
+    .nav-pill a { color:rgba(255,255,255,.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
+    .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
+
+    /* ══ TRAINING VIEW ══ */
+    #train-view { display:none; }
+    #list-view  { display:block; }
+
+    .train-header { display:flex; align-items:center; gap:12px; margin-bottom:1.5rem; padding-top:1.5rem; }
+    .back-btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; padding:7px 16px; border-radius:99px; border:1.5px solid var(--border); background:var(--card); cursor:pointer; transition:all .15s; }
+    .back-btn:hover { border-color:var(--teal); color:var(--teal); }
+    .train-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:18px; font-weight:700; }
+
+    /* Tabs */
+    .tabs { display:flex; gap:6px; margin-bottom:1.25rem; }
+    .tab { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; padding:8px 18px; border-radius:99px; border:1.5px solid var(--border); background:var(--card); color:var(--muted); cursor:pointer; transition:all .15s; }
+    .tab.active { background:var(--teal); border-color:var(--teal); color:#fff; }
+
+    /* ── FLASHCARDS ── */
+    .fc-progress { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .fc-prog-bar { flex:1; height:6px; background:var(--border); border-radius:99px; overflow:hidden; }
+    .fc-prog-fill { height:100%; background:var(--teal); border-radius:99px; transition:width .4s; }
+    .fc-prog-lbl { font-size:12px; color:var(--muted); white-space:nowrap; }
+
+    .fc-scene { perspective:1000px; margin-bottom:12px; }
+    .fc-3d { width:100%; height:200px; position:relative; transform-style:preserve-3d; transition:transform .5s; cursor:pointer; }
+    .fc-3d.flipped { transform:rotateY(180deg); }
+    .fc-face { position:absolute; inset:0; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:1.5rem; backface-visibility:hidden; }
+    .fc-face.back { transform:rotateY(180deg); background:var(--teal-l); border-color:rgba(13,148,136,.3); }
+    .fc-tag { position:absolute; top:12px; left:16px; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); }
+    .fc-face.back .fc-tag { color:var(--teal-d); }
+    .fc-word { font-size:30px; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; text-align:center; }
+    .fc-pron { font-size:13px; color:var(--muted); }
+    .fc-ru { font-size:22px; font-weight:600; color:var(--teal-d); text-align:center; }
+    .fc-ex { font-size:12px; color:var(--muted); font-style:italic; text-align:center; }
+    .fc-hint { text-align:center; font-size:13px; color:var(--muted); margin-bottom:8px; }
+    .fc-btns { display:flex; justify-content:center; gap:10px; margin-bottom:10px; }
+    .fc-btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:500; padding:9px 20px; border-radius:var(--radius-sm); border:1.5px solid; cursor:pointer; transition:all .15s; }
+    .fc-btn.hard { background:var(--rose-l); border-color:var(--rose); color:#9f1239; }
+    .fc-btn.good { background:var(--green-l); border-color:var(--green); color:#065f46; }
+    .fc-btn.hard:hover { background:var(--rose); color:#fff; }
+    .fc-btn.good:hover { background:var(--green); color:#fff; }
+    .fc-nav { display:flex; justify-content:center; gap:8px; }
+    .fc-nav button { font-family:'Inter',sans-serif; font-size:13px; padding:7px 16px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:var(--card); color:var(--muted); cursor:pointer; }
+
+    /* ── WORD TEST ── */
+    .wtest-q { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:10px; }
+    .wt-num { font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.5px; }
+    .wt-q   { font-size:15px; font-weight:500; margin-bottom:10px; }
+    .wt-opts { display:flex; flex-direction:column; gap:6px; }
+    .wt-opt { font-family:'Inter',sans-serif; font-size:14px; padding:10px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:#f8fafc; text-align:left; cursor:pointer; transition:all .15s; }
+    .wt-opt:hover:not(:disabled) { border-color:var(--teal); background:var(--teal-l); }
+    .wt-opt.ok   { background:var(--green-l); border-color:var(--green); color:#065f46; }
+    .wt-opt.bad  { background:var(--rose-l);  border-color:var(--rose);  color:#9f1239; }
+    .wt-fb { font-size:12px; margin-top:5px; display:none; padding:5px 9px; border-radius:var(--radius-sm); }
+    .wt-fb.show { display:block; }
+    .wt-fb.ok-f { background:var(--green-l); color:#065f46; }
+    .wt-fb.bad-f { background:var(--rose-l); color:#9f1239; }
+
+    .test-submit { font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:11px 24px; border-radius:var(--radius-sm); border:none; background:var(--teal); color:#fff; cursor:pointer; margin-top:10px; width:100%; }
+    .test-submit:hover { background:var(--teal-d); }
+
+    .test-final { display:none; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); padding:1.25rem; text-align:center; margin-top:12px; }
+    .test-final.show { display:block; }
+    .tf-score { font-family:'Plus Jakarta Sans',sans-serif; font-size:36px; font-weight:800; }
+    .tf-score.pass { color:var(--teal); }
+    .tf-score.fail { color:var(--rose); }
+    .tf-msg { font-size:15px; font-weight:600; margin-bottom:4px; }
+    .tf-sub { font-size:13px; color:var(--muted); }
+    .retry-link { display:inline-block; margin-top:10px; font-size:13px; font-weight:600; color:var(--teal); cursor:pointer; text-decoration:underline; }
+
+    /* word grid */
+    .wg { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; margin-top:12px; }
+    .wc { background:#f8fafc; border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; }
+    .wc.known { background:var(--green-l); border-color:var(--green); }
+    .wc-en { font-size:14px; font-weight:500; }
+    .wc-ru { font-size:11px; color:var(--muted); margin-top:2px; }
+  </style>
+</head>
+<body>
+<div class="hero">
+  <div class="page" style="position:relative;z-index:1">
+    <a href="./index.html" class="hero-back">← На главную</a>
+    <h1>💊 Vocabulary Hub</h1>
+    <p>Выбери тему — учи карточками — проверь себя тестом</p>
+  </div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,0 1440,40 L1440,40 L0,40 Z" fill="#f0fdf9"/></svg></div>
+</div>
+
+<div class="page">
+
+  <!-- ══ LIST VIEW ══ -->
+  <div id="list-view">
+    <div class="stats-row">
+      <div class="stat-chip"><div class="sc-num" id="st-known">0</div><div class="sc-lbl">Знаю</div></div>
+      <div class="stat-chip"><div class="sc-num" id="st-total">30</div><div class="sc-lbl">Всего слов</div></div>
+      <div class="stat-chip"><div class="sc-num" id="st-pct">0%</div><div class="sc-lbl">Прогресс</div></div>
+    </div>
+
+    <div class="section-title">Выбери тему для изучения</div>
+    <div class="topic-grid" id="topic-grid"></div>
+  </div>
+
+  <!-- ══ TRAINING VIEW ══ -->
+  <div id="train-view">
+    <div class="train-header">
+      <button class="back-btn" onclick="goBack()">← Назад</button>
+      <div class="train-title" id="train-title"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" id="tab-fc"   onclick="setTab('fc')">🃏 Карточки</button>
+      <button class="tab"        id="tab-test" onclick="setTab('test')">🎯 Тест</button>
+      <button class="tab"        id="tab-list" onclick="setTab('list')">📋 Все слова</button>
+    </div>
+
+    <!-- FLASHCARDS -->
+    <div id="fc-view">
+      <div class="fc-progress">
+        <div class="fc-prog-bar"><div class="fc-prog-fill" id="fp-fill" style="width:0%"></div></div>
+        <span class="fc-prog-lbl" id="fp-lbl">0 / 0</span>
+      </div>
+      <div class="fc-scene">
+        <div class="fc-3d" id="fc-card" onclick="flipCard()">
+          <div class="fc-face front"><span class="fc-tag">English</span><div class="fc-word" id="fc-en"></div><div class="fc-pron" id="fc-pn"></div></div>
+          <div class="fc-face back"><span class="fc-tag">Перевод</span><div class="fc-ru" id="fc-ru"></div><div class="fc-ex" id="fc-ex"></div></div>
+        </div>
+      </div>
+      <p class="fc-hint" id="fc-hint">👆 Нажми на карточку — увидишь перевод</p>
+      <div class="fc-btns" id="fc-btns" style="display:none">
+        <button class="fc-btn hard" onclick="rateCard('hard')">🤔 Трудно</button>
+        <button class="fc-btn good" onclick="rateCard('good')">✓ Знаю</button>
+      </div>
+      <div class="fc-nav">
+        <button onclick="fcPrev()">← Назад</button>
+        <button onclick="fcNext()">Вперёд →</button>
+      </div>
+    </div>
+
+    <!-- TEST -->
+    <div id="test-view" style="display:none">
+      <div id="test-qs"></div>
+      <div class="test-final" id="test-final"></div>
+    </div>
+
+    <!-- ALL WORDS -->
+    <div id="list-words-view" style="display:none">
+      <div class="wg" id="words-grid"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-pill">
+  <a href="index.html">🏠 Home</a>
+  <a href="homework.html">📝 HW</a>
+  <a href="grammar.html">📐 Grammar</a>
+  <a href="vocabulary.html" class="active">💊 Vocab</a>
+</div>
+
+<script>
+const SETS = [
+  { id:'hosp', icon:'🏥', title:'Hospital & Clinic', color:'#0d9488',
+    words:[
+      {en:'vital signs',   pn:'/ˈvaɪtl saɪnz/',  ru:'Жизненные показатели', ex:'Check vital signs every hour.'},
+      {en:'symptoms',      pn:'/ˈsɪmptəmz/',      ru:'Симптомы',              ex:'What symptoms do you have?'},
+      {en:'allergies',     pn:'/ˈælərdʒiz/',       ru:'Аллергии',              ex:'Any allergies to medications?'},
+      {en:'prescription',  pn:'/prɪˈskrɪpʃn/',    ru:'Рецепт',                ex:'He gave me a prescription.'},
+      {en:'dosage',        pn:'/ˈdoʊsɪdʒ/',       ru:'Дозировка',             ex:'Dosage is 500mg twice daily.'},
+      {en:'discharge',     pn:'/ˈdɪstʃɑːrdʒ/',   ru:'Выписка',               ex:'Ready for discharge tomorrow.'},
+      {en:'ward',          pn:'/wɔːrd/',           ru:'Палата / отделение',    ex:'She works on the surgical ward.'},
+      {en:'shift',         pn:'/ʃɪft/',            ru:'Смена',                 ex:'I have the night shift today.'},
+      {en:'consent form',  pn:'/kənˈsent fɔːrm/', ru:'Форма согласия',        ex:'Please sign the consent form.'},
+      {en:'round',         pn:'/raʊnd/',           ru:'Обход',                 ex:'The doctor does rounds at 8 AM.'},
+    ]
+  },
+  { id:'vitals', icon:'📊', title:'Vital Signs & Assessment', color:'#6366f1',
+    words:[
+      {en:'blood pressure',    pn:'/blʌd ˈpreʃər/',   ru:'Кровяное давление',    ex:'BP is 120/80 — normal.'},
+      {en:'heart rate',        pn:'/hɑːrt reɪt/',     ru:'Пульс',                ex:'Heart rate is 72 bpm.'},
+      {en:'temperature',       pn:'/ˈtemprətʃər/',    ru:'Температура',           ex:'Temp is 98.6°F — normal.'},
+      {en:'oxygen saturation', pn:'/ˈɒksɪdʒən/',     ru:'Насыщение кислородом', ex:'O2 sat is 98%.'},
+      {en:'assessment',        pn:'/əˈsesmənt/',      ru:'Оценка состояния',     ex:'Initial nursing assessment.'},
+      {en:'chief complaint',   pn:'/tʃiːf kəmˈpleɪnt/', ru:'Основная жалоба',   ex:'Chief complaint: chest pain.'},
+      {en:'pain scale',        pn:'/peɪn skeɪl/',     ru:'Шкала боли',           ex:'Rate pain from 1 to 10.'},
+      {en:'IV drip',           pn:'/aɪ viː drɪp/',   ru:'Капельница',            ex:'Start an IV drip now.'},
+      {en:'chart',             pn:'/tʃɑːrt/',         ru:'История болезни',       ex:'I need to update the chart.'},
+      {en:'diagnosis',         pn:'/ˌdaɪəɡˈnoʊsɪs/', ru:'Диагноз',             ex:'The diagnosis is pneumonia.'},
+    ]
+  },
+  { id:'everyday', icon:'💬', title:'Everyday Phrases', color:'#f59e0b',
+    words:[
+      {en:'Could you repeat that?', pn:'', ru:'Не могли бы вы повторить?', ex:'I didn\'t catch that — could you repeat?'},
+      {en:"I'll be right back.",    pn:'', ru:'Я сейчас вернусь.',          ex:'Wait here — I\'ll be right back.'},
+      {en:'How are you feeling?',   pn:'', ru:'Как вы себя чувствуете?',    ex:'Good morning! How are you feeling?'},
+      {en:'Bear with me.',          pn:'', ru:'Потерпите немного.',          ex:'Bear with me — I\'ll find your file.'},
+      {en:'Is that okay with you?', pn:'', ru:'Вас это устраивает?',         ex:'We\'ll do it at 3 PM. Is that okay?'},
+      {en:'Let me check.',          pn:'', ru:'Дайте я проверю.',            ex:'Not sure — let me check the chart.'},
+      {en:'Right away.',            pn:'', ru:'Немедленно / сейчас же.',     ex:"I'll call the doctor right away."},
+      {en:"Don't worry.",           pn:'', ru:'Не беспокойтесь.',            ex:"Don't worry — it's a simple test."},
+      {en:'Take care!',             pn:'', ru:'Берегите себя!',              ex:'See you next week — take care!'},
+      {en:'Excuse me.',             pn:'', ru:'Извините.',                   ex:'Excuse me, are you Dr. Smith?'},
+    ]
+  },
+];
+
+// ══════════════════════════════════════════════
+// SUPABASE CONFIG
+// ══════════════════════════════════════════════
+const SB_URL    = 'https://plkwitrcyoqjwbicdufs.supabase.co';
+const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
+const STUDENT   = 'zakiya';
+
+async function sbFetch(path, opts = {}) {
+  return fetch(SB_URL + path, {
+    ...opts,
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer || '',
+      ...(opts.headers || {})
+    }
+  });
+}
+
+// ── VOCAB STORAGE: localStorage as primary cache, Supabase as sync ──
+
+// Load all known words from Supabase into localStorage cache on startup
+async function syncFromSupabase() {
+  try {
+    const res = await sbFetch(`/rest/v1/vocab_progress?student_id=eq.${STUDENT}&select=set_id,word_idx,known`);
+    if (!res.ok) return;
+    const rows = await res.json();
+    // Rebuild localStorage from DB
+    const bySet = {};
+    rows.forEach(r => {
+      if (!bySet[r.set_id]) bySet[r.set_id] = [];
+      if (r.known) bySet[r.set_id].push(r.word_idx);
+    });
+    SETS.forEach(s => {
+      localStorage.setItem('zakiya_known_' + s.id, JSON.stringify(bySet[s.id] || []));
+    });
+  } catch(e) { console.warn('Supabase sync failed, using localStorage', e); }
+}
+
+// Upsert a single word's known status to Supabase (fire-and-forget)
+async function sbUpsertWord(setId, wordIdx, known) {
+  try {
+    await sbFetch('/rest/v1/vocab_progress', {
+      method: 'POST',
+      prefer: 'resolution=merge-duplicates',
+      body: JSON.stringify({
+        student_id: STUDENT,
+        set_id: setId,
+        word_idx: wordIdx,
+        known: known,
+        updated_at: new Date().toISOString()
+      })
+    });
+  } catch(e) { console.warn('sbUpsertWord failed', e); }
+}
+
+// Batch upsert after test finishes
+async function sbBatchUpsert(setId, knownSet, allIndices) {
+  const rows = allIndices.map(idx => ({
+    student_id: STUDENT,
+    set_id: setId,
+    word_idx: idx,
+    known: knownSet.has(idx),
+    updated_at: new Date().toISOString()
+  }));
+  try {
+    await sbFetch('/rest/v1/vocab_progress', {
+      method: 'POST',
+      prefer: 'resolution=merge-duplicates',
+      body: JSON.stringify(rows)
+    });
+  } catch(e) { console.warn('sbBatchUpsert failed', e); }
+}
+
+// ── STATE ──
+let activeSet = null, fcIdx = 0, fcFlipped = false;
+const fcResults = {}; // setId -> { idx: 'good'|'hard' }
+
+function getKnown(setId) { return JSON.parse(localStorage.getItem('zakiya_known_' + setId) || '[]'); }
+function saveKnown(setId, arr) { localStorage.setItem('zakiya_known_' + setId, JSON.stringify(arr)); }
+
+// ── TOPIC GRID ──
+function renderTopicGrid() {
+  const grid = document.getElementById('topic-grid');
+  grid.innerHTML = '';
+  let totalKnown = 0, totalWords = 0;
+  SETS.forEach(s => {
+    const known = getKnown(s.id);
+    totalKnown += known.length;
+    totalWords += s.words.length;
+    const pct = Math.round(known.length / s.words.length * 100);
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.innerHTML = `
+      <div class="tc-icon">${s.icon}</div>
+      <div class="tc-title">${s.title}</div>
+      <div class="tc-count">${s.words.length} слов</div>
+      <div class="tc-bar"><div class="tc-fill" style="width:${pct}%;background:${s.color}"></div></div>
+      <div class="tc-pct">${known.length}/${s.words.length} знаю</div>
+    `;
+    card.onclick = () => openSet(s.id);
+    grid.appendChild(card);
+  });
+  document.getElementById('st-known').textContent = totalKnown;
+  document.getElementById('st-total').textContent = totalWords;
+  document.getElementById('st-pct').textContent = Math.round(totalKnown / totalWords * 100) + '%';
+  localStorage.setItem('zakiya_vocab_count', totalKnown);
+}
+
+// ── OPEN SET ──
+function openSet(setId) {
+  activeSet = SETS.find(s => s.id === setId);
+  fcResults[setId] = fcResults[setId] || {};
+  fcIdx = 0; fcFlipped = false;
+  document.getElementById('list-view').style.display = 'none';
+  document.getElementById('train-view').style.display = 'block';
+  document.getElementById('train-title').textContent = activeSet.icon + ' ' + activeSet.title;
+  setTab('fc');
+}
+
+function goBack() {
+  document.getElementById('train-view').style.display = 'none';
+  document.getElementById('list-view').style.display = 'block';
+  renderTopicGrid();
+}
+
+// ── TABS ──
+function setTab(t) {
+  ['fc','test','list'].forEach(id => {
+    document.getElementById('tab-'+id).classList.toggle('active', id===t);
+    document.getElementById(id==='fc'?'fc-view':id==='test'?'test-view':'list-words-view').style.display = id===t?'block':'none';
+  });
+  if (t==='fc')   renderFlashcard();
+  if (t==='test') buildTest();
+  if (t==='list') renderWordList();
+}
+
+// ── FLASHCARDS ──
+function renderFlashcard() {
+  if (!activeSet) return;
+  const w = activeSet.words[fcIdx];
+  document.getElementById('fc-en').textContent = w.en;
+  document.getElementById('fc-pn').textContent = w.pn;
+  document.getElementById('fc-ru').textContent = w.ru;
+  document.getElementById('fc-ex').textContent = w.ex;
+  document.getElementById('fc-card').classList.remove('flipped');
+  document.getElementById('fc-hint').style.display = '';
+  document.getElementById('fc-btns').style.display = 'none';
+  fcFlipped = false;
+  updateFcProgress();
+}
+
+function flipCard() {
+  if (!fcFlipped) {
+    document.getElementById('fc-card').classList.add('flipped');
+    document.getElementById('fc-hint').style.display = 'none';
+    document.getElementById('fc-btns').style.display = 'flex';
+    fcFlipped = true;
+  }
+}
+
+function rateCard(v) {
+  const setId = activeSet.id;
+  if (!fcResults[setId]) fcResults[setId] = {};
+  fcResults[setId][fcIdx] = v;
+  if (v === 'good') {
+    const arr = getKnown(setId);
+    if (!arr.includes(fcIdx)) { arr.push(fcIdx); saveKnown(setId, arr); }
+  } else {
+    const arr = getKnown(setId).filter(i => i !== fcIdx);
+    saveKnown(setId, arr);
+  }
+  // Sync to Supabase (fire-and-forget — не блокирует UI)
+  sbUpsertWord(setId, fcIdx, v === 'good');
+  if (fcIdx < activeSet.words.length - 1) { fcIdx++; renderFlashcard(); }
+  else { fcIdx = 0; renderFlashcard(); }
+  updateFcProgress();
+}
+
+function fcNext() { if (fcIdx < activeSet.words.length-1) { fcIdx++; renderFlashcard(); } }
+function fcPrev() { if (fcIdx > 0) { fcIdx--; renderFlashcard(); } }
+
+function updateFcProgress() {
+  if (!activeSet) return;
+  const total = activeSet.words.length;
+  const known = getKnown(activeSet.id).length;
+  const pct = Math.round(known / total * 100);
+  document.getElementById('fp-fill').style.width = pct + '%';
+  document.getElementById('fp-lbl').textContent = `${known} / ${total} знаю`;
+}
+
+// ── WORD TEST ──
+// testWordState: per word index → 'correct_first' | 'wrong_once' | null
+// A word counts as "known" only if answered correctly on first attempt.
+// If answered wrong first → marked wrong_once; even if corrected after, stays wrong_once.
+let testWordState = {}; // qi → 'correct_first' | 'wrong_once'
+let testWords = [];     // the word objects for this test run (all words, shuffled)
+
+function buildTest() {
+  testWordState = {};
+  const w = activeSet.words;
+  // ALL words, shuffled
+  testWords = [...w].map((word, origIdx) => ({ ...word, origIdx }))
+                    .sort(() => Math.random() - 0.5);
+
+  const container = document.getElementById('test-qs');
+  document.getElementById('test-final').className = 'test-final';
+  document.getElementById('test-submit-btn').style.display = 'none'; // auto-submit after last answer
+  container.innerHTML = '';
+
+  testWords.forEach((word, qi) => {
+    // 3 distractors from other words in the set
+    const others = w.filter(x => x.en !== word.en).sort(() => Math.random() - 0.5).slice(0, 3);
+    const opts = [word.ru, ...others.map(o => o.ru)].sort(() => Math.random() - 0.5);
+    const safeRu = word.ru.replace(/'/g, "\\'");
+    const qel = document.createElement('div');
+    qel.className = 'wtest-q';
+    qel.id = 'wtq-' + qi;
+    qel.innerHTML = `
+      <div class="wt-num">Слово ${qi + 1} из ${testWords.length}</div>
+      <div class="wt-q">Как переводится: <strong>${word.en}</strong>?</div>
+      <div class="wt-opts" id="wt-opts-${qi}">
+        ${opts.map(o => {
+          const isCorr = o === word.ru;
+          const safeO  = o.replace(/'/g, "\\'");
+          return `<button class="wt-opt" onclick="answerTest(this,${qi},${isCorr},'${safeRu}')">${o}</button>`;
+        }).join('')}
+      </div>
+      <div class="wt-fb" id="wt-fb-${qi}"></div>
+    `;
+    container.appendChild(qel);
+  });
+}
+
+function answerTest(btn, qi, isCorrect, correctRu) {
+  // Ignore if already answered
+  if (testWordState[qi] !== undefined) return;
+
+  const opts = btn.parentElement.querySelectorAll('.wt-opt');
+  opts.forEach(b => { b.disabled = true; b.style.pointerEvents = 'none'; });
+  btn.classList.add(isCorrect ? 'ok' : 'bad');
+
+  const fb = document.getElementById('wt-fb-' + qi);
+  fb.className = 'wt-fb show ' + (isCorrect ? 'ok-f' : 'bad-f');
+  fb.textContent = isCorrect ? '✓ Правильно!' : `✗ Неверно. Правильно: ${correctRu}`;
+
+  // Set state — once set, never changes
+  testWordState[qi] = isCorrect ? 'correct_first' : 'wrong_once';
+
+  // Check if all answered
+  if (Object.keys(testWordState).length === testWords.length) {
+    setTimeout(finishTest, 400);
+  }
+}
+
+function finishTest() {
+  const setId = activeSet.id;
+  const total = testWords.length;
+  const correctFirst = Object.values(testWordState).filter(v => v === 'correct_first').length;
+
+  // Update known list: only words answered correctly on first try count
+  const knownSet = new Set(getKnown(setId));
+  testWords.forEach((word, qi) => {
+    if (testWordState[qi] === 'correct_first') {
+      knownSet.add(word.origIdx);
+    } else {
+      knownSet.delete(word.origIdx);
+    }
+  });
+  saveKnown(setId, [...knownSet]);
+  updateFcProgress();
+
+  // Sync ALL words in this set to Supabase in one batch
+  const allIndices = testWords.map(w => w.origIdx);
+  sbBatchUpsert(setId, knownSet, allIndices);
+
+  const passed = correctFirst === total;
+  const fin = document.getElementById('test-final');
+  fin.className = 'test-final show';
+  fin.innerHTML = `
+    <div class="tf-score ${passed ? 'pass' : 'fail'}">${correctFirst}/${total}</div>
+    <div class="tf-msg">${passed ? '✅ Тема усвоена!' : '❌ Повтори карточки ещё раз'}</div>
+    <div class="tf-sub">${
+      passed
+        ? 'Все слова знаешь — прогресс сохранён в облаке ☁️'
+        : `Правильно с первого раза: ${correctFirst} из ${total}. Только они засчитаны. Поучи остальные на карточках.`
+    }</div>
+    <span class="retry-link" onclick="buildTest();document.getElementById('test-final').className='test-final'">Пройти тест заново</span>
+  `;
+
+  renderTopicGrid_silent();
+}
+
+function renderWordList() {
+  const grid = document.getElementById('words-grid');
+  grid.innerHTML = '';
+  const known = getKnown(activeSet.id);
+  activeSet.words.forEach((w, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'wc' + (known.includes(i) ? ' known' : '');
+    chip.innerHTML = `<div class="wc-en">${w.en}</div><div class="wc-ru">${w.ru}</div>`;
+    grid.appendChild(chip);
+  });
+}
+
+// ── SILENT STATS REFRESH (called after test finishes, while still in train-view) ──
+function renderTopicGrid_silent() {
+  let totalKnown = 0, totalWords = 0;
+  SETS.forEach(s => {
+    totalKnown += getKnown(s.id).length;
+    totalWords += s.words.length;
+  });
+  const el_known = document.getElementById('st-known');
+  const el_pct   = document.getElementById('st-pct');
+  if (el_known) el_known.textContent = totalKnown;
+  if (el_pct)   el_pct.textContent   = Math.round(totalKnown / totalWords * 100) + '%';
+  localStorage.setItem('zakiya_vocab_count', totalKnown);
+}
+
+// ── INIT ──
+window.addEventListener('load', async () => {
+  await syncFromSupabase(); // pull latest from DB into localStorage
+  renderTopicGrid();
+});
+</script>
+</body>
+</html>
