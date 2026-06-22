@@ -19,6 +19,7 @@
       --text:        #0f172a;
       --muted:       #64748b;
       --border:      #e2e8f0;
+      --radius:      20px;
     }
     body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:100px; }
 
@@ -33,22 +34,27 @@
 
     /* STATS */
     .page { max-width:700px; margin:0 auto; padding:0 20px; }
-    .stats-row { display:flex; gap:12px; margin-top:20px; margin-bottom:32px; }
-    .stat-chip { background:var(--card); border-radius:16px; border:1.5px solid var(--border); padding:16px 20px; flex:1; text-align:center; }
+    .stats-row { display:flex; gap:12px; margin-top:0; padding-top:28px; margin-bottom:32px; flex-wrap:wrap; }
+    .stat-chip { background:var(--card); border-radius:16px; border:1.5px solid var(--border); padding:16px 20px; flex:1; min-width:100px; text-align:center; }
     .stat-chip .sc-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:26px; font-weight:800; }
     .stat-chip .sc-lbl { font-size:11px; color:var(--muted); font-weight:600; margin-top:2px; }
     .stat-chip.lessons .sc-num { color:var(--teal); }
     .stat-chip.vocab   .sc-num { color:var(--indigo); }
+    .stat-chip.streak  .sc-num { color:var(--amber); }
 
-    /* СТИЛИ ОСТАЛЬНЫХ БЛОКОВ (оставлены без изменений) */
+    /* SECTION LABEL */
     .section-title { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin:28px 0 14px; }
+
+    /* NAV CARDS */
     .nav-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:28px; }
     .nav-card { background:var(--card); border-radius:18px; border:1.5px solid var(--border); padding:22px 20px; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:10px; transition:all .2s; }
     .nav-card:hover { border-color:var(--teal-light); box-shadow:0 8px 28px rgba(13,148,136,.12); transform:translateY(-2px); }
-    .nc-icon { font-size:28px; }
-    .nc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; }
-    .nc-desc { font-size:12px; color:var(--muted); line-height:1.5; }
-    .nc-arrow { font-size:18px; color:var(--teal); margin-top:auto; }
+    .nav-card .nc-icon { font-size:28px; }
+    .nav-card .nc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; }
+    .nav-card .nc-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+    .nav-card .nc-arrow { font-size:18px; color:var(--teal); margin-top:auto; }
+
+    /* PROGRESS */
     .progress-card { background:var(--card); border-radius:18px; border:1.5px solid var(--border); padding:20px 22px; margin-bottom:14px; }
     .pc-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
     .pc-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; }
@@ -56,12 +62,17 @@
     .pc-bar { background:var(--bg); border-radius:100px; height:8px; overflow:hidden; margin-bottom:8px; }
     .pc-fill { height:100%; background:linear-gradient(90deg,var(--teal),var(--teal-light)); border-radius:100px; transition:width .8s ease; }
     .pc-sub { font-size:12px; color:var(--muted); }
-    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; }
+
+    /* FLOATING NAV */
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; white-space:nowrap; }
     .nav-pill a { color:rgba(255,255,255,.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
     .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
+
+    /* MOTIVATIONAL */
     .motto-card { background:linear-gradient(135deg,var(--teal-pale),#e0f2fe); border:1.5px solid rgba(13,148,136,.2); border-radius:18px; padding:22px; margin-bottom:28px; }
-    .motto-en { font-size:17px; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; color:var(--teal); margin-bottom:6px; }
-    .motto-ru { font-size:13px; color:var(--muted); }
+    .motto-card p { font-size:15px; line-height:1.7; color:var(--text); }
+    .motto-card .motto-en { font-size:17px; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; color:var(--teal); margin-bottom:6px; }
+    .motto-card .motto-ru { font-size:13px; color:var(--muted); }
   </style>
 </head>
 <body>
@@ -73,7 +84,9 @@
     <p class="hero-sub">Твоё пространство для подготовки к экзамену. Грамматика, лексика, домашки — всё в одном месте, <span class="hero-name">Zakiya!</span></p>
   </div>
   <div class="hero-wave">
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,60 C360,0 1080,0 1440,60 L1440,60 L0,60 Z" fill="#f0fdf9"/></svg>
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,60 C360,0 1080,0 1440,60 L1440,60 L0,60 Z" fill="#f0fdf9"/>
+    </svg>
   </div>
 </div>
 
@@ -81,6 +94,7 @@
   <div class="stats-row">
     <div class="stat-chip lessons"><div class="sc-num" id="stat-lessons">0</div><div class="sc-lbl">Уроков</div></div>
     <div class="stat-chip vocab">  <div class="sc-num" id="stat-vocab">0</div>  <div class="sc-lbl">Слов</div></div>
+    <div class="stat-chip streak"> <div class="sc-num" id="stat-streak">0</div> <div class="sc-lbl">Дней подряд</div></div>
   </div>
 
   <div class="motto-card">
@@ -108,6 +122,12 @@
       <div class="nc-desc">Медицинская лексика, NCLEX термины, everyday English</div>
       <span class="nc-arrow">→</span>
     </a>
+    <a href="sentences.html" class="nav-card">
+      <span class="nc-icon">🗂️</span>
+      <div class="nc-title">Предложения</div>
+      <div class="nc-desc">Правила построения + шаблоны для работы и экзамена</div>
+      <span class="nc-arrow">→</span>
+    </a>
   </div>
 
   <div class="section-title">📊 Прогресс</div>
@@ -117,9 +137,9 @@
     <div class="pc-sub" id="hw-sub">Ещё нет выполненных заданий</div>
   </div>
   <div class="progress-card">
-    <div class="pc-head"><span class="pc-title">Грамматика</span><span class="pc-pct" id="gr-pct">0%</span></div>
+    <div class="pc-head"><span class="pc-title">Словарь</span><span class="pc-pct" id="gr-pct">0%</span></div>
     <div class="pc-bar"><div class="pc-fill" id="gr-fill" style="width:0%"></div></div>
-    <div class="pc-sub" id="gr-sub">Начни с раздела грамматики</div>
+    <div class="pc-sub" id="gr-sub">Начни тренировать словарь</div>
   </div>
 </div>
 
@@ -131,25 +151,68 @@
 </div>
 
 <script>
-  const hwDone  = JSON.parse(localStorage.getItem('zakiya_hw_done')  || '[]');
-  const vocabN  = parseInt(localStorage.getItem('zakiya_vocab_count')|| '0');
-  const grDone  = JSON.parse(localStorage.getItem('zakiya_gr_done')  || '[]');
-  const hwTotal = 5, grTotal = 6;
+const SB_URL  = 'https://plkwitrcyoqjwbicdufs.supabase.co';
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
+const STUDENT = 'zakiya';
+const HW_TOTAL = 5, GR_TOTAL = 6, VOCAB_TOTAL = 30;
 
-  document.getElementById('stat-lessons').textContent = hwDone.length;
-  document.getElementById('stat-vocab').textContent   = vocabN;
+function renderStats(hwCount, vocabCount, grCount) {
+  // Stat chips
+  document.getElementById('stat-lessons').textContent = hwCount;
+  document.getElementById('stat-vocab').textContent   = vocabCount;
 
-  const hwPct = Math.round(hwDone.length / hwTotal * 100);
+  // HW progress bar
+  const hwPct = Math.round(hwCount / HW_TOTAL * 100);
   document.getElementById('hw-pct').textContent  = hwPct + '%';
   document.getElementById('hw-fill').style.width = hwPct + '%';
-  document.getElementById('hw-sub').textContent  = hwDone.length
-    ? `Выполнено ${hwDone.length} из ${hwTotal} заданий` : 'Ещё нет выполненных заданий';
+  document.getElementById('hw-sub').textContent  = hwCount
+    ? `Выполнено ${hwCount} из ${HW_TOTAL} заданий` : 'Ещё нет выполненных заданий';
 
-  const grPct = Math.round(grDone.length / grTotal * 100);
-  document.getElementById('gr-pct').textContent  = grPct + '%';
-  document.getElementById('gr-fill').style.width = grPct + '%';
-  document.getElementById('gr-sub').textContent  = grDone.length
-    ? `Изучено ${grDone.length} из ${grTotal} тем` : 'Начни с раздела грамматики';
+  // Vocab progress bar (показываем вместо Grammar — более актуально)
+  const vocabPct = Math.round(vocabCount / VOCAB_TOTAL * 100);
+  document.getElementById('gr-pct').textContent  = vocabPct + '%';
+  document.getElementById('gr-fill').style.width = vocabPct + '%';
+  document.getElementById('gr-sub').textContent  = vocabCount
+    ? `Выучено ${vocabCount} из ${VOCAB_TOTAL} слов` : 'Начни тренировать словарь';
+}
+
+async function loadFromSupabase() {
+  try {
+    // 1. Домашки — считаем уникальные hw_id
+    const hwRes = await fetch(
+      `${SB_URL}/rest/v1/homework_results?student_id=eq.${STUDENT}&select=hw_id`,
+      { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+    );
+    const hwRows = hwRes.ok ? await hwRes.json() : [];
+    const hwDone = [...new Set(hwRows.map(r => r.hw_id))];
+
+    // Обновляем localStorage
+    localStorage.setItem('zakiya_hw_done', JSON.stringify(hwDone.map(id => id.replace('hw',''))));
+
+    // 2. Словарь — считаем known=true
+    const vocabRes = await fetch(
+      `${SB_URL}/rest/v1/vocab_progress?student_id=eq.${STUDENT}&known=eq.true&select=word_idx`,
+      { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+    );
+    const vocabRows = vocabRes.ok ? await vocabRes.json() : [];
+    const vocabCount = vocabRows.length;
+    localStorage.setItem('zakiya_vocab_count', vocabCount);
+
+    const grDone = JSON.parse(localStorage.getItem('zakiya_gr_done') || '[]');
+    renderStats(hwDone.length, vocabCount, grDone.length);
+  } catch(e) {
+    console.warn('Supabase load failed, using localStorage', e);
+  }
+}
+
+// 1. Сразу показываем из localStorage (мгновенно)
+const hwDone  = JSON.parse(localStorage.getItem('zakiya_hw_done')  || '[]');
+const vocabN  = parseInt(localStorage.getItem('zakiya_vocab_count') || '0');
+const grDone  = JSON.parse(localStorage.getItem('zakiya_gr_done')  || '[]');
+renderStats(hwDone.length, vocabN, grDone.length);
+
+// 2. Обновляем из Supabase в фоне
+window.addEventListener('load', loadFromSupabase);
 </script>
 </body>
 </html>
