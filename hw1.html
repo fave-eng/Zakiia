@@ -366,20 +366,19 @@ const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 const STUDENT   = 'zakiya';
 
 async function sbFetch(path, opts = {}) {
-  return fetch(SB_URL + path, {
-    ...opts,
-    headers: {
-      'apikey': SB_KEY,
-      'Authorization': 'Bearer ' + SB_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': opts.prefer || '',
-      ...(opts.headers || {})
-    }
-  });
+  const { prefer, body, method = 'GET', headers: extraHeaders = {} } = opts;
+  const headers = {
+    'apikey':        SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY,
+    'Content-Type':  'application/json',
+    ...extraHeaders
+  };
+  if (prefer) headers['Prefer'] = prefer;
+  return fetch(SB_URL + path, { method, headers, body });
 }
 
 // ── HW STATE ──
-const mcqDone = {}, mcqScore = {};
+const mcqDone = {}, mcqScore = {}, mcqChosen = {};
 let writtenFilled = 0;
 const WRITTEN_TOTAL = 13;
 
@@ -403,6 +402,7 @@ function mcq(btn, key, verdict, msg) {
   if (mcqDone[key]) return;
   mcqDone[key] = verdict;
   mcqScore[key] = verdict === 'ok' ? 1 : 0;
+  mcqChosen[key] = btn.textContent.trim(); // запоминаем текст выбранной кнопки
   btn.parentElement.querySelectorAll('.q-opt').forEach(b => b.style.pointerEvents='none');
   btn.classList.add(verdict === 'ok' ? 'correct' : 'wrong');
   const fb = document.getElementById('fb-' + key);
@@ -418,18 +418,132 @@ async function submitAll() {
   const btn    = document.getElementById('send-btn');
   const status = document.getElementById('send-status');
 
+  // ── Правильные ответы (для сравнения в отчёте) ──
+  const CORRECT_A = {
+    '1a': "I don't often meet this patient here.",
+    '1b': "Do I often meet this patient here?",
+    '2a': "She doesn't usually check vital signs in the morning.",
+    '2b': "Does she usually check vital signs in the morning?",
+    '3a': "They don't often read medical textbooks at home.",
+    '3b': "Do they often read medical textbooks at home?",
+    '4a': "He doesn't always give patients their prescriptions.",
+    '4b': "Does he always give patients their prescriptions?"
+  };
+  const CORRECT_C = {
+    1: "What do you usually read in the morning?",
+    2: "She often meets her colleagues after work.",
+    3: "Do your patients read the instructions for their medication?",
+    4: "We usually don't speak Russian at the hospital.",
+    5: "What do you do every morning before work?"
+  };
+  const TASKS_A = {
+    '1': 'I often meet this patient here.',
+    '2': 'She usually checks vital signs in the morning.',
+    '3': 'They often read medical textbooks at home.',
+    '4': 'He always gives patients their prescriptions.'
+  };
+  const TASKS_C = {
+    1: 'Что ты обычно читаешь по утрам?',
+    2: 'Она часто встречает коллег после работы.',
+    3: 'Читают ли твои пациенты инструкции к лекарствам?',
+    4: 'Мы обычно не говорим по-русски в больнице.',
+    5: 'Что ты делаешь каждое утро перед работой?'
+  };
+  const TASKS_B = {
+    'b1': { q: 'We don\'t ___ have dictations at our nursing class.', correct: 'usually / sometimes' },
+    'b2': { q: 'They don\'t ___ speak Russian at work.',              correct: 'usually / always' },
+    'b3': { q: 'I don\'t ___ read English medical journals.',         correct: 'sometimes / seldom' }
+  };
+  const TASKS_D = {
+    'd1': { q: 'She ___ a nurse at City Hospital.',                  correct: 'is' },
+    'd2': { q: '___ you from Russia?',                               correct: 'Are' },
+    'd3': { q: 'The patients ___ in room 204.',                      correct: 'are' },
+    'd4': { q: 'I ___ not a doctor. I ___ a registered nurse.',      correct: 'am / am' },
+    'd5': { q: '___ the doctor in the clinic right now?',            correct: 'Is' }
+  };
+
+  // ── MCQ score ──
   const mcqTotal = Object.keys(mcqScore).length;
   const mcqRight = Object.values(mcqScore).reduce((a,b)=>a+b,0);
-
-  const translations = [1,2,3,4,5].map(i => {
-    const v = document.getElementById('c'+i)?.value?.trim();
-    return `  ${i}. ${v||'—'}`;
-  }).join('\n');
-  const partA = [1,2,3,4].map(i =>
-    `  ${i}−: ${document.getElementById('t'+i+'a')?.value?.trim()||'—'}\n  ${i}?: ${document.getElementById('t'+i+'b')?.value?.trim()||'—'}`
-  ).join('\n');
-
   const scoreStr = `${mcqRight}/${mcqTotal} (MCQ)`;
+
+  // ── Формируем блоки отчёта ──
+
+  // Part A: письменные — показываем условие + ответ ученика + эталон
+  let blockA = '';
+  [1,2,3,4].forEach(i => {
+    const va = document.getElementById('t'+i+'a')?.value?.trim() || '—';
+    const vb = document.getElementById('t'+i+'b')?.value?.trim() || '—';
+    const ca = CORRECT_A[i+'a'], cb = CORRECT_A[i+'b'];
+    blockA += `\n${i}. _Условие:_ ${TASKS_A[i]}\n`;
+    blockA += `   − Ответ: ${va}\n`;
+    blockA += `   − Эталон: ${ca}\n`;
+    blockA += `   ? Ответ: ${vb}\n`;
+    blockA += `   ? Эталон: ${cb}\n`;
+  });
+
+  // Part B: MCQ наречия — показываем что выбрала и правильный вариант если ошиблась
+  let blockB = '';
+  Object.entries(TASKS_B).forEach(([key, task]) => {
+    const chosen = mcqChosen[key] || '—';
+    const isOk   = mcqScore[key] === 1;
+    const mark   = isOk ? '✅' : '❌';
+    blockB += `\n${mark} _${task.q}_\n`;
+    blockB += `   Ответ: ${chosen}\n`;
+    if (!isOk) blockB += `   Правильно: ${task.correct}\n`;
+  });
+
+  // Part C: переводы — условие + ответ ученика + эталон
+  let blockC = '';
+  [1,2,3,4,5].forEach(i => {
+    const v  = document.getElementById('c'+i)?.value?.trim() || '—';
+    const c  = CORRECT_C[i];
+    blockC += `\n${i}. _${TASKS_C[i]}_\n`;
+    blockC += `   Ответ: ${v}\n`;
+    blockC += `   Эталон: ${c}\n`;
+  });
+
+  // Part D: MCQ To Be
+  let blockD = '';
+  Object.entries(TASKS_D).forEach(([key, task]) => {
+    const chosen = mcqChosen[key] || '—';
+    const isOk   = mcqScore[key] === 1;
+    const mark   = isOk ? '✅' : '❌';
+    const num    = key.replace('d','');
+    blockD += `\n${mark} ${num}. _${task.q}_\n`;
+    blockD += `   Ответ: ${chosen}\n`;
+    if (!isOk) blockD += `   Правильно: ${task.correct}\n`;
+  });
+
+  const bScore = ['b1','b2','b3'].filter(k=>mcqScore[k]).length;
+  const dScore = ['d1','d2','d3','d4','d5'].filter(k=>mcqScore[k]).length;
+  const emoji  = mcqRight === mcqTotal ? '🎉' : mcqRight >= Math.floor(mcqTotal*0.7) ? '👍' : '📚';
+
+  const msg =
+`📝 *Homework 1 · Zakiya*
+📅 ${new Date().toLocaleString('ru-RU')}
+
+${emoji} *Итог: ${scoreStr}*
+Part B (наречия): ${bScore}/3
+Part D (To Be): ${dScore}/5
+Part A, C: на проверке ниже 👇
+
+━━━━━━━━━━━━━━━━━━
+📌 *Part A — Отрицание / Вопрос*
+_Задание: поставить в − и ? форму_
+${blockA}
+━━━━━━━━━━━━━━━━━━
+🔤 *Part B — Наречия (MCQ)*
+_Задание: заменить "often" подходящим наречием_
+${blockB}
+━━━━━━━━━━━━━━━━━━
+🌍 *Part C — Перевод*
+_Задание: перевести с русского на английский_
+${blockC}
+━━━━━━━━━━━━━━━━━━
+🧩 *Part D — To Be (MCQ)*
+_Задание: выбрать правильную форму to be_
+${blockD}`;
 
   // ── Show score UI ──
   const ss = document.getElementById('score-section');
@@ -439,9 +553,9 @@ async function submitAll() {
     mcqRight === mcqTotal ? '🎉 Все тесты верно!' :
     mcqRight >= Math.floor(mcqTotal * 0.7) ? '👍 Хорошо!' : '📚 Повтори материал';
   document.getElementById('score-breakdown').innerHTML =
-    `<div class="sb"><span>Part B (наречия MCQ)</span><span>${['b1','b2','b3'].filter(k=>mcqScore[k]).length}/3</span></div>` +
-    `<div class="sb"><span>Part D (To Be MCQ)</span><span>${['d1','d2','d3','d4','d5'].filter(k=>mcqScore[k]).length}/5</span></div>` +
-    `<div class="sb"><span>Part A, C (письменно)</span><span>На проверке у преподавателя</span></div>`;
+    `<div class="sb"><span>Part B (наречия MCQ)</span><span>${bScore}/3</span></div>` +
+    `<div class="sb"><span>Part D (To Be MCQ)</span><span>${dScore}/5</span></div>` +
+    `<div class="sb"><span>Part A, C (письменно)</span><span>В отчёте Telegram</span></div>`;
 
   // ── Save to localStorage ──
   localStorage.setItem('zakiya_hw1_score', scoreStr);
@@ -464,34 +578,46 @@ async function submitAll() {
         student_id:   STUDENT,
         hw_id:        'hw1',
         score:        scoreStr,
-        part_a:       partA,
-        part_c:       translations,
+        part_a:       blockA,
+        part_c:       blockC,
         submitted_at: now
       })
     });
     sbOk = res.ok;
   } catch(e) { console.warn('Supabase HW save failed', e); }
 
-  // ── 2. Send to Telegram ──
-  const msg = `📝 *Homework 1 · Zakiya*\n📅 ${new Date().toLocaleString('ru-RU')}\n\n*MCQ результат: ${scoreStr}*\n\n*Part A — отрицание/вопрос:*\n${partA}\n\n*Part C — Переводы:*\n${translations}`;
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  // ── 2. Send to Telegram (длинный отчёт — разбиваем если >4000 символов) ──
+  async function tgSend(text) {
+    const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown' })
+      body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'Markdown' })
     });
-    const data = await res.json();
-    tgOk = data.ok;
+    return (await r.json()).ok;
+  }
+  try {
+    if (msg.length <= 4000) {
+      tgOk = await tgSend(msg);
+    } else {
+      // Разбиваем на части по блокам
+      const parts = [
+        msg.split('Part B')[0].trim(),
+        '📝 *HW1 продолжение — Part B + C*\n\n🔤 *Part B*\n' + blockB + '\n🌍 *Part C*\n' + blockC,
+        '📝 *HW1 продолжение — Part D*\n\n🧩 *Part D*\n' + blockD
+      ];
+      const results = await Promise.all(parts.map(tgSend));
+      tgOk = results.every(Boolean);
+    }
   } catch(e) { console.warn('Telegram send failed', e); }
 
-  // ── Status message ──
+  // ── Status ──
   if (sbOk && tgOk) {
     status.className = 'send-status ok';
     status.textContent = '✓ Сохранено в облаке ☁️ и отправлено преподавателю в Telegram!';
     btn.textContent = '✓ Отправлено';
   } else if (sbOk) {
     status.className = 'send-status ok';
-    status.textContent = '✓ Сохранено в облаке ☁️. Telegram — укажи токен для отправки.';
+    status.textContent = '✓ Сохранено в облаке ☁️. Telegram — проверь токен.';
     btn.textContent = '✓ Сохранено';
   } else if (tgOk) {
     status.className = 'send-status ok';
