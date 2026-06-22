@@ -260,27 +260,27 @@ const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 const STUDENT   = 'zakiya';
 
 async function sbFetch(path, opts = {}) {
-  return fetch(SB_URL + path, {
-    ...opts,
-    headers: {
-      'apikey': SB_KEY,
-      'Authorization': 'Bearer ' + SB_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': opts.prefer || '',
-      ...(opts.headers || {})
-    }
-  });
+  const { prefer, body, method = 'GET', headers: extraHeaders = {} } = opts;
+  const headers = {
+    'apikey':        SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY,
+    'Content-Type':  'application/json',
+    ...extraHeaders
+  };
+  // Prefer header — только если передан
+  if (prefer) headers['Prefer'] = prefer;
+  return fetch(SB_URL + path, { method, headers, body });
 }
 
 // ── VOCAB STORAGE: localStorage as primary cache, Supabase as sync ──
 
-// Load all known words from Supabase into localStorage cache on startup
 async function syncFromSupabase() {
   try {
-    const res = await sbFetch(`/rest/v1/vocab_progress?student_id=eq.${STUDENT}&select=set_id,word_idx,known`);
-    if (!res.ok) return;
+    const res = await sbFetch(
+      `/rest/v1/vocab_progress?student_id=eq.${STUDENT}&select=set_id,word_idx,known`
+    );
+    if (!res.ok) { console.warn('syncFromSupabase error', res.status, await res.text()); return; }
     const rows = await res.json();
-    // Rebuild localStorage from DB
     const bySet = {};
     rows.forEach(r => {
       if (!bySet[r.set_id]) bySet[r.set_id] = [];
@@ -289,41 +289,48 @@ async function syncFromSupabase() {
     SETS.forEach(s => {
       localStorage.setItem('zakiya_known_' + s.id, JSON.stringify(bySet[s.id] || []));
     });
+    console.log('✅ Synced from Supabase:', rows.length, 'rows');
   } catch(e) { console.warn('Supabase sync failed, using localStorage', e); }
 }
 
-// Upsert a single word's known status to Supabase (fire-and-forget)
+// Upsert одного слова (fire-and-forget после карточки)
 async function sbUpsertWord(setId, wordIdx, known) {
   try {
-    await sbFetch('/rest/v1/vocab_progress', {
+    const res = await sbFetch('/rest/v1/vocab_progress', {
       method: 'POST',
-      prefer: 'resolution=merge-duplicates',
+      prefer: 'resolution=merge-duplicates,return=minimal',
       body: JSON.stringify({
         student_id: STUDENT,
-        set_id: setId,
-        word_idx: wordIdx,
-        known: known,
+        set_id:     setId,
+        word_idx:   wordIdx,
+        known:      known,
         updated_at: new Date().toISOString()
       })
     });
+    if (!res.ok) console.warn('sbUpsertWord error', res.status, await res.text());
   } catch(e) { console.warn('sbUpsertWord failed', e); }
 }
 
-// Batch upsert after test finishes
+// Batch upsert после теста — все слова темы одним запросом
 async function sbBatchUpsert(setId, knownSet, allIndices) {
   const rows = allIndices.map(idx => ({
     student_id: STUDENT,
-    set_id: setId,
-    word_idx: idx,
-    known: knownSet.has(idx),
+    set_id:     setId,
+    word_idx:   idx,
+    known:      knownSet.has(idx),
     updated_at: new Date().toISOString()
   }));
   try {
-    await sbFetch('/rest/v1/vocab_progress', {
+    const res = await sbFetch('/rest/v1/vocab_progress', {
       method: 'POST',
-      prefer: 'resolution=merge-duplicates',
+      prefer: 'resolution=merge-duplicates,return=minimal',
       body: JSON.stringify(rows)
     });
+    if (res.ok) {
+      console.log('✅ Batch upsert OK:', rows.length, 'words for set', setId);
+    } else {
+      console.warn('sbBatchUpsert error', res.status, await res.text());
+    }
   } catch(e) { console.warn('sbBatchUpsert failed', e); }
 }
 
