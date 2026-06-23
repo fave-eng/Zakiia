@@ -108,6 +108,46 @@
     .retry-btn.fail-r { border-color:var(--rose);  color:#9f1239; }
     .retry-btn:hover { opacity:.75; }
 
+    /* PS vs PC extra styles */
+    .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+    @media(max-width:480px){ .compare-grid { grid-template-columns:1fr; } }
+    .cmp-card { border-radius:var(--radius-sm); padding:1rem; }
+    .cmp-card.ps { background:var(--green-l); border:1.5px solid rgba(16,185,129,.25); }
+    .cmp-card.pc { background:var(--indigo-l); border:1.5px solid rgba(99,102,241,.25); }
+    .cmp-card h4 { font-size:13px; font-weight:700; margin-bottom:10px; }
+    .cmp-card.ps h4 { color:#065f46; }
+    .cmp-card.pc h4 { color:#3730a3; }
+    .cmp-row { font-size:13px; padding:4px 0; border-bottom:1px solid rgba(0,0,0,.06); display:flex; gap:6px; align-items:flex-start; }
+    .cmp-row:last-child { border-bottom:none; }
+    .cmp-dot { font-size:10px; margin-top:4px; flex-shrink:0; }
+    .cmp-card.ps .cmp-dot { color:#065f46; }
+    .cmp-card.pc .cmp-dot { color:#3730a3; }
+
+    .signal-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+    @media(max-width:480px){ .signal-grid { grid-template-columns:1fr; } }
+    .sig-box { border-radius:var(--radius-sm); padding:.85rem 1rem; }
+    .sig-box.ps { background:var(--green-l); border:1.5px solid rgba(16,185,129,.2); }
+    .sig-box.pc { background:var(--indigo-l); border:1.5px solid rgba(99,102,241,.2); }
+    .sig-box h4 { font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; }
+    .sig-box.ps h4 { color:#065f46; }
+    .sig-box.pc h4 { color:#3730a3; }
+    .sig-chips { display:flex; flex-wrap:wrap; gap:5px; }
+    .sig-chip { font-size:12px; font-weight:600; padding:3px 9px; border-radius:99px; }
+    .sig-chip.ps { background:#fff; color:#065f46; border:1px solid rgba(16,185,129,.3); }
+    .sig-chip.pc { background:#fff; color:#3730a3; border:1px solid rgba(99,102,241,.3); }
+
+    .decision-tree { margin-bottom:12px; }
+    .dt-q { background:#f8fafc; border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; font-weight:600; margin-bottom:6px; }
+    .dt-branch { display:flex; gap:8px; margin-bottom:8px; margin-left:16px; }
+    .dt-yes { background:var(--green-l); border:1.5px solid rgba(16,185,129,.3); border-radius:var(--radius-sm); padding:7px 12px; font-size:13px; flex:1; }
+    .dt-no  { background:#fff;           border:1.5px solid var(--border);              border-radius:var(--radius-sm); padding:7px 12px; font-size:13px; flex:1; }
+    .dt-label { font-size:11px; font-weight:700; display:block; margin-bottom:2px; }
+    .dt-label.y { color:#065f46; }
+    .dt-label.n { color:var(--muted); }
+    .dt-result { font-weight:700; }
+    .dt-result.ps { color:#065f46; }
+    .dt-result.pc { color:#3730a3; }
+
     .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,.3); z-index:900; white-space:nowrap; }
     .nav-pill a { color:rgba(255,255,255,.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all .2s; }
     .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
@@ -131,6 +171,7 @@
     <a class="tnav t4" href="#prep">Предлоги</a>
     <a class="tnav t5" href="#mod">Модальные</a>
     <a class="tnav t6" href="#past">Past Simple</a>
+    <a class="tnav" style="background:#fdf2f8;border-color:#c026d3;color:#86198f" href="#psc">PS vs PC</a>
   </div>
 
   <!-- ══ 1. PRESENT SIMPLE ══ -->
@@ -513,6 +554,185 @@
         <button class="test-btn" onclick="checkTest('past',3)">Проверить тест →</button>
         <div class="test-result" id="past-result"></div>
       </div>
+    </div>
+  </div>
+  <!-- ══ 7. PRESENT SIMPLE vs PRESENT CONTINUOUS ══ -->
+  <div class="gr-sec" id="psc">
+    <div class="gr-hd" onclick="tog(this)">
+      <div class="gr-ico" style="background:#fdf2f8">⚡</div>
+      <div class="gr-tw"><div class="gr-title">Present Simple vs Continuous</div><div class="gr-sub">Как выбрать правильное время — шаг за шагом</div></div>
+      <span class="gr-chev">▾</span>
+    </div>
+    <div class="gr-body">
+
+      <!-- COMPARISON TABLE -->
+      <div class="compare-grid">
+        <div class="cmp-card ps">
+          <h4>✅ Present Simple</h4>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Факт, который всегда верен<br><em style="color:var(--muted)">Water boils at 100°C.</em></span></div>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Регулярная привычка<br><em style="color:var(--muted)">I usually work nights.</em></span></div>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Постоянная ситуация<br><em style="color:var(--muted)">She lives in New York.</em></span></div>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Расписание / закон<br><em style="color:var(--muted)">The train leaves at 9.</em></span></div>
+        </div>
+        <div class="cmp-card pc">
+          <h4>🔄 Present Continuous</h4>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Действие прямо сейчас<br><em style="color:var(--muted)">She is checking vitals.</em></span></div>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Временная ситуация<br><em style="color:var(--muted)">I'm staying with my sister.</em></span></div>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Меняющаяся ситуация<br><em style="color:var(--muted)">My English is improving.</em></span></div>
+          <div class="cmp-row"><span class="cmp-dot">●</span><span>Раздражающая привычка (always)<br><em style="color:var(--muted)">He's always leaving things!</em></span></div>
+        </div>
+      </div>
+
+      <!-- ФОРМУЛЫ -->
+      <div class="formula">
+        <div class="f-lbl">Формулы</div>
+        <div class="pos-c">PS: I/You/We/They <span class="kw">work</span> · He/She/It <span class="kw">works</span></div>
+        <div class="neg-c">PS: I <span class="kw">don't work</span> · She <span class="kw">doesn't work</span></div>
+        <div class="que-c">PS: <span class="kw">Do</span> you work? · <span class="kw">Does</span> she work?</div>
+        <div style="margin-top:8px" class="pos-c">PC: I <span class="kw" style="background:var(--indigo-l);color:#3730a3">am working</span> · She <span class="kw" style="background:var(--indigo-l);color:#3730a3">is working</span> · They <span class="kw" style="background:var(--indigo-l);color:#3730a3">are working</span></div>
+        <div class="neg-c">PC: I <span class="kw" style="background:var(--indigo-l);color:#3730a3">am not working</span> · She <span class="kw" style="background:var(--indigo-l);color:#3730a3">isn't working</span></div>
+        <div class="que-c">PC: <span class="kw" style="background:var(--indigo-l);color:#3730a3">Are</span> you working? · <span class="kw" style="background:var(--indigo-l);color:#3730a3">Is</span> she working?</div>
+      </div>
+
+      <!-- СИГНАЛЬНЫЕ СЛОВА -->
+      <div class="signal-grid">
+        <div class="sig-box ps">
+          <h4>Сигналы → Simple</h4>
+          <div class="sig-chips">
+            <span class="sig-chip ps">always</span>
+            <span class="sig-chip ps">usually</span>
+            <span class="sig-chip ps">often</span>
+            <span class="sig-chip ps">sometimes</span>
+            <span class="sig-chip ps">never</span>
+            <span class="sig-chip ps">every day</span>
+            <span class="sig-chip ps">every week</span>
+            <span class="sig-chip ps">normally</span>
+            <span class="sig-chip ps">on Mondays</span>
+            <span class="sig-chip ps">in general</span>
+          </div>
+        </div>
+        <div class="sig-box pc">
+          <h4>Сигналы → Continuous</h4>
+          <div class="sig-chips">
+            <span class="sig-chip pc">now</span>
+            <span class="sig-chip pc">right now</span>
+            <span class="sig-chip pc">at the moment</span>
+            <span class="sig-chip pc">today</span>
+            <span class="sig-chip pc">this week</span>
+            <span class="sig-chip pc">currently</span>
+            <span class="sig-chip pc">Look!</span>
+            <span class="sig-chip pc">Listen!</span>
+            <span class="sig-chip pc">still</span>
+            <span class="sig-chip pc">for now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ДЕРЕВО РЕШЕНИЙ -->
+      <div class="rule" style="background:#f8fafc;border:1.5px solid var(--border);margin-bottom:12px">
+        <h4 style="margin-bottom:12px">🌳 Как выбрать время — задай себе 3 вопроса</h4>
+        <div class="decision-tree">
+          <div class="dt-q">1. Есть ли сигнальное слово?</div>
+          <div class="dt-branch">
+            <div class="dt-yes"><span class="dt-label y">YES →</span>Используй время, которое сигнал указывает (см. таблицу выше)</div>
+            <div class="dt-no"><span class="dt-label n">NO →</span>Переходи к вопросу 2</div>
+          </div>
+          <div class="dt-q">2. Это происходит прямо сейчас или временно?</div>
+          <div class="dt-branch">
+            <div class="dt-yes"><span class="dt-label y">YES →</span><span class="dt-result pc">Present Continuous</span><br><em style="font-size:12px;color:var(--muted)">She is working at the moment.</em></div>
+            <div class="dt-no"><span class="dt-label n">NO →</span>Переходи к вопросу 3</div>
+          </div>
+          <div class="dt-q">3. Это факт, привычка или постоянная ситуация?</div>
+          <div class="dt-branch">
+            <div class="dt-yes"><span class="dt-label y">YES →</span><span class="dt-result ps">Present Simple</span><br><em style="font-size:12px;color:var(--muted)">She works at a hospital.</em></div>
+            <div class="dt-no"><span class="dt-label n">NO →</span>Подумай ещё раз — перечитай правила</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE VERBS -->
+      <div class="rule amber">
+        <h4>⚠ Глаголы состояния — НИКОГДА не ставить в Continuous</h4>
+        <p style="font-size:13px;margin-bottom:8px">Эти глаголы описывают состояние, а не действие — они не могут "продолжаться":</p>
+        <div class="state-verbs">
+          <span class="sv-chip">know</span><span class="sv-chip">understand</span><span class="sv-chip">like</span>
+          <span class="sv-chip">love</span><span class="sv-chip">hate</span><span class="sv-chip">want</span>
+          <span class="sv-chip">need</span><span class="sv-chip">hear</span><span class="sv-chip">see</span>
+          <span class="sv-chip">seem</span><span class="sv-chip">belong</span><span class="sv-chip">contain</span>
+          <span class="sv-chip">believe</span><span class="sv-chip">remember</span><span class="sv-chip">prefer</span>
+        </div>
+        <div class="ex-list" style="margin-top:10px">
+          <div class="ex n"><span class="ex-s">✗</span><div><div class="ex-en">I <s>am knowing</s> the answer.</div></div></div>
+          <div class="ex p"><span class="ex-s">✓</span><div><div class="ex-en">I <strong>know</strong> the answer.</div></div></div>
+          <div class="ex n"><span class="ex-s">✗</span><div><div class="ex-en">She <s>is wanting</s> to leave.</div></div></div>
+          <div class="ex p"><span class="ex-s">✓</span><div><div class="ex-en">She <strong>wants</strong> to leave.</div></div></div>
+        </div>
+      </div>
+
+      <!-- ОДНО СЛОВО — ДВА СМЫСЛА -->
+      <div class="rule blue">
+        <h4>💡 Некоторые глаголы меняют смысл в Continuous</h4>
+        <table class="gr-table">
+          <tr><th>Глагол</th><th>Simple (состояние)</th><th>Continuous (действие)</th></tr>
+          <tr><td><strong>have</strong></td><td>She <em>has</em> a car. (владеет)</td><td>She <em>is having</em> lunch. (ест)</td></tr>
+          <tr><td><strong>think</strong></td><td>I <em>think</em> it's wrong. (мнение)</td><td>I <em>am thinking</em> about it. (думаю сейчас)</td></tr>
+          <tr><td><strong>see</strong></td><td>I <em>see</em> what you mean. (понимаю)</td><td>I <em>am seeing</em> a doctor. (иду к врачу)</td></tr>
+          <tr><td><strong>look</strong></td><td>She <em>looks</em> tired. (выглядит)</td><td>She <em>is looking</em> for work. (ищет)</td></tr>
+        </table>
+      </div>
+
+      <!-- TEST -->
+      <div class="test-block" id="test-psc">
+        <h4>🎯 Тест на понимание темы</h4>
+        <div class="tq">
+          <div class="tq-q">1. I usually ___ to work by bus. (go)</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('psc',1,this,'ok','usually = сигнал Simple → go')">go</button>
+            <button class="tq-opt" onclick="tqa('psc',1,this,'bad','am going — Continuous используется для временных ситуаций, не для привычек')">am going</button>
+            <button class="tq-opt" onclick="tqa('psc',1,this,'bad','goes — неверно, I → go без -s')">goes</button>
+          </div>
+          <div class="tq-fb" id="psc-fb1"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">2. Look! The patient ___ (try) to get up.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('psc',2,this,'bad','tries — Look! = сигнал Continuous, не Simple')">tries</button>
+            <button class="tq-opt" onclick="tqa('psc',2,this,'ok','is trying — Look! = прямо сейчас → Continuous')">is trying</button>
+            <button class="tq-opt" onclick="tqa('psc',2,this,'bad','try — неверная форма для he/she/it')">try</button>
+          </div>
+          <div class="tq-fb" id="psc-fb2"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">3. I ___ (not/understand) this question.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('psc',3,this,'ok','don\'t understand — understand = глагол состояния, никогда не Continuous')">don't understand</button>
+            <button class="tq-opt" onclick="tqa('psc',3,this,'bad','am not understanding — understand нельзя ставить в Continuous')">am not understanding</button>
+            <button class="tq-opt" onclick="tqa('psc',3,this,'bad','doesn\'t understand — для I нужен don\'t, не doesn\'t')">doesn't understand</button>
+          </div>
+          <div class="tq-fb" id="psc-fb3"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">4. Normally I ___ (finish) at 5, but this week I ___ (work) until 7.</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('psc',4,this,'ok','finish / am working — normally=Simple, this week=Continuous')">finish / am working</button>
+            <button class="tq-opt" onclick="tqa('psc',4,this,'bad','am finishing / work — наоборот: normally=Simple, this week=Continuous')">am finishing / work</button>
+            <button class="tq-opt" onclick="tqa('psc',4,this,'bad','finish / work — второй глагол должен быть Continuous (this week)')">finish / work</button>
+          </div>
+          <div class="tq-fb" id="psc-fb4"></div>
+        </div>
+        <div class="tq">
+          <div class="tq-q">5. ___ you always ___ (leave) your things everywhere? (раздражение)</div>
+          <div class="tq-opts">
+            <button class="tq-opt" onclick="tqa('psc',5,this,'bad','Do you always leave — верно грамматически, но always+Continuous выражает раздражение точнее')">Do you always leave</button>
+            <button class="tq-opt" onclick="tqa('psc',5,this,'ok','Are you always leaving — always+Continuous = раздражающая привычка')">Are you always leaving</button>
+            <button class="tq-opt" onclick="tqa('psc',5,this,'bad','Do you always leaving — грамматическая ошибка: Do + инфинитив, не -ing')">Do you always leaving</button>
+          </div>
+          <div class="tq-fb" id="psc-fb5"></div>
+        </div>
+        <button class="test-btn" onclick="checkTest('psc',5)">Проверить тест →</button>
+        <div class="test-result" id="psc-result"></div>
+      </div>
+
     </div>
   </div>
 
