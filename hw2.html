@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HW 2 — Zakiya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --teal:#0d9488; --teal-l:#ccfbf1; --teal-d:#0f766e;
+      --bg:#f0fdf9; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --green:#10b981; --green-l:#d1fae5;
+      --red:#ef4444;   --red-l:#fee2e2;
+      --amber:#f59e0b; --amber-l:#fef3c7;
+      --purple:#7c3aed;--purple-l:#ede9fe;
+      --indigo:#6366f1;--indigo-l:#e0e7ff;
+      --radius:16px;   --radius-sm:10px;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding:0 0 5rem; }
+
+    .hero { background:linear-gradient(135deg,#7c3aed,#6366f1,#0891b2); padding:2.5rem 1.5rem 4rem; position:relative; }
+    .hero-wave { position:absolute; bottom:-1px; left:0; right:0; line-height:0; }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; color:#fff; margin-bottom:6px; }
+    .hero p { font-size:14px; color:rgba(255,255,255,.8); }
+    .progress-row { display:flex; align-items:center; gap:12px; margin-top:14px; max-width:400px; }
+    .prog-bar { flex:1; height:6px; background:rgba(255,255,255,.25); border-radius:99px; overflow:hidden; }
+    .prog-fill { height:100%; background:#fff; border-radius:99px; transition:width .4s; }
+    .prog-lbl { font-size:12px; color:rgba(255,255,255,.8); white-space:nowrap; }
+
+    .page { max-width:680px; margin:0 auto; padding:0 1.25rem; }
+    .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:1.5rem 0 .75rem; }
+
+    /* GRAMMAR RULES BOX */
+    .rules-box { background:var(--purple-l); border:1.5px solid rgba(124,58,237,.2); border-radius:var(--radius); padding:1.25rem 1.5rem; margin:1.5rem 0; }
+    .rules-box h2 { font-size:15px; font-weight:700; color:var(--purple); margin-bottom:14px; }
+    .rule-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+    @media(max-width:520px){ .rule-row { grid-template-columns:1fr; } }
+    .rule-card { border-radius:var(--radius-sm); padding:1rem; }
+    .rule-card.ps { background:#fff; border:1.5px solid rgba(16,185,129,.25); }
+    .rule-card.pc { background:#fff; border:1.5px solid rgba(99,102,241,.25); }
+    .rule-card h3 { font-size:13px; font-weight:700; margin-bottom:8px; }
+    .rule-card.ps h3 { color:var(--green); }
+    .rule-card.pc h3 { color:var(--indigo); }
+    .rule-card ul { padding-left:16px; font-size:12px; color:var(--text); line-height:1.8; }
+    .formula { font-family:'Courier New',monospace; font-size:12px; padding:8px 10px; border-radius:6px; margin-top:8px; }
+    .formula.ps { background:#d1fae5; color:#065f46; }
+    .formula.pc { background:#e0e7ff; color:#3730a3; }
+    .signal-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .signal { font-size:11px; padding:3px 10px; border-radius:99px; font-weight:600; }
+    .signal.ps { background:var(--green-l); color:#065f46; }
+    .signal.pc { background:var(--indigo-l); color:#3730a3; }
+    .signal-label { font-size:12px; color:var(--muted); width:100%; margin-bottom:4px; font-weight:600; }
+    .warn-box { background:var(--amber-l); border-left:3px solid var(--amber); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:.75rem 1rem; font-size:13px; margin-top:12px; line-height:1.6; }
+    .warn-box strong { color:#92400e; }
+
+    /* TASK CARD */
+    .task { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:14px; overflow:hidden; }
+    .task-head { padding:1rem 1.25rem; display:flex; align-items:flex-start; gap:12px; }
+    .task-num { width:36px; height:36px; border-radius:99px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; }
+    .tn-purple { background:var(--purple-l); color:var(--purple); }
+    .tn-indigo { background:var(--indigo-l); color:var(--indigo); }
+    .tn-green  { background:var(--green-l);  color:#065f46; }
+    .tn-amber  { background:var(--amber-l);  color:#92400e; }
+    .task-meta { flex:1; }
+    .task-lbl  { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+    .task-title{ font-size:15px; font-weight:600; margin-bottom:3px; }
+    .task-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+    .task-body { padding:0 1.25rem 1.25rem; }
+
+    /* SENTENCE ITEMS */
+    .sent-item { background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; font-size:14px; margin-bottom:10px; line-height:1.6; }
+    .sent-item .snum { font-size:11px; font-weight:700; color:var(--muted); margin-right:6px; }
+
+    /* INPUT ROWS */
+    .input-row { display:flex; align-items:flex-start; gap:10px; background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:6px; }
+    .input-sign { font-size:12px; font-weight:700; color:var(--muted); white-space:nowrap; min-width:20px; margin-top:3px; }
+    .input-row textarea { flex:1; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); resize:none; outline:none; line-height:1.5; min-height:22px; }
+    .fill-row { display:flex; align-items:center; gap:8px; background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:6px; font-size:14px; flex-wrap:wrap; }
+    .fill-row input { border:none; border-bottom:1.5px solid var(--border); background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); outline:none; min-width:120px; padding:2px 4px; transition:border-color .15s; }
+    .fill-row input:focus { border-color:var(--teal); }
+    .fill-row input.ok  { border-color:var(--green); color:#065f46; background:var(--green-l); border-radius:4px; padding:2px 6px; }
+    .fill-row input.bad { border-color:var(--red);   color:#991b1b; background:var(--red-l);   border-radius:4px; padding:2px 6px; }
+
+    /* MCQ OPTIONS */
+    .q-block { margin-bottom:12px; }
+    .q-text { font-size:14px; font-weight:500; margin-bottom:8px; line-height:1.5; }
+    .q-opts { display:flex; flex-wrap:wrap; gap:6px; }
+    .q-opt { font-family:'Inter',sans-serif; font-size:13px; padding:7px 16px; border-radius:99px; border:1.5px solid var(--border); background:#f8fafc; cursor:pointer; transition:all .15s; }
+    .q-opt:hover { border-color:var(--teal); background:var(--teal-l); }
+    .q-opt.correct { background:var(--green-l); border-color:var(--green); color:#065f46; pointer-events:none; }
+    .q-opt.wrong   { background:var(--red-l);   border-color:var(--red);  color:#991b1b; pointer-events:none; }
+    .q-fb { font-size:12px; margin-top:5px; display:none; padding:6px 10px; border-radius:var(--radius-sm); }
+    .q-fb.show { display:block; }
+    .q-fb.ok  { background:var(--green-l); color:#065f46; }
+    .q-fb.bad { background:var(--red-l); color:#991b1b; }
+
+    /* MATCH EXERCISE */
+    .match-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media(max-width:480px){ .match-grid { grid-template-columns:1fr; } }
+    .match-q { background:#f8fafc; border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:10px 14px; cursor:pointer; transition:all .15s; font-size:13px; }
+    .match-q:hover { border-color:var(--purple); }
+    .match-q.selected { border-color:var(--purple); background:var(--purple-l); }
+    .match-q.matched  { border-color:var(--green);  background:var(--green-l); pointer-events:none; }
+    .match-q.wrong-flash { border-color:var(--red); background:var(--red-l); }
+    .match-num { font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:2px; }
+    .match-a { background:#f0fdf9; border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:10px 14px; cursor:pointer; transition:all .15s; font-size:13px; }
+    .match-a:hover { border-color:var(--teal); }
+    .match-a.selected { border-color:var(--teal); background:var(--teal-l); }
+    .match-a.matched  { border-color:var(--green); background:var(--green-l); pointer-events:none; }
+    .match-a.wrong-flash { border-color:var(--red); background:var(--red-l); }
+    .match-lbl { font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:2px; }
+    .match-score { font-size:13px; color:var(--muted); margin-top:8px; }
+
+    /* ANSWERS */
+    .answers { display:none; margin-top:10px; }
+    .answers.show { display:block; }
+    .ans-item { display:flex; gap:8px; padding:8px 10px; border-radius:var(--radius-sm); margin-bottom:5px; font-size:13px; }
+    .ans-item.ok   { background:var(--green-l); }
+    .ans-item.note { background:var(--amber-l); }
+    .ans-snum { font-weight:700; color:var(--muted); font-size:11px; white-space:nowrap; margin-top:1px; min-width:28px; }
+    .ans-en { font-weight:600; color:#065f46; }
+    .ans-note { color:#92400e; font-weight:600; }
+
+    /* BUTTONS */
+    .btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:500; padding:8px 18px; border-radius:var(--radius-sm); border:1.5px solid; cursor:pointer; transition:all .15s; margin-top:8px; }
+    .btn-purple { background:var(--purple-l); border-color:var(--purple); color:var(--purple); }
+    .btn-purple:hover { background:var(--purple); color:#fff; }
+    .btn-green { background:var(--green-l); border-color:var(--green); color:#065f46; }
+    .btn-green:hover { background:var(--green); color:#fff; }
+
+    /* SCORE + SEND */
+    .score-section { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); padding:1.25rem; margin-bottom:14px; display:none; }
+    .score-section.show { display:block; }
+    .score-big { font-family:'Plus Jakarta Sans',sans-serif; font-size:40px; font-weight:800; color:var(--teal); text-align:center; }
+    .score-sub { text-align:center; font-size:14px; color:var(--muted); margin-top:4px; }
+    .sb { display:flex; justify-content:space-between; font-size:13px; padding:6px 10px; border-radius:var(--radius-sm); background:#f8fafc; margin-top:6px; }
+    .sb span:last-child { font-weight:600; color:var(--teal); }
+    .send-section { background:var(--teal-l); border:1.5px solid rgba(13,148,136,.25); border-radius:var(--radius); padding:1.25rem; margin-bottom:14px; }
+    .send-section h3 { font-size:15px; font-weight:600; color:var(--teal-d); margin-bottom:4px; }
+    .send-section p  { font-size:13px; color:var(--muted); margin-bottom:10px; }
+    .btn-send { font-family:'Inter',sans-serif; background:linear-gradient(135deg,#7c3aed,#6366f1); border:none; color:#fff; font-size:15px; font-weight:600; padding:14px 28px; width:100%; border-radius:14px; cursor:pointer; }
+    .btn-send:hover { opacity:.9; }
+    .btn-send:disabled { opacity:.5; cursor:not-allowed; }
+    .send-status { font-size:13px; font-weight:500; margin-top:8px; padding:8px 12px; border-radius:var(--radius-sm); display:none; }
+    .send-status.ok  { background:var(--green-l); color:#065f46; display:block; }
+    .send-status.err { background:var(--red-l); color:#991b1b; display:block; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="page" style="position:relative;z-index:1">
+    <a href="./homework.html" class="hero-back">← Назад к домашкам</a>
+    <h1>Homework 2 · Урок 2</h1>
+    <p>Present Simple vs Present Continuous</p>
+    <div class="progress-row">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+      <span class="prog-lbl" id="prog-lbl">0 / 20</span>
+    </div>
+  </div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,0 1440,40 L1440,40 L0,40 Z" fill="#f0fdf9"/></svg></div>
+</div>
+
+<div class="page">
+
+  <!-- GRAMMAR RULES -->
+  <div class="rules-box">
+    <h2>📐 Правила урока</h2>
+    <div class="rule-row">
+      <div class="rule-card ps">
+        <h3>Present Simple</h3>
+        <ul>
+          <li>Факты и постоянные ситуации</li>
+          <li>Привычки и регулярные действия</li>
+          <li>Расписания и законы природы</li>
+        </ul>
+        <div class="formula ps">I/You/We/They work
+He/She/It work<strong>s</strong>
+Do/Does + subject + verb?</div>
+        <div class="signal-row">
+          <span class="signal-label">Сигнальные слова:</span>
+          <span class="signal ps">always</span>
+          <span class="signal ps">usually</span>
+          <span class="signal ps">often</span>
+          <span class="signal ps">sometimes</span>
+          <span class="signal ps">never</span>
+          <span class="signal ps">every day</span>
+        </div>
+      </div>
+      <div class="rule-card pc">
+        <h3>Present Continuous</h3>
+        <ul>
+          <li>Действие прямо сейчас</li>
+          <li>Временная ситуация (at the moment)</li>
+          <li>Изменяющаяся ситуация</li>
+        </ul>
+        <div class="formula pc">I am working
+He/She/It is working
+You/We/They are working</div>
+        <div class="signal-row">
+          <span class="signal-label">Сигнальные слова:</span>
+          <span class="signal pc">now</span>
+          <span class="signal pc">right now</span>
+          <span class="signal pc">at the moment</span>
+          <span class="signal pc">today</span>
+          <span class="signal pc">this week</span>
+          <span class="signal pc">Look!</span>
+        </div>
+      </div>
+    </div>
+    <div class="warn-box">
+      <strong>⚠ Глаголы-исключения</strong> — не используются в Continuous:<br>
+      know · understand · like · love · hate · want · need · hear · see · seem · belong · contain · depend
+    </div>
+  </div>
+
+  <!-- EX 3.1: Right or Wrong -->
+  <div class="section-title">Упражнение 3.1 · Right or Wrong?</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-purple">3.1</div>
+      <div class="task-meta">
+        <div class="task-lbl">Murphy · Unit 3</div>
+        <div class="task-title">Are the underlined verbs right or wrong? Correct the wrong ones.</div>
+        <div class="task-desc">Напиши RIGHT или WRONG + правильную форму если неверно.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="sent-item"><span class="snum">1.</span> Water <u>boils</u> at 100 degrees celsius.</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s1" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">2.</span> The water <u>boils</u>. Can you turn it off?</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s2" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">3.</span> Look! That man <u>tries</u> to open the door of your car.</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s3" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">4.</span> Can you hear those people? What <u>do</u> they <u>talk</u> about?</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s4" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">5.</span> The moon <u>goes</u> round the earth.</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s5" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">6.</span> I must go now. It <u>gets</u> late.</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s6" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">7.</span> I usually <u>go</u> to work by car.</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s7" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">8.</span> 'Hurry up! It's time to leave.' 'OK, I <u>come</u>.'</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s8" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">9.</span> I hear you've got a new job. How <u>do</u> you <u>get</u> on?</div>
+      <div class="input-row"><span class="input-sign">→</span><textarea id="s9" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <button class="btn btn-purple" onclick="showAns('ans31')">Посмотреть ответы →</button>
+      <div class="answers" id="ans31">
+        <div class="ans-item ok"><span class="ans-snum">1.</span><div><span class="ans-en">RIGHT</span> — факт, закон природы → Present Simple ✓</div></div>
+        <div class="ans-item note"><span class="ans-snum">2.</span><div><span class="ans-note">WRONG → is boiling</span> — действие прямо сейчас → Continuous</div></div>
+        <div class="ans-item note"><span class="ans-snum">3.</span><div><span class="ans-note">WRONG → is trying</span> — Look! = сигнал Continuous</div></div>
+        <div class="ans-item note"><span class="ans-snum">4.</span><div><span class="ans-note">WRONG → are they talking</span> — Can you hear? = прямо сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div><span class="ans-en">RIGHT</span> — постоянный факт → Simple ✓</div></div>
+        <div class="ans-item note"><span class="ans-snum">6.</span><div><span class="ans-note">WRONG → is getting</span> — меняющаяся ситуация прямо сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">7.</span><div><span class="ans-en">RIGHT</span> — usually = привычка → Simple ✓</div></div>
+        <div class="ans-item note"><span class="ans-snum">8.</span><div><span class="ans-note">WRONG → I'm coming</span> — действие прямо сейчас (иду к вам)</div></div>
+        <div class="ans-item ok"><span class="ans-snum">9.</span><div><span class="ans-en">RIGHT</span> — get on = глагол состояния, Simple ✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX 3.2: Put the verb -->
+  <div class="section-title">Упражнение 3.2 · Put the verb in the correct form</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-indigo">3.2</div>
+      <div class="task-meta">
+        <div class="task-lbl">Murphy · Unit 3</div>
+        <div class="task-title">Present Continuous or Present Simple?</div>
+        <div class="task-desc">Вставь глагол в правильной форме. Одно поле = одна форма.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="fill-row"><span class="snum">3.</span> Hurry up! Everybody <input id="f3" oninput="tick()"> (wait) for you.</div>
+      <div class="fill-row"><span class="snum">4.</span> '<input id="f4a" oninput="tick()"> (you/listen) to the radio?' 'No, you can turn it off.'</div>
+      <div class="fill-row"><span class="snum">5.</span> '<input id="f5a" oninput="tick()"> (you/listen) to the radio every day?' 'No, just occasionally.'</div>
+      <div class="fill-row"><span class="snum">6.</span> The River Nile <input id="f6" oninput="tick()"> (flow) into the Mediterranean.</div>
+      <div class="fill-row"><span class="snum">7.</span> Look at the river. It <input id="f7" oninput="tick()"> (flow) very fast today.</div>
+      <div class="fill-row"><span class="snum">8.</span> We usually <input id="f8a" oninput="tick()"> (grow) vegetables but this year we <input id="f8b" oninput="tick()"> (not/grow) any.</div>
+      <div class="fill-row"><span class="snum">9.</span> 'How is your English?' 'It <input id="f9" oninput="tick()"> (improve) slowly.'</div>
+      <div class="fill-row"><span class="snum">10.</span> Ron is in London. He <input id="f10a" oninput="tick()"> (stay) at the Park Hotel. He <input id="f10b" oninput="tick()"> (always/stay) there.</div>
+      <div class="fill-row"><span class="snum">11.</span> Can we stop soon? I <input id="f11" oninput="tick()"> (start) to feel tired.</div>
+      <div class="fill-row"><span class="snum">12.</span> 'Can you drive?' 'I <input id="f12a" oninput="tick()"> (learn). My father <input id="f12b" oninput="tick()"> (teach) me.'</div>
+      <div class="fill-row"><span class="snum">13.</span> Normally I <input id="f13a" oninput="tick()"> (finish) at 5, but this week I <input id="f13b" oninput="tick()"> (work) until 6.</div>
+      <div class="fill-row"><span class="snum">14.</span> My parents <input id="f14a" oninput="tick()"> (live) in Bristol. Where <input id="f14b" oninput="tick()"> (your parents/live)?</div>
+      <div class="fill-row"><span class="snum">15.</span> Sonia <input id="f15a" oninput="tick()"> (look) for a place to live. She <input id="f15b" oninput="tick()"> (stay) with her sister for now.</div>
+      <div class="fill-row"><span class="snum">16.</span> 'What <input id="f16a" oninput="tick()"> (your father/do)?' 'He's an architect but he <input id="f16b" oninput="tick()"> (not/work) at the moment.'</div>
+      <div class="fill-row"><span class="snum">18.</span> The train <input id="f18" oninput="tick()"> (always/leave) on time.</div>
+      <div class="fill-row"><span class="snum">19.</span> Jim is untidy. He <input id="f19" oninput="tick()"> (always/leave) his things all over the place.</div>
+
+      <button class="btn btn-purple" onclick="showAns('ans32')">Посмотреть ответы →</button>
+      <div class="answers" id="ans32">
+        <div class="ans-item ok"><span class="ans-snum">3.</span><div><span class="ans-en">is waiting</span> — прямо сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">4.</span><div><span class="ans-en">Are you listening</span> — прямо сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div><span class="ans-en">Do you listen</span> — every day = привычка</div></div>
+        <div class="ans-item ok"><span class="ans-snum">6.</span><div><span class="ans-en">flows</span> — постоянный факт</div></div>
+        <div class="ans-item ok"><span class="ans-snum">7.</span><div><span class="ans-en">is flowing</span> — Look at / today = прямо сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">8.</span><div><span class="ans-en">grow / aren't growing</span> — usually=Simple; this year=Continuous</div></div>
+        <div class="ans-item ok"><span class="ans-snum">9.</span><div><span class="ans-en">is improving</span> — меняющаяся ситуация</div></div>
+        <div class="ans-item ok"><span class="ans-snum">10.</span><div><span class="ans-en">is staying / always stays</span> — временно vs. привычка</div></div>
+        <div class="ans-item ok"><span class="ans-snum">11.</span><div><span class="ans-en">am starting</span> — прямо сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">12.</span><div><span class="ans-en">am learning / is teaching</span> — временные процессы</div></div>
+        <div class="ans-item ok"><span class="ans-snum">13.</span><div><span class="ans-en">finish / am working</span> — normally=Simple; this week=Continuous</div></div>
+        <div class="ans-item ok"><span class="ans-snum">14.</span><div><span class="ans-en">live / do your parents live</span> — постоянно</div></div>
+        <div class="ans-item ok"><span class="ans-snum">15.</span><div><span class="ans-en">is looking / is staying</span> — временные ситуации</div></div>
+        <div class="ans-item ok"><span class="ans-snum">16.</span><div><span class="ans-en">does your father do / isn't working</span> — профессия vs. сейчас</div></div>
+        <div class="ans-item ok"><span class="ans-snum">18.</span><div><span class="ans-en">always leaves</span> — always+Simple = расписание</div></div>
+        <div class="ans-item note"><span class="ans-snum">19.</span><div><span class="ans-note">is always leaving</span> — always+Continuous = раздражающая привычка ⚠</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX 12: Complete with correct form -->
+  <div class="section-title">Упражнение 12 · Complete with the correct form</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-green">12</div>
+      <div class="task-meta">
+        <div class="task-lbl">Учебник</div>
+        <div class="task-title">Use Present Simple in one sentence, Present Continuous in the other.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="sent-item"><strong>1. run</strong></div>
+      <div class="fill-row">a. My parents <input id="e12_1a" oninput="tick()"> a small family hotel.</div>
+      <div class="fill-row">b. I <input id="e12_1b" oninput="tick()"> the shop while my boss is on holiday.</div>
+
+      <div class="sent-item" style="margin-top:8px"><strong>2. try</strong></div>
+      <div class="fill-row">a. As a good businesswoman, I always <input id="e12_2a" oninput="tick()"> to give my customers what they want.</div>
+      <div class="fill-row">b. He <input id="e12_2b" oninput="tick()"> to get a job in TV, but it's very competitive.</div>
+
+      <div class="sent-item" style="margin-top:8px"><strong>3. wait</strong></div>
+      <div class="fill-row">a. I <input id="e12_3a" oninput="tick()"> to hear if I get the job or not.</div>
+      <div class="fill-row">b. I usually <input id="e12_3b" oninput="tick()"> about an hour after eating before doing any exercise.</div>
+
+      <div class="sent-item" style="margin-top:8px"><strong>4. do</strong></div>
+      <div class="fill-row">a. I'm very busy because I <input id="e12_4a" oninput="tick()"> a course every night after work at the moment.</div>
+      <div class="fill-row">b. We <input id="e12_4b" oninput="tick()"> most of our business in the United States.</div>
+
+      <button class="btn btn-green" onclick="showAns('ans12')">Посмотреть ответы →</button>
+      <div class="answers" id="ans12">
+        <div class="ans-item ok"><span class="ans-snum">1a.</span><div><span class="ans-en">run</span> — постоянный факт (они владеют отелем)</div></div>
+        <div class="ans-item ok"><span class="ans-snum">1b.</span><div><span class="ans-en">am running</span> — временно, пока босс в отпуске</div></div>
+        <div class="ans-item ok"><span class="ans-snum">2a.</span><div><span class="ans-en">try</span> — always = привычка → Simple</div></div>
+        <div class="ans-item ok"><span class="ans-snum">2b.</span><div><span class="ans-en">is trying</span> — сейчас активно пытается</div></div>
+        <div class="ans-item ok"><span class="ans-snum">3a.</span><div><span class="ans-en">am waiting</span> — прямо сейчас жду ответа</div></div>
+        <div class="ans-item ok"><span class="ans-snum">3b.</span><div><span class="ans-en">wait</span> — usually = привычка → Simple</div></div>
+        <div class="ans-item ok"><span class="ans-snum">4a.</span><div><span class="ans-en">am doing</span> — at the moment = временно</div></div>
+        <div class="ans-item ok"><span class="ans-snum">4b.</span><div><span class="ans-en">do</span> — постоянный факт</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX 6: MATCHING -->
+  <div class="section-title">Упражнение 6 · Match the questions with the answers</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-amber">6</div>
+      <div class="task-meta">
+        <div class="task-lbl">Учебник</div>
+        <div class="task-title">Match common questions about work (1–6) with answers (a–f).</div>
+        <div class="task-desc">Нажми вопрос, затем нажми правильный ответ.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="match-grid" id="match-left">
+        <div>
+          <div class="match-q" id="mq1" onclick="selectQ(1)"><span class="match-num">1</span>What do you do?</div>
+          <div class="match-q" id="mq2" onclick="selectQ(2)"><span class="match-num">2</span>Where do you work?</div>
+          <div class="match-q" id="mq3" onclick="selectQ(3)"><span class="match-num">3</span>How long have you worked there?</div>
+          <div class="match-q" id="mq4" onclick="selectQ(4)"><span class="match-num">4</span>Do you enjoy it?</div>
+          <div class="match-q" id="mq5" onclick="selectQ(5)"><span class="match-num">5</span>What are the hours like?</div>
+          <div class="match-q" id="mq6" onclick="selectQ(6)"><span class="match-num">6</span>Do you get on with the people you work with?</div>
+        </div>
+        <div>
+          <div class="match-a" id="ma_a" onclick="selectA('a')"><span class="match-lbl">a</span>Yeah, it's good. Sometimes it's a bit boring – like any job – but basically it's fine.</div>
+          <div class="match-a" id="ma_b" onclick="selectA('b')"><span class="match-lbl">b</span>A couple of years. I joined soon after university.</div>
+          <div class="match-a" id="ma_c" onclick="selectA('c')"><span class="match-lbl">c</span>I'm a police officer.</div>
+          <div class="match-a" id="ma_d" onclick="selectA('d')"><span class="match-lbl">d</span>In the local police department in Lyon.</div>
+          <div class="match-a" id="ma_e" onclick="selectA('e')"><span class="match-lbl">e</span>Yeah, they're nice. We often go out together after work.</div>
+          <div class="match-a" id="ma_f" onclick="selectA('f')"><span class="match-lbl">f</span>Not great. I often work nights, so it's hard. It makes family life difficult.</div>
+        </div>
+      </div>
+      <div class="match-score" id="match-score"></div>
+    </div>
+  </div>
+
+  <!-- SCORE + SEND -->
+  <div class="score-section" id="score-section">
+    <div class="score-big" id="score-display">—</div>
+    <div class="score-sub" id="score-sub"></div>
+    <div id="score-breakdown"></div>
+  </div>
+
+  <div class="send-section">
+    <h3>✈️ Отправить преподавателю</h3>
+    <p>Результаты уйдут в Telegram автоматически.</p>
+    <button class="btn-send" id="send-btn" onclick="submitAll()">Отправить результаты в Telegram</button>
+    <div class="send-status" id="send-status"></div>
+  </div>
+
+</div>
+
+<script>
+// ── CONFIG ──
+const BOT_TOKEN = '8665767534:AAFXSwg_aTaGlwwo-vamfN53NYFPMG78aRk';
+const CHAT_ID   = '1004358925459';
+const SB_URL    = 'https://plkwitrcyoqjwbicdufs.supabase.co';
+const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
+const STUDENT   = 'zakiya';
+
+async function sbFetch(path, opts={}) {
+  const { prefer, body, method='GET', headers:ex={} } = opts;
+  const h = { 'apikey':SB_KEY, 'Authorization':'Bearer '+SB_KEY, 'Content-Type':'application/json', ...ex };
+  if (prefer) h['Prefer'] = prefer;
+  return fetch(SB_URL+path, {method, headers:h, body});
+}
+
+// ── PROGRESS ──
+let filledCount = 0;
+const TOTAL_FIELDS = 20; // ~9 textarea + ~18 inputs (approx)
+
+function grow(el) { el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+function tick() {
+  let n = 0;
+  document.querySelectorAll('textarea, .task-body input').forEach(el => {
+    if (el.value.trim()) n++;
+  });
+  n += matchedCount;
+  const pct = Math.min(Math.round(n / TOTAL_FIELDS * 100), 100);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('prog-lbl').textContent = n + ' / ' + TOTAL_FIELDS;
+}
+
+function showAns(id) { document.getElementById(id).classList.add('show'); }
+
+// ── MATCHING ──
+const CORRECT_MATCH = { 1:'c', 2:'d', 3:'b', 4:'a', 5:'f', 6:'e' };
+let selectedQ = null, selectedA = null, matchedCount = 0;
+const matchResults = {};
+
+function selectQ(num) {
+  if (matchResults[num]) return;
+  document.querySelectorAll('.match-q').forEach(el => el.classList.remove('selected'));
+  selectedQ = num;
+  document.getElementById('mq'+num).classList.add('selected');
+  if (selectedA) tryMatch();
+}
+
+function selectA(letter) {
+  const alreadyMatched = Object.values(matchResults).includes(letter);
+  if (alreadyMatched) return;
+  document.querySelectorAll('.match-a').forEach(el => el.classList.remove('selected'));
+  selectedA = letter;
+  document.getElementById('ma_'+letter).classList.add('selected');
+  if (selectedQ) tryMatch();
+}
+
+function tryMatch() {
+  const q = selectedQ, a = selectedA;
+  selectedQ = null; selectedA = null;
+  const correct = CORRECT_MATCH[q] === a;
+  const qEl = document.getElementById('mq'+q);
+  const aEl = document.getElementById('ma_'+a);
+  if (correct) {
+    qEl.classList.remove('selected'); qEl.classList.add('matched');
+    aEl.classList.remove('selected'); aEl.classList.add('matched');
+    matchResults[q] = a;
+    matchedCount++;
+    tick();
+    const total = Object.keys(CORRECT_MATCH).length;
+    if (matchedCount === total) {
+      document.getElementById('match-score').textContent = '✅ Все пары найдены верно!';
+    } else {
+      document.getElementById('match-score').textContent = `✓ ${matchedCount} из ${total} верно`;
+    }
+  } else {
+    qEl.classList.add('wrong-flash'); aEl.classList.add('wrong-flash');
+    setTimeout(() => {
+      qEl.classList.remove('wrong-flash','selected');
+      aEl.classList.remove('wrong-flash','selected');
+    }, 600);
+  }
+}
+
+// ── COLLECT ANSWERS FOR REPORT ──
+function collect31() {
+  const tasks = [
+    'Water boils at 100 degrees celsius.',
+    'The water boils. Can you turn it off?',
+    'Look! That man tries to open the door.',
+    "Can you hear those people? What do they talk about?",
+    'The moon goes round the earth.',
+    'I must go now. It gets late.',
+    'I usually go to work by car.',
+    "Hurry up! It's time to leave. OK, I come.",
+    "I hear you've got a new job. How do you get on?",
+  ];
+  const correct = ['RIGHT','WRONG → is boiling','WRONG → is trying','WRONG → are they talking','RIGHT','WRONG → is getting','RIGHT','WRONG → I\'m coming','RIGHT'];
+  let text = '';
+  for (let i=1;i<=9;i++) {
+    const val = document.getElementById('s'+i)?.value?.trim()||'—';
+    const isRight = val.toLowerCase().includes(correct[i-1].toLowerCase().split(' ')[0]);
+    text += `${i}. ${tasks[i-1]}\n   Ответ: ${val}\n   Эталон: ${correct[i-1]}\n`;
+  }
+  return text;
+}
+
+function collect32() {
+  const fields = [
+    ['f3','is waiting'],['f4a','Are you listening'],['f5a','Do you listen'],
+    ['f6','flows'],['f7','is flowing'],['f8a','grow'],['f8b',"aren't growing"],
+    ['f9','is improving'],['f10a','is staying'],['f10b','always stays'],
+    ['f11','am starting'],['f12a','am learning'],['f12b','is teaching'],
+    ['f13a','finish'],['f13b','am working'],['f14a','live'],['f14b','do your parents live'],
+    ['f15a','is looking'],['f15b','is staying'],['f16a','does your father do'],
+    ['f16b',"isn't working"],['f18','always leaves'],['f19','is always leaving'],
+  ];
+  let text = '';
+  fields.forEach(([id,correct]) => {
+    const val = document.getElementById(id)?.value?.trim()||'—';
+    text += `${id}: ${val} | Эталон: ${correct}\n`;
+  });
+  return text;
+}
+
+function collect12() {
+  const items = [
+    ['e12_1a','run'],['e12_1b','am running'],
+    ['e12_2a','try'],['e12_2b','is trying'],
+    ['e12_3a','am waiting'],['e12_3b','wait'],
+    ['e12_4a','am doing'],['e12_4b','do'],
+  ];
+  let text = '';
+  items.forEach(([id,correct]) => {
+    const val = document.getElementById(id)?.value?.trim()||'—';
+    text += `${id}: ${val} | Эталон: ${correct}\n`;
+  });
+  return text;
+}
+
+function collectMatch() {
+  const labels = {1:'What do you do?',2:'Where do you work?',3:'How long...?',4:'Do you enjoy it?',5:'What are the hours like?',6:'Do you get on with...?'};
+  const answers = {a:'I\'m a police officer.',b:'A couple of years...',c:'Yeah, good...',d:'In the local police department.',e:'They\'re nice...',f:'Not great, I work nights.'};
+  let text = '';
+  for (let i=1;i<=6;i++) {
+    const got = matchResults[i]||'—';
+    const right = CORRECT_MATCH[i];
+    const mark = got===right ? '✅' : '❌';
+    text += `${mark} ${i}. ${labels[i]}\n   Ответ: ${got||'—'} | Правильно: ${right} (${answers[right]})\n`;
+  }
+  return text;
+}
+
+// ── SUBMIT ──
+async function submitAll() {
+  const btn = document.getElementById('send-btn');
+  const status = document.getElementById('send-status');
+
+  const matchScore = matchedCount;
+  const matchTotal = 6;
+  const scoreStr = `Matching: ${matchScore}/${matchTotal}`;
+
+  // UI
+  document.getElementById('score-section').classList.add('show');
+  document.getElementById('score-display').textContent = scoreStr;
+  document.getElementById('score-sub').textContent = matchScore===matchTotal ? '🎉 Все совпадения верны!' : matchScore>=4 ? '👍 Хорошо!' : '📚 Повтори материал';
+  document.getElementById('score-breakdown').innerHTML =
+    `<div class="sb"><span>Упр. 6 Matching</span><span>${matchScore}/${matchTotal}</span></div>
+     <div class="sb"><span>Упр. 3.1, 3.2, 12</span><span>На проверке ниже 👇</span></div>`;
+
+  localStorage.setItem('zakiya_hw2_score', scoreStr);
+  const done = JSON.parse(localStorage.getItem('zakiya_hw_done')||'[]');
+  if (!done.includes('2')) done.push('2');
+  localStorage.setItem('zakiya_hw_done', JSON.stringify(done));
+
+  btn.disabled=true; btn.textContent='Отправляю…';
+
+  const block31 = collect31();
+  const block32 = collect32();
+  const block12 = collect12();
+  const block6  = collectMatch();
+
+  const msg =
+`📝 *Homework 2 · Zakiya*
+📅 ${new Date().toLocaleString('ru-RU')}
+
+🎯 *Matching (упр.6): ${matchScore}/${matchTotal}*
+
+━━━━━━━━━━━━━━━━━━
+📌 *Упр. 3.1 — Right or Wrong?*
+_Задание: верна ли форма глагола? Исправь неверные._
+${block31}
+━━━━━━━━━━━━━━━━━━
+✏️ *Упр. 3.2 — Вставь форму глагола*
+_Present Simple или Continuous?_
+${block32}
+━━━━━━━━━━━━━━━━━━
+🔤 *Упр. 12 — Complete with correct form*
+_Simple в одном, Continuous в другом_
+${block12}
+━━━━━━━━━━━━━━━━━━
+🔗 *Упр. 6 — Matching*
+${block6}`;
+
+  let sbOk=false, tgOk=false;
+
+  try {
+    const r = await sbFetch('/rest/v1/homework_results', {
+      method:'POST', prefer:'return=minimal',
+      body: JSON.stringify({ student_id:STUDENT, hw_id:'hw2', score:scoreStr,
+        part_a: block31+'\n'+block32, part_c: block12+'\n'+block6,
+        submitted_at: new Date().toISOString() })
+    });
+    sbOk = r.ok;
+  } catch(e) { console.warn('SB fail',e); }
+
+  async function tgSend(text) {
+    const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({chat_id:CHAT_ID, text, parse_mode:'Markdown'})
+    });
+    return (await r.json()).ok;
+  }
+
+  try {
+    if (msg.length <= 4000) {
+      tgOk = await tgSend(msg);
+    } else {
+      const parts = [
+        `📝 *HW2 · Закия — часть 1*\n\n${block31}`,
+        `📝 *HW2 · Закия — часть 2 (3.2)*\n\n${block32}`,
+        `📝 *HW2 · Закия — часть 3 (Упр.12 + 6)*\n\n${block12}\n\n${block6}`,
+      ];
+      const res = await Promise.all(parts.map(tgSend));
+      tgOk = res.every(Boolean);
+    }
+  } catch(e) { console.warn('TG fail',e); }
+
+  if (sbOk && tgOk) {
+    status.className='send-status ok'; status.textContent='✓ Сохранено в облаке ☁️ и отправлено в Telegram!';
+    btn.textContent='✓ Отправлено';
+  } else if (tgOk) {
+    status.className='send-status ok'; status.textContent='✓ Отправлено в Telegram!';
+    btn.textContent='✓ Отправлено';
+  } else {
+    status.className='send-status err'; status.textContent='⚠ Ошибка. Покажи экран преподавателю.';
+    btn.disabled=false; btn.textContent='Повторить';
+  }
+}
+
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('zakiya_hw2_score');
+  if (saved) {
+    document.getElementById('score-section').classList.add('show');
+    document.getElementById('score-display').textContent = saved;
+    document.getElementById('score-sub').textContent = 'Задание уже было отправлено';
+  }
+});
+</script>
+</body>
+</html>
