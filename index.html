@@ -69,10 +69,23 @@
     .nav-pill a:hover, .nav-pill a.active { background:var(--teal); color:#fff; }
 
     /* MOTIVATIONAL */
-    .motto-card { background:linear-gradient(135deg,var(--teal-pale),#e0f2fe); border:1.5px solid rgba(13,148,136,.2); border-radius:18px; padding:22px; margin-bottom:28px; }
-    .motto-card p { font-size:15px; line-height:1.7; color:var(--text); }
+    .motto-card { background:linear-gradient(135deg,var(--teal-pale),#e0f2fe); border:1.5px solid rgba(13,148,136,.2); border-radius:18px; padding:22px; margin-bottom:20px; }
     .motto-card .motto-en { font-size:17px; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; color:var(--teal); margin-bottom:6px; }
     .motto-card .motto-ru { font-size:13px; color:var(--muted); }
+
+    /* TEXTBOOKS */
+    .books-section { margin-top:8px; margin-bottom:28px; }
+    .book-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:16px 18px; display:flex; align-items:center; gap:14px; margin-bottom:10px; transition:all .2s; }
+    .book-card:hover { border-color:var(--teal-light); box-shadow:0 4px 16px rgba(13,148,136,.08); }
+    .book-spine { width:44px; height:58px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .book-spine.outcomes { background:linear-gradient(160deg,#0d9488,#0891b2); }
+    .book-spine.grammar  { background:linear-gradient(160deg,#6366f1,#7c3aed); }
+    .book-info { flex:1; min-width:0; }
+    .book-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; margin-bottom:3px; }
+    .book-meta  { font-size:12px; color:var(--muted); }
+    .book-tag   { display:inline-block; font-size:11px; font-weight:600; padding:2px 9px; border-radius:99px; margin-top:5px; }
+    .book-tag.green  { background:var(--teal-pale); color:var(--teal); }
+    .book-tag.purple { background:#ede9fe; color:#6d28d9; }
   </style>
 </head>
 <body>
@@ -97,11 +110,26 @@
     <div class="stat-chip streak"> <div class="sc-num" id="stat-streak">0</div> <div class="sc-lbl">Дней подряд</div></div>
   </div>
 
-  <div class="motto-card">
+  <!-- PROGRESS — вверху -->
+  <div class="section-title">📊 Прогресс</div>
+  <div class="progress-card">
+    <div class="pc-head"><span class="pc-title">Домашние задания</span><span class="pc-pct" id="hw-pct">0%</span></div>
+    <div class="pc-bar"><div class="pc-fill" id="hw-fill" style="width:0%"></div></div>
+    <div class="pc-sub" id="hw-sub">Ещё нет выполненных заданий</div>
+  </div>
+  <div class="progress-card">
+    <div class="pc-head"><span class="pc-title">Словарь</span><span class="pc-pct" id="gr-pct">0%</span></div>
+    <div class="pc-bar"><div class="pc-fill" id="gr-fill" style="width:0%"></div></div>
+    <div class="pc-sub" id="gr-sub">Начни тренировать словарь</div>
+  </div>
+
+  <!-- MOTTO -->
+  <div class="motto-card" style="margin-top:8px">
     <div class="motto-en">"Every expert was once a beginner."</div>
     <div class="motto-ru">Каждый эксперт когда-то был новичком.</div>
   </div>
 
+  <!-- NAV SECTIONS -->
   <div class="section-title">📚 Разделы</div>
   <div class="nav-grid">
     <a href="homework.html" class="nav-card">
@@ -130,17 +158,27 @@
     </a>
   </div>
 
-  <div class="section-title">📊 Прогресс</div>
-  <div class="progress-card">
-    <div class="pc-head"><span class="pc-title">Домашние задания</span><span class="pc-pct" id="hw-pct">0%</span></div>
-    <div class="pc-bar"><div class="pc-fill" id="hw-fill" style="width:0%"></div></div>
-    <div class="pc-sub" id="hw-sub">Ещё нет выполненных заданий</div>
+  <!-- TEXTBOOKS — внизу -->
+  <div class="section-title">📖 Учебники</div>
+  <div class="books-section">
+    <div class="book-card">
+      <div class="book-spine outcomes">📘</div>
+      <div class="book-info">
+        <div class="book-title">Outcomes</div>
+        <div class="book-meta">2nd Edition · Pre-Intermediate</div>
+        <span class="book-tag green">Основной учебник</span>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-spine grammar">📗</div>
+      <div class="book-info">
+        <div class="book-title">Grammar in Use</div>
+        <div class="book-meta">Raymond Murphy · Cambridge</div>
+        <span class="book-tag purple">Грамматика</span>
+      </div>
+    </div>
   </div>
-  <div class="progress-card">
-    <div class="pc-head"><span class="pc-title">Словарь</span><span class="pc-pct" id="gr-pct">0%</span></div>
-    <div class="pc-bar"><div class="pc-fill" id="gr-fill" style="width:0%"></div></div>
-    <div class="pc-sub" id="gr-sub">Начни тренировать словарь</div>
-  </div>
+
 </div>
 
 <div class="nav-pill">
@@ -154,7 +192,7 @@
 const SB_URL  = 'https://plkwitrcyoqjwbicdufs.supabase.co';
 const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
 const STUDENT = 'zakiya';
-const HW_TOTAL = 5, GR_TOTAL = 6, VOCAB_TOTAL = 30;
+const HW_TOTAL = 5, GR_TOTAL = 6, VOCAB_TOTAL = 40;
 
 function renderStats(hwCount, vocabCount, grCount) {
   // Stat chips
