@@ -142,7 +142,7 @@
   <div id="list-view">
     <div class="stats-row">
       <div class="stat-chip"><div class="sc-num" id="st-known">0</div><div class="sc-lbl">Знаю</div></div>
-      <div class="stat-chip"><div class="sc-num" id="st-total">30</div><div class="sc-lbl">Всего слов</div></div>
+      <div class="stat-chip"><div class="sc-num" id="st-total">40</div><div class="sc-lbl">Всего слов</div></div>
       <div class="stat-chip"><div class="sc-num" id="st-pct">0%</div><div class="sc-lbl">Прогресс</div></div>
     </div>
 
@@ -250,10 +250,21 @@ const SETS = [
       {en:'Excuse me.',             pn:'', ru:'Извините.',                   ex:'Excuse me, are you Dr. Smith?'},
     ]
   },
+  { id:'pres-tenses', icon:'⏱️', title:'Present Simple vs Continuous', color:'#7c3aed',
+    words:[
+      {en:'to improve',      pn:'/ɪmˈpruːv/',        ru:'Улучшаться / совершенствоваться', ex:'My English is improving slowly.'},
+      {en:'occasionally',    pn:'/əˈkeɪʒənəli/',      ru:'Иногда / время от времени',       ex:'I occasionally work night shifts.'},
+      {en:'competitive',     pn:'/kəmˈpetɪtɪv/',     ru:'Конкурентный / сложный',           ex:'The job market is very competitive.'},
+      {en:'to flow',         pn:'/fləʊ/',             ru:'Течь / протекать',                 ex:'The river flows into the sea.'},
+      {en:'to earn',         pn:'/ɜːrn/',             ru:'Зарабатывать',                     ex:'She earns more money on night shifts.'},
+      {en:'to get on with',  pn:'/ɡet ɒn wɪð/',      ru:'Ладить с кем-то',                  ex:'Do you get on with your colleagues?'},
+      {en:'at the moment',   pn:'/ət ðə ˈməʊmənt/',  ru:'В данный момент / сейчас',         ex:'She is staying with her sister at the moment.'},
+      {en:'untidy',          pn:'/ʌnˈtaɪdi/',         ru:'Неаккуратный / беспорядочный',     ex:'He is very untidy — things are everywhere.'},
+      {en:'basically',       pn:'/ˈbeɪsɪkli/',        ru:'В основном / по сути',             ex:'It\'s basically a simple task.'},
+      {en:'a couple of',     pn:'/ə ˈkʌpl əv/',      ru:'Пара / несколько',                 ex:'I\'ve worked here for a couple of years.'},
+    ]
+  },
 ];
-
-// ══════════════════════════════════════════════
-// SUPABASE CONFIG
 // ══════════════════════════════════════════════
 const SB_URL    = 'https://plkwitrcyoqjwbicdufs.supabase.co';
 const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
