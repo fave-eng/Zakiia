@@ -575,66 +575,47 @@ ${blockD}`;
   btn.disabled = true;
   btn.textContent = 'Отправляю…';
 
-  const now = new Date().toISOString();
-  let sbOk = false, tgOk = false;
-
-  // ── 1. Save to Supabase ──
-  try {
-    const res = await sbFetch('/rest/v1/homework_results', {
-      method: 'POST',
-      prefer: 'return=minimal',
-      body: JSON.stringify({
-        student_id:   STUDENT,
-        hw_id:        'hw1',
-        score:        scoreStr,
-        part_a:       blockA,
-        part_c:       blockC,
-        submitted_at: now
-      })
-    });
-    sbOk = res.ok;
-  } catch(e) { console.warn('Supabase HW save failed', e); }
-
-  // ── 2. Send to Telegram (длинный отчёт — разбиваем если >4000 символов) ──
-  async function tgSend(text) {
-    const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  // ── Telegram — отправляем СРАЗУ независимо от Supabase ──
+  function tgPost(text) {
+    return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'Markdown' })
-    });
-    return (await r.json()).ok;
+    }).then(r => r.json()).catch(e => { console.warn('TG error', e); return { ok: false }; });
   }
-  try {
-    if (msg.length <= 4000) {
-      tgOk = await tgSend(msg);
-    } else {
-      // Разбиваем на части по блокам
-      const parts = [
-        msg.split('Part B')[0].trim(),
-        '📝 *HW1 продолжение — Part B + C*\n\n🔤 *Part B*\n' + blockB + '\n🌍 *Part C*\n' + blockC,
-        '📝 *HW1 продолжение — Part D*\n\n🧩 *Part D*\n' + blockD
-      ];
-      const results = await Promise.all(parts.map(tgSend));
-      tgOk = results.every(Boolean);
-    }
-  } catch(e) { console.warn('Telegram send failed', e); }
 
-  // ── Status ──
-  if (sbOk && tgOk) {
+  const tgPromise = msg.length <= 4000
+    ? tgPost(msg)
+    : Promise.all([
+        tgPost(msg.split('Part B')[0].trim()),
+        tgPost('📝 *HW1 · Part B + C*\n\n' + blockB + '\n\n' + blockC),
+        tgPost('📝 *HW1 · Part D*\n\n' + blockD)
+      ]);
+
+  // ── Supabase — параллельно, не блокирует ──
+  const sbPromise = sbFetch('/rest/v1/homework_results', {
+    method: 'POST',
+    prefer: 'return=minimal',
+    body: JSON.stringify({
+      student_id: STUDENT, hw_id: 'hw1', score: scoreStr,
+      part_a: blockA, part_c: blockC,
+      submitted_at: new Date().toISOString()
+    })
+  }).then(r => r.ok).catch(() => false);
+
+  // ── Ждём оба результата ──
+  const [tgResult, sbOk] = await Promise.all([tgPromise, sbPromise]);
+  const tgOk = Array.isArray(tgResult) ? tgResult.every(r => r.ok) : tgResult.ok;
+
+  if (tgOk) {
     status.className = 'send-status ok';
-    status.textContent = '✓ Сохранено в облаке ☁️ и отправлено преподавателю в Telegram!';
-    btn.textContent = '✓ Отправлено';
-  } else if (sbOk) {
-    status.className = 'send-status ok';
-    status.textContent = '✓ Сохранено в облаке ☁️. Telegram — проверь токен.';
-    btn.textContent = '✓ Сохранено';
-  } else if (tgOk) {
-    status.className = 'send-status ok';
-    status.textContent = '✓ Отправлено в Telegram! (Supabase: проверь настройки)';
+    status.textContent = sbOk
+      ? '✓ Отправлено в Telegram и сохранено в облаке ☁️!'
+      : '✓ Отправлено в Telegram!';
     btn.textContent = '✓ Отправлено';
   } else {
     status.className = 'send-status err';
-    status.textContent = '⚠ Ошибка отправки. Покажи экран преподавателю.';
+    status.textContent = '⚠ Не удалось отправить в Telegram. Проверь интернет и попробуй снова.';
     btn.disabled = false;
     btn.textContent = 'Повторить';
   }
@@ -642,6 +623,16 @@ ${blockD}`;
 
 // ── On load: restore answers and lock if already submitted ──
 window.addEventListener('load', () => {
+  // ── ?reset=1 → сбросить задание (только для преподавателя) ──
+  if (new URLSearchParams(window.location.search).get('reset') === '1') {
+    ['zakiya_hw1_score','zakiya_hw1_answers'].forEach(k => localStorage.removeItem(k));
+    const done = JSON.parse(localStorage.getItem('zakiya_hw_done')||'[]');
+    const updated = done.filter(id => id !== '1');
+    localStorage.setItem('zakiya_hw_done', JSON.stringify(updated));
+    // Убираем ?reset=1 из URL чтобы не сбрасывалось снова при обновлении
+    history.replaceState({}, '', window.location.pathname);
+  }
+
   const saved = localStorage.getItem('zakiya_hw1_score');
   const savedAnswers = JSON.parse(localStorage.getItem('zakiya_hw1_answers') || 'null');
 
