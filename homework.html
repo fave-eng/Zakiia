@@ -95,7 +95,7 @@
 <div class="page">
   <div class="stats-row">
     <div class="stat-chip done" ><div class="sc-num" id="statDone">0</div><div class="sc-lbl">Выполнено</div></div>
-    <div class="stat-chip total"><div class="sc-num">5</div>               <div class="sc-lbl">Всего</div></div>
+    <div class="stat-chip total"><div class="sc-num" id="statTotal">3</div><div class="sc-lbl">Всего</div></div>
     <div class="stat-chip pct"  ><div class="sc-num" id="statPct">0%</div> <div class="sc-lbl">Прогресс</div></div>
   </div>
 
@@ -204,8 +204,14 @@ const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 const STUDENT = 'zakiya';
 
 function renderDone(done) {
-  const total = 5, count = done.length, pct = Math.round(count / total * 100);
-  document.getElementById('statDone').textContent = count;
+  // Считаем только разблокированные уроки (не locked)
+  const total = document.querySelectorAll('.lesson-card.active').length;
+  // Сохраняем число активных уроков чтобы index.html тоже знал
+  localStorage.setItem('zakiya_hw_total', total);
+  const count = done.filter(id => document.getElementById('num-' + id)).length;
+  const pct = total > 0 ? Math.round(count / total * 100) : 0;
+  document.getElementById('statDone').textContent  = count;
+  document.getElementById('statTotal').textContent = total;
   document.getElementById('statPct').textContent  = pct + '%';
   document.getElementById('heroProgress').style.width = pct + '%';
   document.getElementById('heroLabel').textContent = `${count} из ${total} выполнено`;
