@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HW 3 — Zakiya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --cyan:#0891b2; --cyan-l:#e0f2fe; --cyan-d:#0e7490;
+      --bg:#f0fdf9; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --green:#10b981; --green-l:#d1fae5;
+      --red:#ef4444;   --red-l:#fee2e2;
+      --amber:#f59e0b; --amber-l:#fef3c7;
+      --purple:#7c3aed;--purple-l:#ede9fe;
+      --indigo:#6366f1;--indigo-l:#e0e7ff;
+      --teal:#0d9488;  --teal-l:#ccfbf1;
+      --radius:16px;   --radius-sm:10px;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding:0 0 5rem; }
+
+    .hero { background:linear-gradient(135deg,#0891b2,#0d9488,#6366f1); padding:2.5rem 1.5rem 4rem; position:relative; }
+    .hero-wave { position:absolute; bottom:-1px; left:0; right:0; line-height:0; }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; color:#fff; margin-bottom:6px; }
+    .hero p { font-size:14px; color:rgba(255,255,255,.8); }
+    .progress-row { display:flex; align-items:center; gap:12px; margin-top:14px; max-width:400px; }
+    .prog-bar { flex:1; height:6px; background:rgba(255,255,255,.25); border-radius:99px; overflow:hidden; }
+    .prog-fill { height:100%; background:#fff; border-radius:99px; transition:width .4s; }
+    .prog-lbl { font-size:12px; color:rgba(255,255,255,.8); white-space:nowrap; }
+
+    .page { max-width:680px; margin:0 auto; padding:0 1.25rem; }
+    .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:1.5rem 0 .75rem; }
+
+    /* DO/DOES EXPLAINER */
+    .explainer { background:var(--cyan-l); border:1.5px solid rgba(8,145,178,.2); border-radius:var(--radius); padding:1.25rem 1.5rem; margin:1.5rem 0; }
+    .explainer h2 { font-size:15px; font-weight:700; color:var(--cyan-d); margin-bottom:14px; }
+    .do-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+    @media(max-width:480px){ .do-grid { grid-template-columns:1fr; } }
+    .do-card { background:#fff; border-radius:var(--radius-sm); padding:.9rem 1rem; border:1.5px solid rgba(8,145,178,.15); }
+    .do-card h3 { font-size:13px; font-weight:700; color:var(--cyan-d); margin-bottom:8px; }
+    .do-card ul { padding-left:14px; font-size:13px; line-height:1.9; color:var(--text); }
+    .do-card em { color:var(--muted); }
+    .formula-do { font-family:'Courier New',monospace; font-size:12px; padding:8px 12px; border-radius:6px; margin-bottom:8px; line-height:1.8; }
+    .formula-do.pos { background:var(--green-l); color:#065f46; }
+    .formula-do.neg { background:var(--red-l); color:#991b1b; }
+    .formula-do.que { background:var(--indigo-l); color:#3730a3; }
+    .warn-do { background:var(--amber-l); border-left:3px solid var(--amber); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:.75rem 1rem; font-size:13px; margin-top:10px; line-height:1.7; }
+    .warn-do strong { color:#92400e; }
+    .rule-examples { display:flex; flex-direction:column; gap:6px; margin-top:10px; }
+    .re { display:flex; gap:8px; padding:7px 10px; border-radius:var(--radius-sm); font-size:13px; align-items:flex-start; }
+    .re.ok  { background:var(--green-l); }
+    .re.bad { background:var(--red-l); }
+    .re-s { font-weight:700; flex-shrink:0; }
+    .re.ok .re-s  { color:#065f46; }
+    .re.bad .re-s { color:#991b1b; }
+
+    /* TASK CARD */
+    .task { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:14px; overflow:hidden; }
+    .task-head { padding:1rem 1.25rem; display:flex; align-items:flex-start; gap:12px; }
+    .task-num { width:36px; height:36px; border-radius:99px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+    .tn-cyan   { background:var(--cyan-l);   color:var(--cyan-d); }
+    .tn-green  { background:var(--green-l);  color:#065f46; }
+    .tn-purple { background:var(--purple-l); color:var(--purple); }
+    .tn-amber  { background:var(--amber-l);  color:#92400e; }
+    .tn-indigo { background:var(--indigo-l); color:var(--indigo); }
+    .task-meta { flex:1; }
+    .task-lbl  { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+    .task-title{ font-size:15px; font-weight:600; margin-bottom:3px; }
+    .task-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+    .task-body { padding:0 1.25rem 1.25rem; }
+
+    /* INPUTS */
+    .sent-item { background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; font-size:14px; margin-bottom:10px; line-height:1.6; }
+    .snum { font-size:11px; font-weight:700; color:var(--muted); margin-right:6px; }
+    .input-row { display:flex; align-items:flex-start; gap:10px; background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:6px; }
+    .input-sign { font-size:12px; font-weight:700; color:var(--muted); white-space:nowrap; min-width:20px; margin-top:3px; }
+    .input-row textarea { flex:1; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); resize:none; outline:none; line-height:1.5; min-height:22px; }
+    .fill-row { display:flex; align-items:center; gap:6px; background:#f8fafc; border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:6px; font-size:14px; flex-wrap:wrap; }
+    .fill-row input { border:none; border-bottom:1.5px solid var(--border); background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); outline:none; min-width:130px; padding:2px 4px; transition:border-color .15s; }
+    .fill-row input:focus { border-color:var(--cyan); }
+
+    /* MCQ */
+    .q-block { margin-bottom:14px; }
+    .q-text { font-size:14px; font-weight:500; margin-bottom:8px; line-height:1.6; }
+    .q-opts { display:flex; flex-wrap:wrap; gap:6px; }
+    .q-opt { font-family:'Inter',sans-serif; font-size:13px; padding:7px 16px; border-radius:99px; border:1.5px solid var(--border); background:#f8fafc; cursor:pointer; transition:all .15s; }
+    .q-opt:hover { border-color:var(--cyan); background:var(--cyan-l); }
+    .q-opt.correct { background:var(--green-l); border-color:var(--green); color:#065f46; pointer-events:none; }
+    .q-opt.wrong   { background:var(--red-l);   border-color:var(--red);  color:#991b1b; pointer-events:none; }
+    .q-fb { font-size:12px; margin-top:5px; display:none; padding:6px 10px; border-radius:var(--radius-sm); }
+    .q-fb.show { display:block; }
+    .q-fb.ok  { background:var(--green-l); color:#065f46; }
+    .q-fb.bad { background:var(--red-l); color:#991b1b; }
+
+    /* ANSWERS */
+    .answers { display:none; margin-top:10px; }
+    .answers.show { display:block; }
+    .ans-item { display:flex; gap:8px; padding:8px 10px; border-radius:var(--radius-sm); margin-bottom:5px; font-size:13px; }
+    .ans-item.ok   { background:var(--green-l); }
+    .ans-item.note { background:var(--amber-l); }
+    .ans-snum { font-weight:700; color:var(--muted); font-size:11px; white-space:nowrap; min-width:30px; margin-top:1px; }
+    .ans-en { font-weight:600; color:#065f46; }
+    .ans-note { font-weight:600; color:#92400e; }
+
+    /* BUTTONS */
+    .btn { font-family:'Inter',sans-serif; font-size:13px; font-weight:500; padding:8px 18px; border-radius:var(--radius-sm); border:1.5px solid; cursor:pointer; transition:all .15s; margin-top:8px; }
+    .btn-cyan   { background:var(--cyan-l);   border-color:var(--cyan);   color:var(--cyan-d); }
+    .btn-cyan:hover   { background:var(--cyan);   color:#fff; }
+    .btn-green  { background:var(--green-l);  border-color:var(--green);  color:#065f46; }
+    .btn-green:hover  { background:var(--green);  color:#fff; }
+    .btn-purple { background:var(--purple-l); border-color:var(--purple); color:var(--purple); }
+    .btn-purple:hover { background:var(--purple); color:#fff; }
+
+    /* MCQ SCORE / SEND */
+    .score-section { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); padding:1.25rem; margin-bottom:14px; display:none; }
+    .score-section.show { display:block; }
+    .score-big { font-family:'Plus Jakarta Sans',sans-serif; font-size:40px; font-weight:800; color:var(--cyan); text-align:center; }
+    .score-sub { text-align:center; font-size:14px; color:var(--muted); margin-top:4px; }
+    .sb { display:flex; justify-content:space-between; font-size:13px; padding:6px 10px; border-radius:var(--radius-sm); background:#f8fafc; margin-top:6px; }
+    .sb span:last-child { font-weight:600; color:var(--cyan); }
+    .send-section { background:var(--cyan-l); border:1.5px solid rgba(8,145,178,.25); border-radius:var(--radius); padding:1.25rem; margin-bottom:14px; }
+    .send-section h3 { font-size:15px; font-weight:600; color:var(--cyan-d); margin-bottom:4px; }
+    .send-section p  { font-size:13px; color:var(--muted); margin-bottom:10px; }
+    .btn-send { font-family:'Inter',sans-serif; background:linear-gradient(135deg,#0891b2,#0d9488); border:none; color:#fff; font-size:15px; font-weight:600; padding:14px 28px; width:100%; border-radius:14px; cursor:pointer; }
+    .btn-send:hover { opacity:.9; }
+    .btn-send:disabled { opacity:.5; cursor:not-allowed; }
+    .send-status { font-size:13px; font-weight:500; margin-top:8px; padding:8px 12px; border-radius:var(--radius-sm); display:none; }
+    .send-status.ok  { background:var(--green-l); color:#065f46; display:block; }
+    .send-status.err { background:var(--red-l);   color:#991b1b; display:block; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="page" style="position:relative;z-index:1">
+    <a href="./homework.html" class="hero-back">← Назад к домашкам</a>
+    <h1>Homework 3 · Урок 3</h1>
+    <p>Present Simple · Do/Does · Time Management</p>
+    <div class="progress-row">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+      <span class="prog-lbl" id="prog-lbl">0 / 25</span>
+    </div>
+  </div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,0 1440,40 L1440,40 L0,40 Z" fill="#f0fdf9"/></svg></div>
+</div>
+
+<div class="page">
+
+  <!-- DO/DOES EXPLAINER -->
+  <div class="explainer">
+    <h2>📌 Как работают DO и DOES</h2>
+    <div class="do-grid">
+      <div class="do-card">
+        <h3>DO → с I, You, We, They</h3>
+        <ul>
+          <li>I <strong>do</strong> <em>(я делаю)</em></li>
+          <li>You <strong>do</strong> <em>(ты делаешь)</em></li>
+          <li>We <strong>do</strong> <em>(мы делаем)</em></li>
+          <li>They <strong>do</strong> <em>(они делают)</em></li>
+        </ul>
+      </div>
+      <div class="do-card">
+        <h3>DOES → с He, She, It</h3>
+        <ul>
+          <li>He <strong>does</strong> <em>(он делает)</em></li>
+          <li>She <strong>does</strong> <em>(она делает)</em></li>
+          <li>It <strong>does</strong> <em>(оно делает)</em></li>
+          <li>The team <strong>does</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="formula-do pos">+ She arrange<strong>s</strong> meetings. / They arrange meetings.</div>
+    <div class="formula-do neg">− She <strong>doesn't</strong> arrange / They <strong>don't</strong> arrange</div>
+    <div class="formula-do que">? <strong>Does</strong> she arrange…? / <strong>Do</strong> they arrange…?</div>
+    <div class="warn-do">
+      <strong>⚠ Главное правило:</strong> после DOES/DOESN'T глагол всегда без -s!<br>
+      ❌ Does she <s>arranges</s>? → ✅ Does she <strong>arrange</strong>?<br>
+      ❌ She doesn't <s>rushes</s>. → ✅ She doesn't <strong>rush</strong>.
+    </div>
+    <div class="rule-examples">
+      <div class="re ok"><span class="re-s">✓</span><span><strong>Do</strong> you have an appointment? — Yes, I <strong>do</strong>.</span></div>
+      <div class="re ok"><span class="re-s">✓</span><span><strong>Does</strong> she take a break at noon? — No, she <strong>doesn't</strong>.</span></div>
+      <div class="re ok"><span class="re-s">✓</span><span>What <strong>do</strong> they prioritise? / What <strong>does</strong> he prioritise?</span></div>
+      <div class="re bad"><span class="re-s">✗</span><span>Does she <s>stays</s> up late? → Does she <strong>stay</strong> up late?</span></div>
+    </div>
+  </div>
+
+  <!-- EX 1: Outcomes Workbook — Time Management vocab -->
+  <div class="section-title">Упражнение 1 · Outcomes Workbook</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-cyan">1</div>
+      <div class="task-meta">
+        <div class="task-lbl">Outcomes Pre-Int · WB</div>
+        <div class="task-title">Complete the conversation with the correct form of words from the box.</div>
+        <div class="task-desc">appointment · take a break · priority · delay · list · stay up late · arrange · rush</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="fill-row"><span class="snum">1.</span> Here's the <input id="w1" oninput="tick()"> of orders we need to send out.</div>
+      <div class="fill-row"><span class="snum">2.</span> Production's <input id="w2" oninput="tick()"> to get them ready.</div>
+      <div class="fill-row"><span class="snum">3.</span> The Bancroft order's a <input id="w3" oninput="tick()"> so they must finish that one first.</div>
+      <div class="fill-row"><span class="snum">4.</span> You've got an <input id="w4" oninput="tick()"> with Mr. Jennings at 10am.</div>
+      <div class="fill-row"><span class="snum">5.</span> Can you <input id="w5" oninput="tick()"> it for this afternoon, please?</div>
+      <div class="fill-row"><span class="snum">6.</span> I'll need to <input id="w6" oninput="tick()"> tonight and finish it.</div>
+      <div class="fill-row"><span class="snum">7.</span> Let's <input id="w7" oninput="tick()"> the meeting until tomorrow.</div>
+      <div class="fill-row"><span class="snum">8.</span> I need to <input id="w8" oninput="tick()"> — bring me some coffee, please.</div>
+      <button class="btn btn-cyan" onclick="showAns('ans1')">Посмотреть ответы →</button>
+      <div class="answers" id="ans1">
+        <div class="ans-item ok"><span class="ans-snum">1.</span><div><span class="ans-en">list</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">2.</span><div><span class="ans-en">rush</span> — Production's in a rush to get them ready.</div></div>
+        <div class="ans-item ok"><span class="ans-snum">3.</span><div><span class="ans-en">priority</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">4.</span><div><span class="ans-en">appointment</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div><span class="ans-en">arrange</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">6.</span><div><span class="ans-en">stay up late</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">7.</span><div><span class="ans-en">delay</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">8.</span><div><span class="ans-en">take a break</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX 3: Outcomes Workbook — Make negative -->
+  <div class="section-title">Упражнение 3 · Outcomes Workbook</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-green">3</div>
+      <div class="task-meta">
+        <div class="task-lbl">Outcomes Pre-Int · WB</div>
+        <div class="task-title">Make the following sentences negative.</div>
+        <div class="task-desc">Преврати утвердительные предложения в отрицательные. Используй don't / doesn't.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="sent-item"><span class="snum">1.</span> I've got an appointment with the sales manager this morning.</div>
+      <div class="input-row"><span class="input-sign">−</span><textarea id="n1" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">2.</span> We're working on the new project this afternoon.</div>
+      <div class="input-row"><span class="input-sign">−</span><textarea id="n2" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">3.</span> There's a meeting next Friday to discuss progress.</div>
+      <div class="input-row"><span class="input-sign">−</span><textarea id="n3" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">4.</span> My contract ends in two months.</div>
+      <div class="input-row"><span class="input-sign">−</span><textarea id="n4" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">5.</span> Jorge is attending a training course tomorrow.</div>
+      <div class="input-row"><span class="input-sign">−</span><textarea id="n5" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <div class="sent-item"><span class="snum">6.</span> I'm leaving work at the end of this month.</div>
+      <div class="input-row"><span class="input-sign">−</span><textarea id="n6" rows="1" oninput="grow(this);tick()"></textarea></div>
+
+      <button class="btn btn-green" onclick="showAns('ans3')">Посмотреть ответы →</button>
+      <div class="answers" id="ans3">
+        <div class="ans-item ok"><span class="ans-snum">1.</span><div><span class="ans-en">I haven't got an appointment with the sales manager this morning.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">2.</span><div><span class="ans-en">We aren't working on the new project this afternoon.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">3.</span><div><span class="ans-en">There isn't a meeting next Friday to discuss progress.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">4.</span><div><span class="ans-en">My contract doesn't end in two months.</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div><span class="ans-en">Jorge isn't attending a training course tomorrow.</span></div></div>
+        <div class="ans-item note"><span class="ans-snum">6.</span><div><span class="ans-note">I'm not leaving work at the end of this month.</span> — ⚠ I'm not (не I amn't)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX A: DO/DOES MCQ — выбери вспомогательный -->
+  <div class="section-title">Упражнение A · Выбери DO или DOES</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-purple">A</div>
+      <div class="task-meta">
+        <div class="task-lbl">Present Simple · Do/Does</div>
+        <div class="task-title">Choose the correct auxiliary verb.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="q-block">
+        <div class="q-text">1. ___ you usually take a break at noon?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'a1','ok','You → Do you')">Do</button>
+          <button class="q-opt" onclick="mcq(this,'a1','bad','Does — для he/she/it, не you')">Does</button>
+        </div>
+        <div class="q-fb" id="fb-a1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">2. ___ she arrange all the meetings?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'a2','bad','Do — для I/you/we/they, не she')">Do</button>
+          <button class="q-opt" onclick="mcq(this,'a2','ok','She → Does she')">Does</button>
+        </div>
+        <div class="q-fb" id="fb-a2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">3. What ___ they prioritise at work?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'a3','ok','They → do they')">do</button>
+          <button class="q-opt" onclick="mcq(this,'a3','bad','does — для he/she/it')">does</button>
+        </div>
+        <div class="q-fb" id="fb-a3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">4. ___ your manager often stay up late?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'a4','bad','Do — manager = he/she → Does')">Do</button>
+          <button class="q-opt" onclick="mcq(this,'a4','ok','manager = he/she → Does')">Does</button>
+        </div>
+        <div class="q-fb" id="fb-a4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">5. ___ the team have a meeting every Monday?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'a5','bad','Do — the team = it → Does')">Do</button>
+          <button class="q-opt" onclick="mcq(this,'a5','ok','the team = единственное число → Does')">Does</button>
+        </div>
+        <div class="q-fb" id="fb-a5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">6. How often ___ you rush in the mornings?</div>
+        <div class="q-opts">
+          <button class="q-opt" onclick="mcq(this,'a6','ok','you → do you')">do</button>
+          <button class="q-opt" onclick="mcq(this,'a6','bad','does — для he/she/it')">does</button>
+        </div>
+        <div class="q-fb" id="fb-a6"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX B: отрицание с don't/doesn't -->
+  <div class="section-title">Упражнение B · Вставь don't или doesn't</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-amber">B</div>
+      <div class="task-meta">
+        <div class="task-lbl">Present Simple · Отрицание</div>
+        <div class="task-title">Fill in don't or doesn't.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="fill-row"><span class="snum">1.</span> She <input id="b1" oninput="tick()"> rush in the mornings — she always plans ahead.</div>
+      <div class="fill-row"><span class="snum">2.</span> I <input id="b2" oninput="tick()"> have an appointment today, so I'm free.</div>
+      <div class="fill-row"><span class="snum">3.</span> They <input id="b3" oninput="tick()"> take a break until 3 pm.</div>
+      <div class="fill-row"><span class="snum">4.</span> The project <input id="b4" oninput="tick()"> end until next year.</div>
+      <div class="fill-row"><span class="snum">5.</span> We <input id="b5" oninput="tick()"> delay meetings — we always reschedule them properly.</div>
+      <div class="fill-row"><span class="snum">6.</span> My boss <input id="b6" oninput="tick()"> stay up late — she leaves at 5 every day.</div>
+      <button class="btn btn-purple" onclick="showAns('ansB')">Посмотреть ответы →</button>
+      <div class="answers" id="ansB">
+        <div class="ans-item ok"><span class="ans-snum">1.</span><div><span class="ans-en">doesn't</span> — She (он/она) → doesn't</div></div>
+        <div class="ans-item ok"><span class="ans-snum">2.</span><div><span class="ans-en">don't</span> — I → don't</div></div>
+        <div class="ans-item ok"><span class="ans-snum">3.</span><div><span class="ans-en">don't</span> — They → don't</div></div>
+        <div class="ans-item ok"><span class="ans-snum">4.</span><div><span class="ans-en">doesn't</span> — The project (it) → doesn't</div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div><span class="ans-en">don't</span> — We → don't</div></div>
+        <div class="ans-item ok"><span class="ans-snum">6.</span><div><span class="ans-en">doesn't</span> — My boss (she) → doesn't</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EX C: составь вопросы -->
+  <div class="section-title">Упражнение C · Составь вопрос</div>
+  <div class="task">
+    <div class="task-head">
+      <div class="task-num tn-indigo">C</div>
+      <div class="task-meta">
+        <div class="task-lbl">Present Simple · Вопросы</div>
+        <div class="task-title">Write the question for each answer.</div>
+        <div class="task-desc">Напиши вопрос к выделенной части ответа, используя do/does.</div>
+      </div>
+    </div>
+    <div class="task-body">
+      <div class="sent-item"><span class="snum">1.</span> A: <u>She</u> arranges the meetings. → Who arranges the meetings?</div>
+      <div class="sent-item" style="margin-top:-4px;background:#e0f2fe"><span class="snum" style="color:var(--cyan-d)">→</span> Уже показан как пример.</div>
+
+      <div class="sent-item" style="margin-top:8px"><span class="snum">2.</span> A: I usually take a break <u>at 2 pm</u>.</div>
+      <div class="input-row"><span class="input-sign">Q:</span><textarea id="c2" rows="1" oninput="grow(this);tick()" placeholder="When…?"></textarea></div>
+
+      <div class="sent-item"><span class="snum">3.</span> A: <u>My manager</u> prioritises the urgent contracts first.</div>
+      <div class="input-row"><span class="input-sign">Q:</span><textarea id="c3" rows="1" oninput="grow(this);tick()" placeholder="Who…?"></textarea></div>
+
+      <div class="sent-item"><span class="snum">4.</span> A: They delay meetings <u>because of the rush</u>.</div>
+      <div class="input-row"><span class="input-sign">Q:</span><textarea id="c4" rows="1" oninput="grow(this);tick()" placeholder="Why…?"></textarea></div>
+
+      <div class="sent-item"><span class="snum">5.</span> A: She stays up late <u>twice a week</u>.</div>
+      <div class="input-row"><span class="input-sign">Q:</span><textarea id="c5" rows="1" oninput="grow(this);tick()" placeholder="How often…?"></textarea></div>
+
+      <div class="sent-item"><span class="snum">6.</span> A: I arrange appointments <u>in the morning</u>.</div>
+      <div class="input-row"><span class="input-sign">Q:</span><textarea id="c6" rows="1" oninput="grow(this);tick()" placeholder="When…?"></textarea></div>
+
+      <button class="btn btn-green" onclick="showAns('ansC')">Посмотреть ответы →</button>
+      <div class="answers" id="ansC">
+        <div class="ans-item ok"><span class="ans-snum">2.</span><div><span class="ans-en">When do you usually take a break?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">3.</span><div><span class="ans-en">Who prioritises the urgent contracts first?</span> <em style="color:var(--muted);font-size:12px">(Who = подлежащее → don't need do/does)</em></div></div>
+        <div class="ans-item ok"><span class="ans-snum">4.</span><div><span class="ans-en">Why do they delay meetings?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">5.</span><div><span class="ans-en">How often does she stay up late?</span></div></div>
+        <div class="ans-item ok"><span class="ans-snum">6.</span><div><span class="ans-en">When do you arrange appointments?</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORE + SEND -->
+  <div class="score-section" id="score-section">
+    <div class="score-big" id="score-display">—</div>
+    <div class="score-sub" id="score-sub"></div>
+    <div id="score-breakdown"></div>
+  </div>
+
+  <div class="send-section">
+    <h3>✈️ Отправить преподавателю</h3>
+    <p>Результаты уйдут в Telegram и сохранятся в облаке.</p>
+    <button class="btn-send" id="send-btn" onclick="submitAll()">Отправить результаты в Telegram</button>
+    <div class="send-status" id="send-status"></div>
+  </div>
+
+</div>
+
+<script>
+const BOT_TOKEN = '8665767534:AAFXSwg_aTaGlwwo-vamfN53NYFPMG78aRk';
+const CHAT_ID   = '-1004358925459';
+const SB_URL    = 'https://plkwitrcyoqjwbicdufs.supabase.co';
+const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
+const STUDENT   = 'zakiya';
+
+async function sbFetch(path, opts={}) {
+  const { prefer, body, method='GET', headers:ex={} } = opts;
+  const h = { 'apikey':SB_KEY, 'Authorization':'Bearer '+SB_KEY, 'Content-Type':'application/json', ...ex };
+  if (prefer) h['Prefer'] = prefer;
+  return fetch(SB_URL+path, {method, headers:h, body});
+}
+
+// ── STATE ──
+const mcqScore = {}, mcqChosen = {}, mcqDone = {};
+const TOTAL = 25;
+
+function grow(el) { el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+
+function tick() {
+  let n = Object.keys(mcqDone).length;
+  document.querySelectorAll('.task-body input, .task-body textarea').forEach(el => {
+    if (el.value.trim()) n++;
+  });
+  const pct = Math.min(Math.round(n / TOTAL * 100), 100);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('prog-lbl').textContent = n + ' / ' + TOTAL;
+}
+
+function mcq(btn, key, verdict, msg) {
+  if (mcqDone[key]) return;
+  mcqDone[key] = verdict;
+  mcqScore[key] = verdict === 'ok' ? 1 : 0;
+  mcqChosen[key] = btn.textContent.trim();
+  btn.parentElement.querySelectorAll('.q-opt').forEach(b => b.style.pointerEvents='none');
+  btn.classList.add(verdict === 'ok' ? 'correct' : 'wrong');
+  const fb = document.getElementById('fb-' + key);
+  fb.className = 'q-fb show ' + (verdict === 'ok' ? 'ok' : 'bad');
+  fb.textContent = (verdict === 'ok' ? '✓ ' : '✗ ') + msg;
+  tick();
+}
+
+function showAns(id) { document.getElementById(id).classList.add('show'); }
+
+// ── CORRECT ANSWERS for report ──
+const CORRECT_A_TASK = { a1:'Do', a2:'Does', a3:'do', a4:'Does', a5:'Does', a6:'do' };
+const CORRECT_W = { w1:'list', w2:'rush', w3:'priority', w4:'appointment', w5:'arrange', w6:'stay up late', w7:'delay', w8:'take a break' };
+const CORRECT_N = {
+  n1:"I haven't got an appointment with the sales manager this morning.",
+  n2:"We aren't working on the new project this afternoon.",
+  n3:"There isn't a meeting next Friday to discuss progress.",
+  n4:"My contract doesn't end in two months.",
+  n5:"Jorge isn't attending a training course tomorrow.",
+  n6:"I'm not leaving work at the end of this month."
+};
+const CORRECT_B = { b1:"doesn't", b2:"don't", b3:"don't", b4:"doesn't", b5:"don't", b6:"doesn't" };
+const CORRECT_C = {
+  c2:"When do you usually take a break?",
+  c3:"Who prioritises the urgent contracts first?",
+  c4:"Why do they delay meetings?",
+  c5:"How often does she stay up late?",
+  c6:"When do you arrange appointments?"
+};
+
+function collectBlock(ids, correct, label) {
+  let text = '';
+  ids.forEach(id => {
+    const val = document.getElementById(id)?.value?.trim() || '—';
+    const corr = correct[id] || '—';
+    const mark = val.toLowerCase().includes(corr.toLowerCase().split(' ')[0]) ? '✅' : '❓';
+    text += `${mark} ${id}: ${val}\n   Эталон: ${corr}\n`;
+  });
+  return text;
+}
+
+function collectMCQ(keys, chosen, scores, correct) {
+  let text = '';
+  keys.forEach(k => {
+    const got = chosen[k] || '—';
+    const ok  = scores[k] === 1;
+    text += `${ok ? '✅' : '❌'} ${k}: выбрала "${got}" | правильно: ${correct[k]}\n`;
+  });
+  return text;
+}
+
+async function submitAll() {
+  const btn = document.getElementById('send-btn');
+  const status = document.getElementById('send-status');
+
+  const mcqKeys = ['a1','a2','a3','a4','a5','a6'];
+  const mcqRight = mcqKeys.filter(k => mcqScore[k] === 1).length;
+  const scoreStr = `${mcqRight}/6 MCQ (Do/Does)`;
+
+  const blockW  = collectBlock(['w1','w2','w3','w4','w5','w6','w7','w8'], CORRECT_W, 'Упр.1');
+  const blockN  = collectBlock(['n1','n2','n3','n4','n5','n6'], CORRECT_N, 'Упр.3');
+  const blockA  = collectMCQ(mcqKeys, mcqChosen, mcqScore, CORRECT_A_TASK);
+  const blockB  = collectBlock(['b1','b2','b3','b4','b5','b6'], CORRECT_B, 'Упр.B');
+  const blockC  = collectBlock(['c2','c3','c4','c5','c6'], CORRECT_C, 'Упр.C');
+
+  // Score UI
+  document.getElementById('score-section').classList.add('show');
+  document.getElementById('score-display').textContent = scoreStr;
+  document.getElementById('score-sub').textContent = mcqRight === 6 ? '🎉 Do/Does — всё верно!' : mcqRight >= 4 ? '👍 Хорошо!' : '📚 Повтори правило do/does';
+  document.getElementById('score-breakdown').innerHTML =
+    `<div class="sb"><span>Упр. A — Do/Does MCQ</span><span>${mcqRight}/6</span></div>
+     <div class="sb"><span>Упр. 1, 3, B, C (письменно)</span><span>В отчёте Telegram</span></div>`;
+
+  // localStorage
+  localStorage.setItem('zakiya_hw3_score', scoreStr);
+  const done = JSON.parse(localStorage.getItem('zakiya_hw_done')||'[]');
+  if (!done.includes('3')) done.push('3');
+  localStorage.setItem('zakiya_hw_done', JSON.stringify(done));
+
+  btn.disabled = true; btn.textContent = 'Отправляю…';
+
+  const msg =
+`📝 *Homework 3 · Zakiya*
+📅 ${new Date().toLocaleString('ru-RU')}
+
+🎯 *Do/Does MCQ: ${scoreStr}*
+
+━━━━━━━━━━━━━━
+📋 *Упр. 1 — Слова из урока*
+_Заполни разговор нужными словами_
+${blockW}
+━━━━━━━━━━━━━━
+➖ *Упр. 3 — Отрицательные предложения*
+_Преврати в отрицание_
+${blockN}
+━━━━━━━━━━━━━━
+🔀 *Упр. A — Do или Does? (MCQ)*
+${blockA}
+━━━━━━━━━━━━━━
+🚫 *Упр. B — don't или doesn't?*
+${blockB}
+━━━━━━━━━━━━━━
+❓ *Упр. C — Составь вопрос*
+${blockC}`;
+
+  let sbOk = false, tgOk = false;
+
+  try {
+    const r = await sbFetch('/rest/v1/homework_results', {
+      method:'POST', prefer:'return=minimal',
+      body: JSON.stringify({ student_id:STUDENT, hw_id:'hw3', score:scoreStr,
+        part_a: blockW+'\n'+blockN, part_c: blockA+'\n'+blockB+'\n'+blockC,
+        submitted_at: new Date().toISOString() })
+    });
+    sbOk = r.ok;
+  } catch(e) { console.warn('SB fail', e); }
+
+  async function tgSend(text) {
+    const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ chat_id:CHAT_ID, text, parse_mode:'Markdown' })
+    });
+    return (await r.json()).ok;
+  }
+
+  try {
+    if (msg.length <= 4000) {
+      tgOk = await tgSend(msg);
+    } else {
+      const parts = [
+        `📝 *HW3 · Zakiya — часть 1*\n\n${blockW}\n\n${blockN}`,
+        `📝 *HW3 · Zakiya — часть 2*\n\n${blockA}\n\n${blockB}\n\n${blockC}`,
+      ];
+      const res = await Promise.all(parts.map(tgSend));
+      tgOk = res.every(Boolean);
+    }
+  } catch(e) { console.warn('TG fail', e); }
+
+  if (sbOk && tgOk) {
+    status.className='send-status ok';
+    status.textContent='✓ Сохранено в облаке ☁️ и отправлено в Telegram!';
+    btn.textContent='✓ Отправлено';
+  } else if (tgOk) {
+    status.className='send-status ok';
+    status.textContent='✓ Отправлено в Telegram!';
+    btn.textContent='✓ Отправлено';
+  } else if (sbOk) {
+    status.className='send-status ok';
+    status.textContent='✓ Сохранено в облаке ☁️';
+    btn.textContent='✓ Сохранено';
+  } else {
+    status.className='send-status err';
+    status.textContent='⚠ Ошибка. Убедись что сайт открыт через localhost или netlify, а не file://';
+    btn.disabled=false; btn.textContent='Повторить';
+  }
+}
+
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('zakiya_hw3_score');
+  if (saved) {
+    document.getElementById('score-section').classList.add('show');
+    document.getElementById('score-display').textContent = saved;
+    document.getElementById('score-sub').textContent = 'Задание уже было отправлено';
+  }
+});
+</script>
+</body>
+</html>
