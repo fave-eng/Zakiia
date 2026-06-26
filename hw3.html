@@ -502,6 +502,15 @@ async function submitAll() {
   const btn = document.getElementById('send-btn');
   const status = document.getElementById('send-status');
 
+  // ── Guard ──
+  const filledCount3 = ['w1','n1','b1','c2'].filter(id => document.getElementById(id)?.value?.trim()).length;
+  const mcqAnswered3 = Object.keys(mcqDone).length;
+  if (filledCount3 === 0 && mcqAnswered3 === 0) {
+    alert('Сначала выполни задание!');
+    return;
+  }
+  saveHw3Answers();
+
   const mcqKeys = ['a1','a2','a3','a4','a5','a6'];
   const mcqRight = mcqKeys.filter(k => mcqScore[k] === 1).length;
   const scoreStr = `${mcqRight}/6 MCQ (Do/Does)`;
@@ -599,19 +608,50 @@ ${blockC}`;
     btn.textContent='✓ Сохранено';
   } else {
     status.className='send-status err';
-    status.textContent='⚠ Ошибка. Убедись что сайт открыт через localhost или netlify, а не file://';
+    status.textContent='⚠ Ошибка отправки. Покажи экран преподавателю.';
     btn.disabled=false; btn.textContent='Повторить';
   }
 }
 
 window.addEventListener('load', () => {
   const saved = localStorage.getItem('zakiya_hw3_score');
+  const savedAnswers = JSON.parse(localStorage.getItem('zakiya_hw3_answers') || 'null');
+
+  if (savedAnswers) {
+    Object.entries(savedAnswers.written || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    });
+  }
+
   if (saved) {
+    document.querySelectorAll('textarea, input').forEach(el => { el.readOnly = true; el.style.opacity = '.7'; });
+    document.querySelectorAll('.q-opt').forEach(b => { b.style.pointerEvents = 'none'; b.style.opacity = '.7'; });
+    document.querySelectorAll('.btn, .btn-cyan, .btn-green, .btn-purple').forEach(b => { b.style.display = 'none'; });
+
     document.getElementById('score-section').classList.add('show');
     document.getElementById('score-display').textContent = saved;
-    document.getElementById('score-sub').textContent = 'Задание уже было отправлено';
+    document.getElementById('score-sub').textContent = '✅ Задание уже отправлено';
+
+    ['ans1','ans3','ansB','ansC'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('show');
+    });
   }
 });
+
+function saveHw3Answers() {
+  const written = {};
+  const ids = ['w1','w2','w3','w4','w5','w6','w7','w8',
+    'n1','n2','n3','n4','n5','n6',
+    'b1','b2','b3','b4','b5','b6',
+    'c2','c3','c4','c5','c6'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) written[id] = el.value;
+  });
+  localStorage.setItem('zakiya_hw3_answers', JSON.stringify({ written, mcqChosen }));
+}
 </script>
 </body>
 </html>
