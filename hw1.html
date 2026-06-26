@@ -545,8 +545,17 @@ ${blockC}
 _Задание: выбрать правильную форму to be_
 ${blockD}`;
 
-  // ── Show score UI ──
-  const ss = document.getElementById('score-section');
+  // ── Guard: prevent submit if nothing answered ──
+  const mcqAnsweredCount = Object.keys(mcqDone).length;
+  const writtenCount = ['t1a','t1b','t2a','t2b','t3a','t3b','t4a','t4b','c1','c2','c3','c4','c5']
+    .filter(id => document.getElementById(id)?.value?.trim()).length;
+  if (mcqAnsweredCount === 0 && writtenCount === 0) {
+    alert('Сначала выполни задание, потом отправляй!');
+    return;
+  }
+
+  // ── Save answers to localStorage ──
+  saveAnswers();
   ss.classList.add('show');
   document.getElementById('score-display').textContent = scoreStr;
   document.getElementById('score-sub').textContent =
@@ -631,17 +640,54 @@ ${blockD}`;
   }
 }
 
-// ── On load: restore score if already submitted ──
+// ── On load: restore answers and lock if already submitted ──
 window.addEventListener('load', () => {
   const saved = localStorage.getItem('zakiya_hw1_score');
+  const savedAnswers = JSON.parse(localStorage.getItem('zakiya_hw1_answers') || 'null');
+
+  if (savedAnswers) {
+    // Restore written fields
+    Object.entries(savedAnswers.written || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) { el.value = val; el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+    });
+  }
+
   if (saved) {
+    // Lock all inputs
+    document.querySelectorAll('textarea, input').forEach(el => { el.readOnly = true; el.style.opacity = '.7'; });
+    document.querySelectorAll('.q-opt').forEach(b => { b.style.pointerEvents = 'none'; b.style.opacity = '.7'; });
+    document.querySelectorAll('.btn').forEach(b => { b.style.display = 'none'; });
+
+    // Show score
     document.getElementById('score-section').classList.add('show');
     document.getElementById('score-display').textContent = saved;
-    document.getElementById('score-sub').textContent = 'Задание уже было отправлено';
-    document.getElementById('send-btn').textContent = 'Отправить повторно';
-    document.getElementById('send-btn').disabled = false;
+    document.getElementById('score-sub').textContent = '✅ Задание уже отправлено';
+    document.getElementById('score-breakdown').innerHTML =
+      '<div class="sb"><span>Ответы сохранены выше</span><span>Только для просмотра</span></div>';
+
+    // Show answers automatically
+    ['ans1','ans3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('show');
+    });
+
+    // Send button → resend only
+    const sendBtn = document.getElementById('send-btn');
+    sendBtn.textContent = 'Отправить повторно';
+    sendBtn.disabled = false;
   }
 });
+
+// Save written answers before submit
+function saveAnswers() {
+  const written = {};
+  ['t1a','t1b','t2a','t2b','t3a','t3b','t4a','t4b','c1','c2','c3','c4','c5'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) written[id] = el.value;
+  });
+  localStorage.setItem('zakiya_hw1_answers', JSON.stringify({ written, mcqChosen }));
+}
 </script>
 </body>
 </html>
