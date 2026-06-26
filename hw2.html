@@ -569,6 +569,14 @@ async function submitAll() {
   const btn = document.getElementById('send-btn');
   const status = document.getElementById('send-status');
 
+  // ── Guard ──
+  const totalFilled = ['s1','s2','s3','f3','f4a','e12_1a'].filter(id => document.getElementById(id)?.value?.trim()).length;
+  if (totalFilled === 0 && matchedCount === 0) {
+    alert('Сначала выполни задание!');
+    return;
+  }
+  saveHw2Answers();
+
   const matchScore = matchedCount;
   const matchTotal = 6;
   const scoreStr = `Matching: ${matchScore}/${matchTotal}`;
@@ -663,12 +671,47 @@ ${block6}`;
 
 window.addEventListener('load', () => {
   const saved = localStorage.getItem('zakiya_hw2_score');
+  const savedAnswers = JSON.parse(localStorage.getItem('zakiya_hw2_answers') || 'null');
+
+  // Restore fill-in fields
+  if (savedAnswers) {
+    Object.entries(savedAnswers.written || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    });
+  }
+
   if (saved) {
+    // Lock all inputs
+    document.querySelectorAll('textarea, input').forEach(el => { el.readOnly = true; el.style.opacity = '.7'; });
+    document.querySelectorAll('.q-opt, .mq-opt').forEach(b => { b.style.pointerEvents = 'none'; b.style.opacity = '.7'; });
+    document.querySelectorAll('.btn, .btn-teal, .btn-green, .btn-purple').forEach(b => { b.style.display = 'none'; });
+    // Lock match
+    document.querySelectorAll('.match-q, .match-a').forEach(el => { el.onclick = null; el.style.pointerEvents = 'none'; });
+
     document.getElementById('score-section').classList.add('show');
     document.getElementById('score-display').textContent = saved;
-    document.getElementById('score-sub').textContent = 'Задание уже было отправлено';
+    document.getElementById('score-sub').textContent = '✅ Задание уже отправлено';
+
+    // Show answers
+    ['ans31','ans32','ans12'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('show');
+    });
   }
 });
+
+function saveHw2Answers() {
+  const written = {};
+  const ids = ['s1','s2','s3','s4','s5','s6','s7','s8','s9',
+    'f3','f4a','f5a','f6','f7','f8a','f8b','f9','f10a','f10b','f11','f12a','f12b','f13a','f13b','f14a','f14b','f15a','f15b','f16a','f16b','f18','f19',
+    'e12_1a','e12_1b','e12_2a','e12_2b','e12_3a','e12_3b','e12_4a','e12_4b'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) written[id] = el.value;
+  });
+  localStorage.setItem('zakiya_hw2_answers', JSON.stringify({ written, matchResults }));
+}
 </script>
 </body>
 </html>
