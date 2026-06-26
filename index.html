@@ -192,21 +192,23 @@
 const SB_URL  = 'https://plkwitrcyoqjwbicdufs.supabase.co';
 const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsa3dpdHJjeW9xandiaWNkdWZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3ODE2MzQsImV4cCI6MjA5NzM1NzYzNH0.KIScrTFu6AntoBS32UuNstJTW_83tHP6iy8srnP9pLU';
 const STUDENT = 'zakiya';
-const HW_TOTAL = 5, GR_TOTAL = 6, VOCAB_TOTAL = 40;
+const HW_TOTAL = 3, GR_TOTAL = 6, VOCAB_TOTAL = 50;
 
 function renderStats(hwCount, vocabCount, grCount) {
-  // Stat chips
+  // HW total — берём из localStorage (homework.html сохраняет туда число активных уроков)
+  const hwTotal = parseInt(localStorage.getItem('zakiya_hw_total') || '3');
+
   document.getElementById('stat-lessons').textContent = hwCount;
   document.getElementById('stat-vocab').textContent   = vocabCount;
 
   // HW progress bar
-  const hwPct = Math.round(hwCount / HW_TOTAL * 100);
+  const hwPct = Math.round(hwCount / hwTotal * 100);
   document.getElementById('hw-pct').textContent  = hwPct + '%';
   document.getElementById('hw-fill').style.width = hwPct + '%';
   document.getElementById('hw-sub').textContent  = hwCount
-    ? `Выполнено ${hwCount} из ${HW_TOTAL} заданий` : 'Ещё нет выполненных заданий';
+    ? `Выполнено ${hwCount} из ${hwTotal} заданий` : 'Ещё нет выполненных заданий';
 
-  // Vocab progress bar (показываем вместо Grammar — более актуально)
+  // Vocab progress bar
   const vocabPct = Math.round(vocabCount / VOCAB_TOTAL * 100);
   document.getElementById('gr-pct').textContent  = vocabPct + '%';
   document.getElementById('gr-fill').style.width = vocabPct + '%';
