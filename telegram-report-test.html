@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Telegram test · Zakiya</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .service-wrap{width:min(860px,calc(100% - 28px));margin:32px auto 70px}.service-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:22px;margin-top:16px}.service-log{margin-top:14px;background:#0f172a;color:#e2e8f0;padding:14px;border-radius:14px;white-space:pre-wrap;min-height:150px;font:500 13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}.service-ok{background:#ecfdf3;color:#067647;padding:12px 14px;border-radius:14px}.service-bad{background:#fef3f2;color:#b42318;padding:12px 14px;border-radius:14px}.service-note{color:#64748b}.service-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}@media(max-width:600px){.service-actions>*{width:100%}}
+  </style>
+  <script src="config.js" defer></script>
+</head>
+<body>
+  <main class="service-wrap">
+    <section class="service-card">
+      <span class="eyebrow">Diagnostics</span>
+      <h1 style="margin-top:6px">Telegram test · Zakiya</h1>
+      <p class="service-note">Кнопка ниже отправляет одно служебное сообщение. Ответы и прогресс Закии не меняются.</p>
+      <label style="display:flex;gap:10px;align-items:flex-start;margin-top:18px"><input id="confirm" type="checkbox" style="width:20px;height:20px"><span>Я понимаю, что в Telegram будет отправлено тестовое сообщение.</span></label>
+      <div class="service-actions">
+        <button class="btn btn-primary" id="send" type="button" disabled>Отправить тест</button>
+        <a class="btn btn-secondary" href="diagnostics.html">Полная диагностика</a>
+        <a class="btn btn-secondary" href="index.html">На сайт</a>
+      </div>
+      <div id="result" style="margin-top:16px"></div>
+    </section>
+    <section class="service-card">
+      <h2>Технический лог</h2>
+      <pre id="log" class="service-log">Страница готова.</pre>
+    </section>
+  </main>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const confirm = document.getElementById('confirm');
+      const send = document.getElementById('send');
+      const result = document.getElementById('result');
+      const log = document.getElementById('log');
+      confirm.addEventListener('change', () => { send.disabled = !confirm.checked; });
+      const write = (msg, data) => { log.textContent += `\n[${new Date().toLocaleTimeString('ru-RU')}] ${msg}${data ? `\n${JSON.stringify(data,null,2)}` : ''}`; };
+      send.addEventListener('click', async () => {
+        if (!confirm.checked) return;
+        send.disabled = true; result.innerHTML = '';
+        try {
+          const config = window.APP_CONFIG || {};
+          const url = String(config.supabase?.url || '').replace(/\/+$/, '');
+          const key = String(config.supabase?.anonKey || '');
+          if (!url || !key) throw new Error('В config.js нет Supabase URL или public key.');
+          write('Отправляю запрос в diagnostics-zakiya…');
+          const response = await fetch(`${url}/functions/v1/diagnostics-zakiya`, {
+            method:'POST',
+            headers:{'content-type':'application/json','apikey':key,'authorization':`Bearer ${key}`},
+            body:JSON.stringify({kind:'diagnostics_send_report',studentId:'zakiya',pageUrl:location.href})
+          });
+          const data = await response.json().catch(() => ({}));
+          write(`HTTP ${response.status}`, data);
+          if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+          if (data.skipped) result.innerHTML = `<div class="service-ok">Тест уже отправлялся недавно. Повтори через ${data.retryAfterSeconds || 30} сек.</div>`;
+          else result.innerHTML = `<div class="service-ok">✓ Telegram принял сообщение. message_id=${data.telegramMessageId}; thread_id=${data.threadId ?? 'NULL'}.</div>`;
+        } catch (error) {
+          result.innerHTML = `<div class="service-bad">✕ ${String(error.message || error)}</div>`;
+          write('Ошибка', {error:String(error.message || error)});
+        } finally { send.disabled = !confirm.checked; }
+      });
+    });
+  </script>
+</body>
+</html>
