@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Personal English learning space">
-  <title>Grammar</title>
+  <title>Grammar topic</title>
   <link rel="stylesheet" href="styles.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
@@ -13,32 +13,23 @@
   <script src="data/grammar-data.js" defer></script>
   <script src="app.js" defer></script>
 </head>
-<body class="has-bottom-nav" data-page="grammar" data-view="grammar">
+<body class="has-bottom-nav" data-page="grammar" data-view="grammar-topic">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="hero hero-compact">
     <span class="star one">✦</span><span class="star two">✦</span>
     <div class="container hero-content reveal">
       <span class="hero-badge">✦ <span data-config="level"></span> Level · Individual Course</span>
-      <h1>Grammar</h1>
-      <p>Clear theory and practice for published topics.</p>
+      <h1><span id="grammar-hero-title">Grammar</span></h1>
+      <p><span id="grammar-hero-subtitle">Explanations and practice</span></p>
     </div>
     <svg class="hero-wave" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path fill="#f8fafc" d="M0,66 C220,102 410,10 696,52 C963,91 1115,99 1440,35 L1440,100 L0,100 Z"></path></svg>
   </header>
 
   <main id="main" class="main-content container">
 
-    <section class="section reveal" aria-label="Grammar statistics">
-      <div class="summary-grid">
-        <div class="card summary-card"><strong id="grammar-passed">0</strong><span>Completed</span></div>
-        <div class="card summary-card"><strong id="grammar-total">0</strong><span>Total</span></div>
-        <div class="card summary-card"><strong data-config="level"></strong><span>Level</span></div>
-      </div>
-      <div class="card section"><div id="grammar-overall-progress"></div></div>
-    </section>
-    <section class="section reveal" aria-labelledby="grammar-list-title">
-      <div class="section-heading"><div><span class="eyebrow">Learning path</span><h2 id="grammar-list-title">Grammar topics</h2></div></div>
-      <div id="grammar-list" class="list"></div>
+    <section class="section reveal">
+      <div id="grammar-topic-root"></div>
     </section>
 
   </main>

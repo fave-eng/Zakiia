@@ -1,0 +1,358 @@
+{
+  "id": "lesson-1",
+  "number": 1,
+  "title": "Present Simple · Everyday English",
+  "subtitle": "Present Simple, adverbs of frequency, translation and the verb to be",
+  "status": "available",
+  "vocabularyId": "hosp",
+  "grammarIds": [
+    "grammar-present-simple",
+    "grammar-word-order"
+  ],
+  "publishedAt": "2026-09-29",
+  "notification": {
+    "enabled": true,
+    "version": 1
+  },
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Part A",
+      "title": "Make the sentence negative and write a question",
+      "text": "Follow the example. Example: She works here. → She doesn’t work here. / Does she work here?"
+    },
+    {
+      "type": "exercise",
+      "id": "part-a",
+      "title": "Present Simple: negative + question",
+      "instructions": "Write two answers for every sentence.",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "I often meet this patient here.",
+          "input": "gaps",
+          "segments": [
+            "Negative: ",
+            " · Question: ",
+            ""
+          ],
+          "answers": [
+            [
+              "I don't often meet this patient here."
+            ],
+            [
+              "Do I often meet this patient here?"
+            ]
+          ],
+          "explanation": "I don't often meet this patient here. / Do I often meet this patient here?"
+        },
+        {
+          "id": "2",
+          "prompt": "She usually checks vital signs in the morning.",
+          "input": "gaps",
+          "segments": [
+            "Negative: ",
+            " · Question: ",
+            ""
+          ],
+          "answers": [
+            [
+              "She doesn't usually check vital signs in the morning."
+            ],
+            [
+              "Does she usually check vital signs in the morning?"
+            ]
+          ],
+          "explanation": "She doesn't usually check vital signs in the morning. / Does she usually check vital signs in the morning?"
+        },
+        {
+          "id": "3",
+          "prompt": "They often read medical textbooks at home.",
+          "input": "gaps",
+          "segments": [
+            "Negative: ",
+            " · Question: ",
+            ""
+          ],
+          "answers": [
+            [
+              "They don't often read medical textbooks at home."
+            ],
+            [
+              "Do they often read medical textbooks at home?"
+            ]
+          ],
+          "explanation": "They don't often read medical textbooks at home. / Do they often read medical textbooks at home?"
+        },
+        {
+          "id": "4",
+          "prompt": "He always gives patients their prescriptions.",
+          "input": "gaps",
+          "segments": [
+            "Negative: ",
+            " · Question: ",
+            ""
+          ],
+          "answers": [
+            [
+              "He doesn't always give patients their prescriptions."
+            ],
+            [
+              "Does he always give patients their prescriptions?"
+            ]
+          ],
+          "explanation": "He doesn't always give patients their prescriptions. / Does he always give patients their prescriptions?"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Part B",
+      "title": "Adverbs of frequency",
+      "text": "Choose all options that make the sentence natural. Example: I don’t often work nights. → sometimes / usually can change the meaning but remain grammatical."
+    },
+    {
+      "type": "exercise",
+      "id": "part-b",
+      "title": "Replace “often”",
+      "instructions": "Choose all options that work naturally in the sentence.",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "We don't often have dictations at our nursing class.",
+          "input": "multiple",
+          "options": [
+            "usually",
+            "sometimes",
+            "never",
+            "always"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "usually / sometimes"
+        },
+        {
+          "id": "2",
+          "prompt": "They don't often speak Russian at work.",
+          "input": "multiple",
+          "options": [
+            "usually",
+            "always",
+            "never",
+            "sometimes"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "usually / always"
+        },
+        {
+          "id": "3",
+          "prompt": "I don't often read English medical journals.",
+          "input": "multiple",
+          "options": [
+            "sometimes",
+            "seldom",
+            "always",
+            "usually"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "sometimes / seldom"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Part C",
+      "title": "Translate into English",
+      "text": "Write the full sentence. Example: Я обычно работаю утром. → I usually work in the morning."
+    },
+    {
+      "type": "exercise",
+      "id": "part-c",
+      "title": "Translation",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "Что ты обычно читаешь по утрам?",
+          "input": "text",
+          "answer": "What do you usually read in the morning?",
+          "explanation": "What do you usually read in the morning?",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "2",
+          "prompt": "Она часто встречает коллег после работы.",
+          "input": "text",
+          "answer": "She often meets her colleagues after work.",
+          "explanation": "She often meets her colleagues after work.",
+          "placeholder": "Type your answer…",
+          "acceptedAnswers": [
+            "She often meets colleagues after work.",
+            "She often meets her colleagues after work."
+          ]
+        },
+        {
+          "id": "3",
+          "prompt": "Читают ли твои пациенты инструкции к лекарствам?",
+          "input": "text",
+          "answer": "Do your patients read the instructions for their medication?",
+          "explanation": "Do your patients read the instructions for their medication?",
+          "placeholder": "Type your answer…",
+          "acceptedAnswers": [
+            "Do your patients read the instructions for their medication?",
+            "Do your patients read medication instructions?"
+          ]
+        },
+        {
+          "id": "4",
+          "prompt": "Мы обычно не говорим по-русски в больнице.",
+          "input": "text",
+          "answer": "We usually don't speak Russian at the hospital.",
+          "explanation": "We usually don't speak Russian at the hospital.",
+          "placeholder": "Type your answer…",
+          "acceptedAnswers": [
+            "We usually don't speak Russian at the hospital.",
+            "We don't usually speak Russian at the hospital."
+          ]
+        },
+        {
+          "id": "5",
+          "prompt": "Что ты делаешь каждое утро перед работой?",
+          "input": "text",
+          "answer": "What do you do every morning before work?",
+          "explanation": "What do you do every morning before work?",
+          "placeholder": "Type your answer…"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Part D",
+      "title": "The verb “to be”",
+      "text": "Choose the correct form. Example: I ___ a nurse. → am"
+    },
+    {
+      "type": "exercise",
+      "id": "part-d",
+      "title": "Choose the correct answer",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "She ___ a nurse at City Hospital.",
+          "input": "single",
+          "options": [
+            "am",
+            "is",
+            "are"
+          ],
+          "answer": 1,
+          "explanation": "is"
+        },
+        {
+          "id": "2",
+          "prompt": "___ you from Russia?",
+          "input": "single",
+          "options": [
+            "Is",
+            "Are",
+            "Am"
+          ],
+          "answer": 1,
+          "explanation": "Are"
+        },
+        {
+          "id": "3",
+          "prompt": "The patients ___ in room 204.",
+          "input": "single",
+          "options": [
+            "are",
+            "is",
+            "am"
+          ],
+          "answer": 0,
+          "explanation": "are"
+        },
+        {
+          "id": "4",
+          "prompt": "I ___ not a doctor. I ___ a registered nurse.",
+          "input": "single",
+          "options": [
+            "am / am",
+            "is / is",
+            "am / is"
+          ],
+          "answer": 0,
+          "explanation": "am / am"
+        },
+        {
+          "id": "5",
+          "prompt": "___ the doctor in the clinic right now?",
+          "input": "single",
+          "options": [
+            "Is",
+            "Are",
+            "Do"
+          ],
+          "answer": 0,
+          "explanation": "Is"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Bonus",
+      "title": "Short answers about you",
+      "text": "These answers are saved for the teacher but are not graded automatically."
+    },
+    {
+      "type": "exercise",
+      "id": "bonus",
+      "title": "Answer in 1–2 sentences",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "What do you usually read in the morning — news, social media, or medical materials?",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Example: I usually read the news on my phone."
+        },
+        {
+          "id": "2",
+          "prompt": "Do you often speak English at home?",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Example: I sometimes speak English at home."
+        },
+        {
+          "id": "3",
+          "prompt": "Where do you usually study English — at home, on the bus, or during breaks?",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Example: I usually study English at home."
+        },
+        {
+          "id": "4",
+          "prompt": "Do you always understand American nurses when they speak fast?",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Example: No, I don’t always understand them."
+        },
+        {
+          "id": "5",
+          "prompt": "What do you usually do after your English class?",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Example: I review new words after class."
+        }
+      ]
+    }
+  ],
+  "totalPoints": 17
+}

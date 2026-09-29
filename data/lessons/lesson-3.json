@@ -1,0 +1,361 @@
+{
+  "id": "lesson-3",
+  "number": 3,
+  "title": "Time Management · Do / Does",
+  "subtitle": "Outcomes Workbook: workplace vocabulary, negatives and questions",
+  "status": "available",
+  "vocabularyId": "time-mgmt",
+  "grammarIds": [
+    "grammar-present-simple",
+    "grammar-word-order"
+  ],
+  "publishedAt": "2026-09-29",
+  "notification": {
+    "enabled": true,
+    "version": 1
+  },
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "Time-management vocabulary",
+      "text": "Complete each sentence with one word or phrase. Example: I have an appointment at 10."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-1",
+      "title": "Complete the sentences",
+      "wordBank": [
+        "list",
+        "rush",
+        "priority",
+        "appointment",
+        "arrange",
+        "stay up late",
+        "delay",
+        "take a break"
+      ],
+      "items": [
+        {
+          "id": "1",
+          "prompt": "Here's the ___ of orders we need to send out.",
+          "input": "text",
+          "answer": "list",
+          "explanation": "list",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "2",
+          "prompt": "Production's in a ___ to get them ready.",
+          "input": "text",
+          "answer": "rush",
+          "explanation": "rush",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "3",
+          "prompt": "The Bancroft order's a ___, so they must finish that one first.",
+          "input": "text",
+          "answer": "priority",
+          "explanation": "priority",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "4",
+          "prompt": "You've got an ___ with Mr Jennings at 10am.",
+          "input": "text",
+          "answer": "appointment",
+          "explanation": "appointment",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "5",
+          "prompt": "Can you ___ it for this afternoon, please?",
+          "input": "text",
+          "answer": "arrange",
+          "explanation": "arrange",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "6",
+          "prompt": "I'll need to ___ tonight and finish it.",
+          "input": "text",
+          "answer": "stay up late",
+          "explanation": "stay up late",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "7",
+          "prompt": "Let's ___ the meeting until tomorrow.",
+          "input": "text",
+          "answer": "delay",
+          "explanation": "delay",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "8",
+          "prompt": "I need to ___ — bring me some coffee, please.",
+          "input": "text",
+          "answer": "take a break",
+          "explanation": "take a break",
+          "placeholder": "Type your answer…"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3",
+      "title": "Make the sentences negative",
+      "text": "Rewrite the whole sentence in the negative. Example: She works here. → She doesn’t work here."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-3",
+      "title": "Negative forms",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "I've got an appointment with the sales manager this morning.",
+          "input": "text",
+          "answer": "I haven't got an appointment with the sales manager this morning.",
+          "explanation": "I haven't got an appointment with the sales manager this morning.",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "2",
+          "prompt": "We're working on the new project this afternoon.",
+          "input": "text",
+          "answer": "We aren't working on the new project this afternoon.",
+          "explanation": "We aren't working on the new project this afternoon.",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "3",
+          "prompt": "There's a meeting next Friday to discuss progress.",
+          "input": "text",
+          "answer": "There isn't a meeting next Friday to discuss progress.",
+          "explanation": "There isn't a meeting next Friday to discuss progress.",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "4",
+          "prompt": "My contract ends in two months.",
+          "input": "text",
+          "answer": "My contract doesn't end in two months.",
+          "explanation": "My contract doesn't end in two months.",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "5",
+          "prompt": "Jorge is attending a training course tomorrow.",
+          "input": "text",
+          "answer": "Jorge isn't attending a training course tomorrow.",
+          "explanation": "Jorge isn't attending a training course tomorrow.",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "6",
+          "prompt": "I'm leaving work at the end of this month.",
+          "input": "text",
+          "answer": "I'm not leaving work at the end of this month.",
+          "explanation": "I'm not leaving work at the end of this month.",
+          "placeholder": "Type your answer…"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise A",
+      "title": "Do or Does?",
+      "text": "Choose the auxiliary that agrees with the subject. Example: ___ she work here? → Does"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-a",
+      "title": "Choose Do / Does",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "___ you usually take a break at noon?",
+          "input": "single",
+          "options": [
+            "Do",
+            "Does"
+          ],
+          "answer": 0,
+          "explanation": "Do"
+        },
+        {
+          "id": "2",
+          "prompt": "___ she arrange all the meetings?",
+          "input": "single",
+          "options": [
+            "Do",
+            "Does"
+          ],
+          "answer": 1,
+          "explanation": "Does"
+        },
+        {
+          "id": "3",
+          "prompt": "What ___ they prioritise at work?",
+          "input": "single",
+          "options": [
+            "do",
+            "does"
+          ],
+          "answer": 0,
+          "explanation": "do"
+        },
+        {
+          "id": "4",
+          "prompt": "___ your manager often stay up late?",
+          "input": "single",
+          "options": [
+            "Do",
+            "Does"
+          ],
+          "answer": 1,
+          "explanation": "Does"
+        },
+        {
+          "id": "5",
+          "prompt": "___ the team have a meeting every Monday?",
+          "input": "single",
+          "options": [
+            "Do",
+            "Does"
+          ],
+          "answer": 1,
+          "explanation": "Does"
+        },
+        {
+          "id": "6",
+          "prompt": "How often ___ you rush in the mornings?",
+          "input": "single",
+          "options": [
+            "do",
+            "does"
+          ],
+          "answer": 0,
+          "explanation": "do"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise B",
+      "title": "don't or doesn't?",
+      "text": "Choose the correct negative auxiliary. Example: He ___ work nights. → doesn't"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-b",
+      "title": "Complete the negatives",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "She ___ rush in the mornings — she always plans ahead.",
+          "input": "text",
+          "answer": "doesn't",
+          "explanation": "doesn't",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "2",
+          "prompt": "I ___ have an appointment today, so I'm free.",
+          "input": "text",
+          "answer": "don't",
+          "explanation": "don't",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "3",
+          "prompt": "They ___ take a break until 3 pm.",
+          "input": "text",
+          "answer": "don't",
+          "explanation": "don't",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "4",
+          "prompt": "The project ___ end until next year.",
+          "input": "text",
+          "answer": "doesn't",
+          "explanation": "doesn't",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "5",
+          "prompt": "We ___ delay meetings — we always reschedule them properly.",
+          "input": "text",
+          "answer": "don't",
+          "explanation": "don't",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "6",
+          "prompt": "My boss ___ stay up late — she leaves at 5 every day.",
+          "input": "text",
+          "answer": "doesn't",
+          "explanation": "doesn't",
+          "placeholder": "Type your answer…"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise C",
+      "title": "Write the question",
+      "text": "Use the underlined information from the answer to make a question. Example: She arranges the meetings. → Who arranges the meetings?"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-c",
+      "title": "Question forms",
+      "items": [
+        {
+          "id": "2",
+          "prompt": "I usually take a break at 2 pm. → Ask about the time.",
+          "input": "text",
+          "answer": "When do you usually take a break?",
+          "explanation": "When do you usually take a break?",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "3",
+          "prompt": "My manager prioritises the urgent contracts first. → Ask who.",
+          "input": "text",
+          "answer": "Who prioritises the urgent contracts first?",
+          "explanation": "Who prioritises the urgent contracts first?",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "4",
+          "prompt": "They delay meetings because of the rush. → Ask why.",
+          "input": "text",
+          "answer": "Why do they delay meetings?",
+          "explanation": "Why do they delay meetings?",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "5",
+          "prompt": "She stays up late twice a week. → Ask how often.",
+          "input": "text",
+          "answer": "How often does she stay up late?",
+          "explanation": "How often does she stay up late?",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "6",
+          "prompt": "I arrange appointments in the morning. → Ask when.",
+          "input": "text",
+          "answer": "When do you arrange appointments?",
+          "explanation": "When do you arrange appointments?",
+          "placeholder": "Type your answer…"
+        }
+      ]
+    }
+  ],
+  "totalPoints": 31
+}

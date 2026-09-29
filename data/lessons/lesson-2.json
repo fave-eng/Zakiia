@@ -1,0 +1,550 @@
+{
+  "id": "lesson-2",
+  "number": 2,
+  "title": "Present Simple vs Present Continuous",
+  "subtitle": "Murphy Unit 3 + Outcomes practice",
+  "status": "available",
+  "vocabularyId": "pres-tenses",
+  "grammarIds": [
+    "grammar-present-simple-continuous"
+  ],
+  "publishedAt": "2026-09-29",
+  "notification": {
+    "enabled": true,
+    "version": 1
+  },
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3.1",
+      "title": "Right or wrong?",
+      "text": "Write RIGHT if the verb form is correct. If it is wrong, write the corrected form. Example: Water is boiling now. → RIGHT"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-31",
+      "title": "Present Simple or Continuous?",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "Water boils at 100 degrees Celsius.",
+          "input": "text",
+          "answer": "RIGHT",
+          "explanation": "RIGHT",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "RIGHT",
+            "right"
+          ]
+        },
+        {
+          "id": "2",
+          "prompt": "The water boils. Can you turn it off?",
+          "input": "text",
+          "answer": "is boiling",
+          "explanation": "is boiling",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "is boiling",
+            "The water is boiling. Can you turn it off?"
+          ]
+        },
+        {
+          "id": "3",
+          "prompt": "Look! That man tries to open the door of your car.",
+          "input": "text",
+          "answer": "is trying",
+          "explanation": "is trying",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "is trying",
+            "That man is trying to open the door of your car."
+          ]
+        },
+        {
+          "id": "4",
+          "prompt": "Can you hear those people? What do they talk about?",
+          "input": "text",
+          "answer": "are they talking",
+          "explanation": "are they talking",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "are they talking",
+            "What are they talking about?"
+          ]
+        },
+        {
+          "id": "5",
+          "prompt": "The moon goes round the earth.",
+          "input": "text",
+          "answer": "RIGHT",
+          "explanation": "RIGHT",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "RIGHT",
+            "right"
+          ]
+        },
+        {
+          "id": "6",
+          "prompt": "I must go now. It gets late.",
+          "input": "text",
+          "answer": "is getting",
+          "explanation": "is getting",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "is getting",
+            "It is getting late."
+          ]
+        },
+        {
+          "id": "7",
+          "prompt": "I usually go to work by car.",
+          "input": "text",
+          "answer": "RIGHT",
+          "explanation": "RIGHT",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "RIGHT",
+            "right"
+          ]
+        },
+        {
+          "id": "8",
+          "prompt": "'Hurry up! It's time to leave.' 'OK, I come.'",
+          "input": "text",
+          "answer": "I'm coming",
+          "explanation": "I'm coming",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "I'm coming",
+            "I am coming"
+          ]
+        },
+        {
+          "id": "9",
+          "prompt": "I hear you've got a new job. How do you get on?",
+          "input": "text",
+          "answer": "RIGHT",
+          "explanation": "RIGHT",
+          "placeholder": "Write RIGHT or the corrected verb form…",
+          "acceptedAnswers": [
+            "RIGHT",
+            "right"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3.2",
+      "title": "Complete the sentences",
+      "text": "Use the Present Simple or Present Continuous form of the verb in brackets. Example: She (work) now. → is working"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-32",
+      "title": "Choose the correct tense",
+      "items": [
+        {
+          "id": "3",
+          "prompt": "Hurry up! Everybody (wait) for you.",
+          "input": "text",
+          "answer": "is waiting",
+          "explanation": "is waiting",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "4",
+          "prompt": "'(you/listen) to the radio?' 'No, you can turn it off.'",
+          "input": "text",
+          "answer": "Are you listening",
+          "explanation": "Are you listening",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "5",
+          "prompt": "'(you/listen) to the radio every day?' 'No, just occasionally.'",
+          "input": "text",
+          "answer": "Do you listen",
+          "explanation": "Do you listen",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "6",
+          "prompt": "The River Nile (flow) into the Mediterranean.",
+          "input": "text",
+          "answer": "flows",
+          "explanation": "flows",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "7",
+          "prompt": "Look at the river. It (flow) very fast today.",
+          "input": "text",
+          "answer": "is flowing",
+          "explanation": "is flowing",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "8",
+          "prompt": "We usually (grow) vegetables but this year we (not/grow) any.",
+          "input": "gaps",
+          "segments": [
+            "We usually ",
+            " vegetables, but this year we ",
+            " any."
+          ],
+          "answers": [
+            [
+              "grow"
+            ],
+            [
+              "aren't growing"
+            ]
+          ],
+          "explanation": "grow / aren't growing"
+        },
+        {
+          "id": "9",
+          "prompt": "'How is your English?' 'It (improve) slowly.'",
+          "input": "text",
+          "answer": "is improving",
+          "explanation": "is improving",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "10",
+          "prompt": "Ron is in London. He (stay) at the Park Hotel. He (always/stay) there.",
+          "input": "gaps",
+          "segments": [
+            "He ",
+            " at the Park Hotel. He ",
+            " there."
+          ],
+          "answers": [
+            [
+              "is staying"
+            ],
+            [
+              "always stays"
+            ]
+          ],
+          "explanation": "is staying / always stays"
+        },
+        {
+          "id": "11",
+          "prompt": "Can we stop soon? I (start) to feel tired.",
+          "input": "text",
+          "answer": "am starting",
+          "explanation": "am starting",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "12",
+          "prompt": "'Can you drive?' 'I (learn). My father (teach) me.'",
+          "input": "gaps",
+          "segments": [
+            "I ",
+            " . My father ",
+            " me."
+          ],
+          "answers": [
+            [
+              "am learning"
+            ],
+            [
+              "is teaching"
+            ]
+          ],
+          "explanation": "am learning / is teaching"
+        },
+        {
+          "id": "13",
+          "prompt": "Normally I (finish) at 5, but this week I (work) until 6.",
+          "input": "gaps",
+          "segments": [
+            "Normally I ",
+            " at 5, but this week I ",
+            " until 6."
+          ],
+          "answers": [
+            [
+              "finish"
+            ],
+            [
+              "am working"
+            ]
+          ],
+          "explanation": "finish / am working"
+        },
+        {
+          "id": "14",
+          "prompt": "My parents (live) in Bristol. Where (your parents/live)?",
+          "input": "gaps",
+          "segments": [
+            "My parents ",
+            " in Bristol. Where ",
+            "?"
+          ],
+          "answers": [
+            [
+              "live"
+            ],
+            [
+              "do your parents live"
+            ]
+          ],
+          "explanation": "live / do your parents live"
+        },
+        {
+          "id": "15",
+          "prompt": "Sonia (look) for a place to live. She (stay) with her sister for now.",
+          "input": "gaps",
+          "segments": [
+            "Sonia ",
+            " for a place to live. She ",
+            " with her sister for now."
+          ],
+          "answers": [
+            [
+              "is looking"
+            ],
+            [
+              "is staying"
+            ]
+          ],
+          "explanation": "is looking / is staying"
+        },
+        {
+          "id": "16",
+          "prompt": "'What (your father/do)?' 'He's an architect but he (not/work) at the moment.'",
+          "input": "gaps",
+          "segments": [
+            "What ",
+            "? He is an architect but he ",
+            " at the moment."
+          ],
+          "answers": [
+            [
+              "does your father do"
+            ],
+            [
+              "isn't working"
+            ]
+          ],
+          "explanation": "does your father do / isn't working"
+        },
+        {
+          "id": "18",
+          "prompt": "The train (always/leave) on time.",
+          "input": "text",
+          "answer": "always leaves",
+          "explanation": "always leaves",
+          "placeholder": "Type your answer…"
+        },
+        {
+          "id": "19",
+          "prompt": "Jim is untidy. He (always/leave) his things all over the place.",
+          "input": "text",
+          "answer": "is always leaving",
+          "explanation": "is always leaving",
+          "placeholder": "Type your answer…"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 12",
+      "title": "Same verb, different tense",
+      "text": "Use the same verb in both sentences, but choose the tense that fits the context. Example: I work every day. / I am working now."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-12",
+      "title": "Complete both sentences",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "run",
+          "input": "gaps",
+          "segments": [
+            "My parents ",
+            " a small family hotel. / I ",
+            " the shop while my boss is on holiday."
+          ],
+          "answers": [
+            [
+              "run"
+            ],
+            [
+              "am running"
+            ]
+          ],
+          "explanation": "run / am running"
+        },
+        {
+          "id": "2",
+          "prompt": "try",
+          "input": "gaps",
+          "segments": [
+            "As a good businesswoman, I always ",
+            " to give my customers what they want. / He ",
+            " to get a job in TV."
+          ],
+          "answers": [
+            [
+              "try"
+            ],
+            [
+              "is trying"
+            ]
+          ],
+          "explanation": "try / is trying"
+        },
+        {
+          "id": "3",
+          "prompt": "wait",
+          "input": "gaps",
+          "segments": [
+            "I ",
+            " to hear if I get the job or not. / I usually ",
+            " about an hour after eating before exercise."
+          ],
+          "answers": [
+            [
+              "am waiting"
+            ],
+            [
+              "wait"
+            ]
+          ],
+          "explanation": "am waiting / wait"
+        },
+        {
+          "id": "4",
+          "prompt": "do",
+          "input": "gaps",
+          "segments": [
+            "I'm very busy because I ",
+            " a course every night after work at the moment. / We ",
+            " most of our business in the United States."
+          ],
+          "answers": [
+            [
+              "am doing"
+            ],
+            [
+              "do"
+            ]
+          ],
+          "explanation": "am doing / do"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 6",
+      "title": "Match the interview questions and answers",
+      "text": "For each question, choose the matching answer. Example: Where do you work? → In a hospital."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-6",
+      "title": "Interview matching",
+      "items": [
+        {
+          "id": "1",
+          "prompt": "What do you do?",
+          "input": "select",
+          "options": [
+            "I'm a police officer.",
+            "In the local police department in Lyon.",
+            "A couple of years. I joined soon after university.",
+            "Yeah, it's good. It's basically fine.",
+            "Not great. I often work nights.",
+            "Yeah, they're nice."
+          ],
+          "answer": 0,
+          "explanation": "I'm a police officer."
+        },
+        {
+          "id": "2",
+          "prompt": "Where do you work?",
+          "input": "select",
+          "options": [
+            "I'm a police officer.",
+            "In the local police department in Lyon.",
+            "A couple of years. I joined soon after university.",
+            "Yeah, it's good. It's basically fine.",
+            "Not great. I often work nights.",
+            "Yeah, they're nice."
+          ],
+          "answer": 1,
+          "explanation": "In the local police department in Lyon."
+        },
+        {
+          "id": "3",
+          "prompt": "How long have you worked there?",
+          "input": "select",
+          "options": [
+            "I'm a police officer.",
+            "In the local police department in Lyon.",
+            "A couple of years. I joined soon after university.",
+            "Yeah, it's good. It's basically fine.",
+            "Not great. I often work nights.",
+            "Yeah, they're nice."
+          ],
+          "answer": 2,
+          "explanation": "A couple of years. I joined soon after university."
+        },
+        {
+          "id": "4",
+          "prompt": "Do you enjoy it?",
+          "input": "select",
+          "options": [
+            "I'm a police officer.",
+            "In the local police department in Lyon.",
+            "A couple of years. I joined soon after university.",
+            "Yeah, it's good. It's basically fine.",
+            "Not great. I often work nights.",
+            "Yeah, they're nice."
+          ],
+          "answer": 3,
+          "explanation": "Yeah, it's good. It's basically fine."
+        },
+        {
+          "id": "5",
+          "prompt": "What are the hours like?",
+          "input": "select",
+          "options": [
+            "I'm a police officer.",
+            "In the local police department in Lyon.",
+            "A couple of years. I joined soon after university.",
+            "Yeah, it's good. It's basically fine.",
+            "Not great. I often work nights.",
+            "Yeah, they're nice."
+          ],
+          "answer": 4,
+          "explanation": "Not great. I often work nights."
+        },
+        {
+          "id": "6",
+          "prompt": "Do you get on with the people you work with?",
+          "input": "select",
+          "options": [
+            "I'm a police officer.",
+            "In the local police department in Lyon.",
+            "A couple of years. I joined soon after university.",
+            "Yeah, it's good. It's basically fine.",
+            "Not great. I often work nights.",
+            "Yeah, they're nice."
+          ],
+          "answer": 5,
+          "explanation": "Yeah, they're nice."
+        }
+      ]
+    }
+  ],
+  "totalPoints": 35
+}

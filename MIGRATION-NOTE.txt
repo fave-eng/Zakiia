@@ -1,0 +1,10 @@
+Zakiya site migrated to the shared Kristina-style architecture.
+
+Progress behavior:
+- Shared progress tables: homework_progress, vocabulary_progress, vocabulary_topic_progress, grammar_progress.
+- Existing old-browser localStorage is imported once.
+- Existing old Zakiya Supabase progress is imported by the browser when the old project is reachable.
+- Historical homework is marked completed without sending a duplicate Telegram report.
+- New homework reports use the shared notify-telegram Edge Function.
+
+Do not restore the old direct Telegram BOT_TOKEN code into frontend files.
