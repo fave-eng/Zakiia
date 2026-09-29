@@ -525,5 +525,460 @@ window.GRAMMAR_DATA = [
         ]
       }
     ]
+  },
+  {
+    "id": "grammar-present-perfect-past-simple",
+    "title": "Present Perfect vs Past Simple",
+    "status": "available",
+    "level": "Pre-Intermediate",
+    "publishedAt": "2026-09-29",
+    "order": 8,
+    "lockOnPass": true,
+    "revealAnswersOnError": false,
+    "explanation": "Use the Present Perfect when a past event is connected to the situation now or when the exact finished time is not important. Use the Past Simple for a finished event at a finished past time.",
+    "formula": "Present Perfect: have/has + past participle (V3) · Past Simple: V2 / did + base verb",
+    "glanceCards": [
+      {
+        "icon": "🔗",
+        "label": "Present Perfect",
+        "hint": "Past action with a connection to now",
+        "pattern": "have / has + V3",
+        "example": "I’ve lost my wallet. I can’t pay for the taxi."
+      },
+      {
+        "icon": "🕒",
+        "label": "Past Simple",
+        "hint": "Finished action at a finished past time",
+        "pattern": "V2 · didn’t + verb · Did ... + verb?",
+        "example": "I lost my wallet yesterday, but I found it later."
+      },
+      {
+        "icon": "🆕",
+        "label": "New information → details",
+        "hint": "Present Perfect first, then Past Simple for the story",
+        "pattern": "I’ve ... . / When did ... ?",
+        "example": "I’ve changed jobs. — When did you start the new one?"
+      }
+    ],
+    "miniRules": [
+      {
+        "title": "1. Use Present Perfect for the result now",
+        "text": "Choose Present Perfect when the important point is the present result, not a finished past time.",
+        "example": "The printer has broken down, so we can’t use it."
+      },
+      {
+        "title": "2. Use Past Simple with finished time expressions",
+        "text": "Use Past Simple with yesterday, last week, two days ago, in 2025, when I was at school, and other finished past times.",
+        "example": "The printer broke down yesterday."
+      },
+      {
+        "title": "3. Unfinished time can take Present Perfect",
+        "text": "With today, this week, this month or so far, use Present Perfect when that time period is still continuing.",
+        "example": "I’ve answered six emails today."
+      },
+      {
+        "title": "4. New information often starts with Present Perfect",
+        "text": "When you announce something new, Present Perfect is common. If you continue with when, where or how it happened, use Past Simple.",
+        "example": "Mia has resigned. She told her manager this morning."
+      },
+      {
+        "title": "5. Questions and negatives",
+        "text": "Present Perfect: Have/Has + subject + V3? / haven’t, hasn’t. Past Simple: Did + subject + base verb? / didn’t + base verb.",
+        "example": "Have you finished? — Yes, I have. / Did you finish yesterday? — Yes, I did."
+      }
+    ],
+    "tables": [
+      {
+        "title": "Form",
+        "headers": [
+          "",
+          "Present Perfect",
+          "Past Simple"
+        ],
+        "rows": [
+          [
+            "Affirmative",
+            "I have finished. / She has finished.",
+            "I finished. / She finished."
+          ],
+          [
+            "Negative",
+            "I haven’t finished. / She hasn’t finished.",
+            "I didn’t finish. / She didn’t finish."
+          ],
+          [
+            "Question",
+            "Have you finished? / Has she finished?",
+            "Did you finish? / Did she finish?"
+          ],
+          [
+            "Short answer",
+            "Yes, I have. / No, she hasn’t.",
+            "Yes, I did. / No, she didn’t."
+          ]
+        ]
+      },
+      {
+        "title": "Common time markers",
+        "headers": [
+          "Present Perfect",
+          "Past Simple"
+        ],
+        "rows": [
+          [
+            "just, already, yet",
+            "yesterday, last night/week/year"
+          ],
+          [
+            "recently, so far",
+            "two hours/days ago"
+          ],
+          [
+            "ever, never",
+            "in 2024, when I was..."
+          ],
+          [
+            "today / this week (if still continuing)",
+            "this morning (if the morning is finished)"
+          ]
+        ]
+      }
+    ],
+    "exampleGroups": [
+      {
+        "title": "Result now",
+        "items": [
+          "I’ve lost my keys. I can’t get into the flat.",
+          "I lost my keys last week, but I found them the same day.",
+          "I’ve repaired the coffee machine. It works again now."
+        ]
+      },
+      {
+        "title": "New information and follow-up details",
+        "items": [
+          "We’ve moved house. We moved on Saturday.",
+          "Leo has found a new job. He started it two weeks ago."
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Do not use a finished past time with the Present Perfect: I saw her yesterday, not I’ve seen her yesterday.",
+      "After did / didn’t, use the base verb: Did you go? / I didn’t go, not Did you went? / didn’t went.",
+      "Use the past participle after have/has: has written, has gone, has broken.",
+      "Do not add do/does to Present Perfect questions: Have you finished? not Do you have finished?",
+      "If you announce new information with Present Perfect, switch to Past Simple when you ask or explain when, where or how it happened."
+    ],
+    "exercises": [
+      {
+        "type": "exercise",
+        "id": "grammar-pp-ps-step-1",
+        "title": "Choose the tense",
+        "difficulty": "Easy",
+        "instructions": "Choose the form that fits the meaning.",
+        "items": [
+          {
+            "id": "example",
+            "example": true,
+            "prompt": "I can’t open the door. I ___ my key.",
+            "input": "single",
+            "options": [
+              "lost",
+              "have lost"
+            ],
+            "answer": 1,
+            "exampleMode": "choice",
+            "exampleAnswer": "have lost",
+            "exampleLabel": "Example"
+          },
+          {
+            "id": "1",
+            "prompt": "We ___ the report yesterday afternoon.",
+            "input": "single",
+            "options": [
+              "finished",
+              "have finished"
+            ],
+            "answer": 0,
+            "explanation": "finished"
+          },
+          {
+            "id": "2",
+            "prompt": "Sara isn’t here. She ___ home.",
+            "input": "single",
+            "options": [
+              "went",
+              "has gone"
+            ],
+            "answer": 1,
+            "explanation": "has gone"
+          },
+          {
+            "id": "3",
+            "prompt": "I ___ three cups of coffee so far today.",
+            "input": "single",
+            "options": [
+              "drank",
+              "have drunk"
+            ],
+            "answer": 1,
+            "explanation": "have drunk"
+          },
+          {
+            "id": "4",
+            "prompt": "My laptop ___ down two days ago.",
+            "input": "single",
+            "options": [
+              "broke",
+              "has broken"
+            ],
+            "answer": 0,
+            "explanation": "broke"
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-pp-ps-step-2",
+        "title": "Write the correct verb form",
+        "difficulty": "Medium",
+        "instructions": "Complete each sentence with the correct form of the verb in brackets.",
+        "items": [
+          {
+            "id": "example",
+            "example": true,
+            "segments": [
+              "I ",
+              " (not / finish) the book yet."
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "haven't finished",
+                "have not finished"
+              ]
+            ],
+            "exampleMode": "gaps",
+            "exampleAnswers": [
+              "haven't finished"
+            ],
+            "exampleLabel": "Example"
+          },
+          {
+            "id": "1",
+            "segments": [
+              "She ",
+              " (receive) the parcel, and she’s opening it now."
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "has received",
+                "'s received"
+              ]
+            ],
+            "explanation": "has received"
+          },
+          {
+            "id": "2",
+            "segments": [
+              "They ",
+              " (cancel) the meeting last Friday."
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "cancelled",
+                "canceled"
+              ]
+            ],
+            "explanation": "cancelled"
+          },
+          {
+            "id": "3",
+            "segments": [
+              "I ",
+              " (never / try) skiing."
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "have never tried",
+                "'ve never tried"
+              ]
+            ],
+            "explanation": "have never tried"
+          },
+          {
+            "id": "4",
+            "segments": [
+              "Tom ",
+              " (apply) for the job in August."
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "applied"
+              ]
+            ],
+            "explanation": "applied"
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-pp-ps-step-3",
+        "title": "Correct the tense if necessary",
+        "difficulty": "Challenging",
+        "instructions": "Write OK if the sentence is correct. If it is wrong, write the corrected verb phrase.",
+        "items": [
+          {
+            "id": "example",
+            "example": true,
+            "prompt": "I’ve met him last year.",
+            "input": "text",
+            "answer": "met",
+            "acceptedAnswers": [
+              "met",
+              "I met him last year."
+            ],
+            "exampleTarget": "met",
+            "exampleLabel": "Example"
+          },
+          {
+            "id": "1",
+            "prompt": "Have you ever lost your passport?",
+            "input": "text",
+            "answer": "OK",
+            "acceptedAnswers": [
+              "OK",
+              "ok"
+            ],
+            "explanation": "OK"
+          },
+          {
+            "id": "2",
+            "prompt": "We have moved house in 2024.",
+            "input": "text",
+            "answer": "moved",
+            "acceptedAnswers": [
+              "moved",
+              "We moved house in 2024."
+            ],
+            "explanation": "moved"
+          },
+          {
+            "id": "3",
+            "prompt": "I didn’t received your message yesterday.",
+            "input": "text",
+            "answer": "didn't receive",
+            "acceptedAnswers": [
+              "didn't receive",
+              "did not receive",
+              "I didn't receive your message yesterday.",
+              "I did not receive your message yesterday."
+            ],
+            "explanation": "didn't receive"
+          },
+          {
+            "id": "4",
+            "prompt": "The doctor has just called.",
+            "input": "text",
+            "answer": "OK",
+            "acceptedAnswers": [
+              "OK",
+              "ok"
+            ],
+            "explanation": "OK"
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-pp-ps-step-4",
+        "title": "Complete the mini-dialogues",
+        "difficulty": "Most challenging",
+        "instructions": "Use Present Perfect for the new information and Past Simple for the finished detail.",
+        "items": [
+          {
+            "id": "example",
+            "example": true,
+            "segments": [
+              "A: I ",
+              " (lose) my phone. B: Oh no. Where did you lose it?"
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "have lost",
+                "'ve lost"
+              ]
+            ],
+            "exampleMode": "gaps",
+            "exampleAnswers": [
+              "have lost"
+            ],
+            "exampleLabel": "Example"
+          },
+          {
+            "id": "1",
+            "segments": [
+              "A: Nina ",
+              " (resign). B: Really? When did she tell the team?"
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "has resigned",
+                "'s resigned"
+              ]
+            ],
+            "explanation": "has resigned"
+          },
+          {
+            "id": "2",
+            "segments": [
+              "A: We’ve got the tickets. B: Great. Where ",
+              " (you / buy) them?"
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "did you buy"
+              ]
+            ],
+            "explanation": "did you buy"
+          },
+          {
+            "id": "3",
+            "segments": [
+              "A: My car ",
+              " (break down). B: That’s awful. Did it happen on the way to work?"
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "has broken down",
+                "'s broken down"
+              ]
+            ],
+            "explanation": "has broken down"
+          },
+          {
+            "id": "4",
+            "segments": [
+              "A: I’ve finished the course. B: Congratulations! When ",
+              " (you / take) the final test?"
+            ],
+            "input": "gaps",
+            "answers": [
+              [
+                "did you take"
+              ]
+            ],
+            "explanation": "did you take"
+          }
+        ]
+      }
+    ]
   }
 ];

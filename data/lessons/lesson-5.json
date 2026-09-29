@@ -1,0 +1,567 @@
+{
+  "id": "lesson-5",
+  "number": 5,
+  "title": "Present Perfect vs Past Simple · Review",
+  "subtitle": "Extra practice: present results, finished past time and follow-up details",
+  "status": "available",
+  "vocabularyId": "present-perfect-past-review",
+  "grammarIds": [
+    "grammar-present-perfect-past-simple"
+  ],
+  "publishedAt": "2026-09-29",
+  "notification": {
+    "enabled": true,
+    "version": 1
+  },
+  "totalPoints": 30,
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "Present Perfect where possible. Otherwise use the Past Simple.",
+      "text": "Complete the sentences with the correct form of the verb in brackets."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-1",
+      "title": "Complete the sentences.",
+      "instructions": "Use the Present Perfect where possible. Otherwise use the Past Simple.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "gaps",
+          "segments": [
+            "I can’t find my glasses. I ",
+            " (lose) them."
+          ],
+          "exampleAnswers": [
+            "have lost"
+          ]
+        },
+        {
+          "id": "1",
+          "segments": [
+            "The office is quiet now. Everyone ",
+            " (go) home."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has gone",
+              "'s gone"
+            ]
+          ],
+          "explanation": "has gone"
+        },
+        {
+          "id": "2",
+          "segments": [
+            "I called Maya yesterday, but she ",
+            " (not / answer)."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "didn't answer",
+              "did not answer"
+            ]
+          ],
+          "explanation": "didn't answer"
+        },
+        {
+          "id": "3",
+          "segments": [
+            "Can you use the printer? — No. It ",
+            " (break) down."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has broken",
+              "'s broken"
+            ]
+          ],
+          "explanation": "has broken"
+        },
+        {
+          "id": "4",
+          "segments": [
+            "Sam ",
+            " (move) house last month."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "moved"
+            ]
+          ],
+          "explanation": "moved"
+        },
+        {
+          "id": "5",
+          "segments": [
+            "Are you hungry? — No, I ",
+            " (just / eat)."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have just eaten",
+              "'ve just eaten"
+            ]
+          ],
+          "explanation": "have just eaten"
+        },
+        {
+          "id": "6",
+          "segments": [
+            "We ",
+            " (not / receive) the parcel yet."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "haven't received",
+              "have not received"
+            ]
+          ],
+          "explanation": "haven't received"
+        },
+        {
+          "id": "7",
+          "segments": [
+            "My sister ",
+            " (start) her new job on Monday."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "started"
+            ]
+          ],
+          "explanation": "started"
+        },
+        {
+          "id": "8",
+          "segments": [
+            "I can’t pay for the taxi. I ",
+            " (leave) my wallet at home."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have left",
+              "'ve left"
+            ]
+          ],
+          "explanation": "have left"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 2",
+      "title": "Is the verb form OK?",
+      "text": "If the verb form is correct, write OK. If it is wrong, write the corrected verb phrase."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-2",
+      "title": "Correct the verb form where necessary.",
+      "instructions": "Write OK if the sentence is correct. If it is wrong, write only the corrected verb phrase.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "prompt": "I’ve met her last summer.",
+          "exampleTarget": "met"
+        },
+        {
+          "id": "1",
+          "prompt": "I’ve seen Alex yesterday.",
+          "input": "text",
+          "answer": "saw",
+          "acceptedAnswers": [
+            "saw",
+            "I saw Alex yesterday."
+          ],
+          "explanation": "saw"
+        },
+        {
+          "id": "2",
+          "prompt": "Have you finished the report yet?",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "3",
+          "prompt": "My parents have moved here in 2022.",
+          "input": "text",
+          "answer": "moved",
+          "acceptedAnswers": [
+            "moved",
+            "My parents moved here in 2022."
+          ],
+          "explanation": "moved"
+        },
+        {
+          "id": "4",
+          "prompt": "She has just called me.",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "5",
+          "prompt": "Did you ever try sushi?",
+          "input": "text",
+          "answer": "Have you ever tried",
+          "acceptedAnswers": [
+            "Have you ever tried",
+            "Have you ever tried sushi?"
+          ],
+          "explanation": "Have you ever tried"
+        },
+        {
+          "id": "6",
+          "prompt": "I didn’t went to work last Friday.",
+          "input": "text",
+          "answer": "didn't go",
+          "acceptedAnswers": [
+            "didn't go",
+            "did not go",
+            "I didn't go to work last Friday.",
+            "I did not go to work last Friday."
+          ],
+          "explanation": "didn't go"
+        },
+        {
+          "id": "7",
+          "prompt": "We have lived here for three years.",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "8",
+          "prompt": "The train has arrived ten minutes ago.",
+          "input": "text",
+          "answer": "arrived",
+          "acceptedAnswers": [
+            "arrived",
+            "The train arrived ten minutes ago."
+          ],
+          "explanation": "arrived"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3",
+      "title": "Choose the correct form from the context.",
+      "text": "Put the verb into the Present Perfect or Past Simple."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-3",
+      "title": "Put the verbs into the correct form.",
+      "instructions": "Complete each sentence with the Present Perfect or Past Simple.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "gaps",
+          "segments": [
+            "I ",
+            " (not / finish) the book yet."
+          ],
+          "exampleAnswers": [
+            "haven't finished"
+          ]
+        },
+        {
+          "id": "1",
+          "segments": [
+            "I ",
+            " (forget) his name, and I still can’t remember it."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have forgotten",
+              "'ve forgotten"
+            ]
+          ],
+          "explanation": "have forgotten"
+        },
+        {
+          "id": "2",
+          "segments": [
+            "I ",
+            " (forget) his name at the meeting yesterday, but later I remembered it."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "forgot"
+            ]
+          ],
+          "explanation": "forgot"
+        },
+        {
+          "id": "3",
+          "segments": [
+            "How many emails ",
+            " (you / send) so far today?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have you sent"
+            ]
+          ],
+          "explanation": "have you sent"
+        },
+        {
+          "id": "4",
+          "segments": [
+            "When ",
+            " (you / send) the application?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "did you send"
+            ]
+          ],
+          "explanation": "did you send"
+        },
+        {
+          "id": "5",
+          "segments": [
+            "Emma ",
+            " (not / call) me yet."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "hasn't called",
+              "has not called"
+            ]
+          ],
+          "explanation": "hasn't called"
+        },
+        {
+          "id": "6",
+          "segments": [
+            "Emma ",
+            " (not / call) me last night."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "didn't call",
+              "did not call"
+            ]
+          ],
+          "explanation": "didn't call"
+        },
+        {
+          "id": "7",
+          "segments": [
+            "The doctor ",
+            " (just / come) back. You can speak to her now."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has just come",
+              "'s just come"
+            ]
+          ],
+          "explanation": "has just come"
+        },
+        {
+          "id": "8",
+          "segments": [
+            "The doctor ",
+            " (come) back at 3 p.m."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "came"
+            ]
+          ],
+          "explanation": "came"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 4",
+      "title": "New information and past details",
+      "text": "Complete the mini-dialogues. Use the Present Perfect to introduce new information and the Past Simple for finished details."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-4",
+      "title": "Complete the mini-dialogues.",
+      "instructions": "Use the Present Perfect for the new information and the Past Simple for the follow-up detail.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "gaps",
+          "segments": [
+            "A: I ",
+            " (find) a new flat. B: Great! Where did you find it?"
+          ],
+          "exampleAnswers": [
+            "have found"
+          ]
+        },
+        {
+          "id": "1",
+          "segments": [
+            "A: Leo ",
+            " (get) a new job. B: Really? When ",
+            " (he / start)?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has got",
+              "has gotten",
+              "'s got",
+              "'s gotten"
+            ],
+            [
+              "did he start"
+            ]
+          ],
+          "explanation": "has got / did he start"
+        },
+        {
+          "id": "2",
+          "segments": [
+            "A: We ",
+            " (buy) a new car. B: Nice! How much ",
+            " (you / pay)?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have bought",
+              "'ve bought"
+            ],
+            [
+              "did you pay"
+            ]
+          ],
+          "explanation": "have bought / did you pay"
+        },
+        {
+          "id": "3",
+          "segments": [
+            "A: Nina ",
+            " (hurt) her ankle. B: Oh no. How ",
+            " (it / happen)?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has hurt",
+              "'s hurt"
+            ],
+            [
+              "did it happen"
+            ]
+          ],
+          "explanation": "has hurt / did it happen"
+        },
+        {
+          "id": "4",
+          "segments": [
+            "A: I ",
+            " (finish) the book. B: What ",
+            " (you / think) of the ending?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have finished",
+              "'ve finished"
+            ],
+            [
+              "did you think"
+            ]
+          ],
+          "explanation": "have finished / did you think"
+        },
+        {
+          "id": "5",
+          "segments": [
+            "A: The company ",
+            " (cancel) the event. B: Why ",
+            " (they / cancel) it?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has cancelled",
+              "has canceled",
+              "'s cancelled",
+              "'s canceled"
+            ],
+            [
+              "did they cancel"
+            ]
+          ],
+          "explanation": "has cancelled / did they cancel"
+        },
+        {
+          "id": "6",
+          "segments": [
+            "A: My brother ",
+            " (move) house. B: When ",
+            " (he / move)?"
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has moved",
+              "'s moved"
+            ],
+            [
+              "did he move"
+            ]
+          ],
+          "explanation": "has moved / did he move"
+        }
+      ]
+    }
+  ]
+}

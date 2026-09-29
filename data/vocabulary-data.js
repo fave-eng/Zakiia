@@ -702,5 +702,105 @@ window.VOCABULARY_DATA = [
         "exampleRu": ""
       }
     ]
+  },
+  {
+    "id": "present-perfect-past-review",
+    "title": "Present Perfect vs Past Simple",
+    "label": "Grammar review · Pre-Intermediate",
+    "icon": "⏳",
+    "type": "lesson",
+    "publishedAt": "2026-09-29",
+    "words": [
+      {
+        "id": "present-perfect-past-review-1-recently",
+        "en": "recently",
+        "ru": "недавно, в последнее время",
+        "transcription": "/ˈriːsntli/"
+      },
+      {
+        "id": "present-perfect-past-review-2-so-far",
+        "en": "so far",
+        "ru": "пока что, до настоящего момента",
+        "transcription": "/səʊ fɑː/"
+      },
+      {
+        "id": "present-perfect-past-review-3-yet",
+        "en": "yet",
+        "ru": "ещё; уже (в вопросах и отрицаниях)",
+        "transcription": "/jet/"
+      },
+      {
+        "id": "present-perfect-past-review-4-already",
+        "en": "already",
+        "ru": "уже",
+        "transcription": "/ɔːlˈredi/"
+      },
+      {
+        "id": "present-perfect-past-review-5-just",
+        "en": "just",
+        "ru": "только что",
+        "transcription": "/dʒʌst/"
+      },
+      {
+        "id": "present-perfect-past-review-6-ago",
+        "en": "ago",
+        "ru": "назад (о времени)",
+        "transcription": "/əˈɡəʊ/"
+      },
+      {
+        "id": "present-perfect-past-review-7-lose",
+        "en": "lose",
+        "ru": "терять",
+        "transcription": "/luːz/"
+      },
+      {
+        "id": "present-perfect-past-review-8-wallet",
+        "en": "wallet",
+        "ru": "кошелёк",
+        "transcription": "/ˈwɒlɪt/"
+      },
+      {
+        "id": "present-perfect-past-review-9-resign",
+        "en": "resign",
+        "ru": "увольняться по собственному желанию",
+        "transcription": "/rɪˈzaɪn/"
+      },
+      {
+        "id": "present-perfect-past-review-10-repair",
+        "en": "repair",
+        "ru": "ремонтировать",
+        "transcription": "/rɪˈpeə/"
+      },
+      {
+        "id": "present-perfect-past-review-11-break-down",
+        "en": "break down",
+        "ru": "сломаться (о машине/технике)",
+        "transcription": "/breɪk daʊn/"
+      },
+      {
+        "id": "present-perfect-past-review-12-cancel",
+        "en": "cancel",
+        "ru": "отменять",
+        "transcription": "/ˈkænsl/"
+      },
+      {
+        "id": "present-perfect-past-review-13-move-house",
+        "en": "move house",
+        "ru": "переезжать",
+        "transcription": "/muːv haʊs/"
+      },
+      {
+        "id": "present-perfect-past-review-15-receive",
+        "en": "receive",
+        "ru": "получать",
+        "transcription": "/rɪˈsiːv/"
+      },
+      {
+        "id": "present-perfect-past-review-16-apply-for-a-job",
+        "en": "apply for a job",
+        "ru": "подавать заявку на работу",
+        "transcription": "/əˈplaɪ fər ə dʒɒb/"
+      }
+    ]
   }
 ];
