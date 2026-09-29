@@ -1,0 +1,7 @@
+project_id = "zqzgarvmpqqqaobeicpc"
+
+[functions.notify-telegram]
+verify_jwt = false
+
+[functions.diagnostics-zakiya]
+verify_jwt = false
