@@ -2,7 +2,7 @@
   'use strict';
 
   const EXPECTED_DIAGNOSTIC_VERSION = 'zakiya-diagnostics-v1';
-  const EXPECTED_THREAD_ID = null;
+  const EXPECTED_THREAD_ID = 5;
   const DIAGNOSTIC_FUNCTION = 'diagnostics-zakiya';
   const config = window.APP_CONFIG || {};
   const student = config.student || {};
@@ -169,7 +169,7 @@
 
         const actualThread = h.recipient?.threadId ?? null;
         const threadOk = h.recipient?.ok && actualThread === EXPECTED_THREAD_ID;
-        addCheck('8. Тема Telegram', threadOk ? 'ok' : 'bad', h.recipient?.ok ? `message_thread_id=${actualThread === null ? 'NULL' : actualThread}; ожидается NULL.` : 'Нельзя проверить тему без получателя.');
+        addCheck('8. Тема Telegram', threadOk ? 'ok' : 'bad', h.recipient?.ok ? `message_thread_id=${actualThread === null ? 'NULL' : actualThread}; ожидается 5.` : 'Нельзя проверить тему без получателя.');
         addCheck('9. Telegram Bot API / бот', h.telegram?.bot?.ok ? 'ok' : 'bad', h.telegram?.bot?.ok ? `Telegram видит бота @${h.telegram.bot.username || 'без username'}.` : (h.telegram?.bot?.error || 'getMe завершился ошибкой.'));
         addCheck('10. Telegram Bot API / чат', h.telegram?.chat?.ok ? 'ok' : 'bad', h.telegram?.chat?.ok ? `Бот имеет доступ к целевому чату (${h.telegram.chat.type || 'chat'}).` : (h.telegram?.chat?.error || 'Бот не имеет доступа к целевому чату.'));
 
