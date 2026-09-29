@@ -802,5 +802,210 @@ window.VOCABULARY_DATA = [
         "transcription": "/əˈplaɪ fər ə dʒɒb/"
       }
     ]
+  },
+  {
+    "id": "present-perfect-past-finished-time",
+    "title": "Finished & unfinished time",
+    "label": "Grammar review · Pre-Intermediate · Lesson 6",
+    "icon": "🗓️",
+    "type": "lesson",
+    "publishedAt": "2026-09-29",
+    "linkedLessonId": "lesson-6",
+    "words": [
+      {
+        "id": "pp-past-time-1-deadline",
+        "en": "deadline",
+        "ru": "крайний срок, дедлайн",
+        "transcription": "/ˈdedlaɪn/",
+        "exampleEn": "We haven’t reached the deadline yet.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-2-conference",
+        "en": "conference",
+        "ru": "конференция",
+        "transcription": "/ˈkɒnfərəns/",
+        "exampleEn": "We attended a conference last Saturday.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-3-renew-passport",
+        "en": "renew a passport",
+        "ru": "продлить паспорт",
+        "transcription": "",
+        "exampleEn": "I renewed my passport last month.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-4-presentation",
+        "en": "presentation",
+        "ru": "презентация, выступление",
+        "transcription": "/ˌpreznˈteɪʃn/",
+        "exampleEn": "She has given three presentations this year.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-5-move-abroad",
+        "en": "move abroad",
+        "ru": "переехать за границу",
+        "transcription": "",
+        "exampleEn": "They moved abroad in 2024.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-6-queue",
+        "en": "queue",
+        "ru": "очередь",
+        "transcription": "/kjuː/",
+        "exampleEn": "Have you ever waited in a queue for more than an hour?",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-7-graduate",
+        "en": "graduate",
+        "ru": "окончить учебное заведение",
+        "transcription": "/ˈɡrædʒueɪt/",
+        "exampleEn": "My brother graduated two years ago.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-8-submit-report",
+        "en": "submit a report",
+        "ru": "сдать / отправить отчёт",
+        "transcription": "",
+        "exampleEn": "I haven’t submitted the report so far.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-9-exhibition",
+        "en": "exhibition",
+        "ru": "выставка",
+        "transcription": "/ˌeksɪˈbɪʃn/",
+        "exampleEn": "When did you visit that exhibition?",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-10-traffic-jam",
+        "en": "traffic jam",
+        "ru": "пробка на дороге",
+        "transcription": "/ˈtræfɪk dʒæm/",
+        "exampleEn": "There was a traffic jam, but we arrived on time.",
+        "exampleRu": ""
+      },
+      {
+        "id": "pp-past-time-11-miss-flight",
+        "en": "miss a flight",
+        "ru": "опоздать на рейс",
+        "transcription": "",
+        "exampleEn": "Leo has missed his flight, so he is still at the airport.",
+        "exampleRu": ""
+      }
+    ]
+  },
+  {
+    "id": "present-perfect-past-time-review",
+    "title": "Finished & Unfinished Time",
+    "label": "Present Perfect vs Past Simple · Review",
+    "icon": "⏱️",
+    "type": "lesson",
+    "publishedAt": "2026-09-29",
+    "words": [
+      {
+        "id": "ppt2-1-this-morning",
+        "en": "this morning",
+        "ru": "сегодня утром",
+        "transcription": "",
+        "exampleEn": "I’ve answered four emails this morning.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-2-last-weekend",
+        "en": "last weekend",
+        "ru": "в прошлые выходные",
+        "transcription": "",
+        "exampleEn": "We booked a hotel last weekend.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-3-all-my-life",
+        "en": "all my life",
+        "ru": "всю мою жизнь",
+        "transcription": "",
+        "exampleEn": "I’ve lived here all my life.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-4-child",
+        "en": "when I was a child",
+        "ru": "когда я был(а) ребёнком",
+        "transcription": "",
+        "exampleEn": "I rode a bike every day when I was a child.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-5-several-years",
+        "en": "for several years",
+        "ru": "в течение нескольких лет",
+        "transcription": "",
+        "exampleEn": "She has worked remotely for several years.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-6-change-jobs",
+        "en": "change jobs",
+        "ru": "сменить работу",
+        "transcription": "",
+        "exampleEn": "She has changed jobs twice this year.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-7-graduate",
+        "en": "graduate from university",
+        "ru": "окончить университет",
+        "transcription": "",
+        "exampleEn": "He graduated from university in 2022.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-8-remotely",
+        "en": "work remotely",
+        "ru": "работать удалённо",
+        "transcription": "",
+        "exampleEn": "Have you ever worked remotely?",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-9-promotion",
+        "en": "get a promotion",
+        "ru": "получить повышение",
+        "transcription": "",
+        "exampleEn": "Have you ever got a promotion?",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-10-driving-test",
+        "en": "take a driving test",
+        "ru": "сдавать экзамен по вождению",
+        "transcription": "",
+        "exampleEn": "I’ve never taken a driving test.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-11-book-hotel",
+        "en": "book a hotel",
+        "ru": "забронировать отель",
+        "transcription": "",
+        "exampleEn": "I booked a hotel last weekend.",
+        "exampleRu": ""
+      },
+      {
+        "id": "ppt2-12-pass-exam",
+        "en": "pass an exam",
+        "ru": "сдать экзамен",
+        "transcription": "",
+        "exampleEn": "He didn’t pass the exam yesterday.",
+        "exampleRu": ""
+      }
+    ]
   }
 ];

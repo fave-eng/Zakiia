@@ -1,0 +1,483 @@
+{
+  "id": "lesson-6",
+  "number": 6,
+  "title": "Present Perfect vs Past Simple · Finished & Unfinished Time",
+  "subtitle": "Extra practice with finished time, unfinished periods and life experience",
+  "status": "available",
+  "vocabularyId": "present-perfect-past-time-review",
+  "grammarIds": [
+    "grammar-present-perfect-past-simple"
+  ],
+  "publishedAt": "2026-09-29",
+  "notification": {
+    "enabled": true,
+    "version": 1
+  },
+  "totalPoints": 26,
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "Are the verb forms OK?",
+      "text": "Correct the verb form where necessary. Write OK if the sentence is correct."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-1",
+      "title": "Correct where necessary.",
+      "instructions": "Write the correct verb form, or write OK.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "prompt": "I’ve spoken to her yesterday.",
+          "exampleTarget": "spoke"
+        },
+        {
+          "id": "1",
+          "prompt": "I’ve finished three tasks this morning, and it’s only 10 a.m.",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "2",
+          "prompt": "We’ve visited Prague last summer.",
+          "input": "text",
+          "answer": "visited",
+          "acceptedAnswers": [
+            "visited",
+            "We visited Prague last summer."
+          ],
+          "explanation": "visited"
+        },
+        {
+          "id": "3",
+          "prompt": "Have you ever worked remotely?",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "4",
+          "prompt": "When have you changed jobs?",
+          "input": "text",
+          "answer": "did you change",
+          "acceptedAnswers": [
+            "did you change",
+            "When did you change jobs?"
+          ],
+          "explanation": "did you change"
+        },
+        {
+          "id": "5",
+          "prompt": "I haven’t seen Nina since Monday.",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "6",
+          "prompt": "He has graduated from university in 2022.",
+          "input": "text",
+          "answer": "graduated",
+          "acceptedAnswers": [
+            "graduated",
+            "He graduated from university in 2022."
+          ],
+          "explanation": "graduated"
+        },
+        {
+          "id": "7",
+          "prompt": "I’ve never taken a driving test.",
+          "input": "text",
+          "answer": "OK",
+          "acceptedAnswers": [
+            "OK",
+            "ok"
+          ],
+          "explanation": "OK"
+        },
+        {
+          "id": "8",
+          "prompt": "What time have you arrived home last night?",
+          "input": "text",
+          "answer": "did you arrive",
+          "acceptedAnswers": [
+            "did you arrive",
+            "What time did you arrive home last night?"
+          ],
+          "explanation": "did you arrive"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 2",
+      "title": "Make sentences from the words in brackets.",
+      "text": "Use the Present Perfect or Past Simple."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-2",
+      "title": "Make complete sentences.",
+      "instructions": "Use the Present Perfect or Past Simple.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "gaps",
+          "segments": [
+            "(I / not / see / her / this week) ",
+            ""
+          ],
+          "exampleAnswers": [
+            "I haven't seen her this week."
+          ]
+        },
+        {
+          "id": "1",
+          "prompt": "(the weather / be / cold / recently)",
+          "input": "text",
+          "answer": "The weather has been cold recently.",
+          "acceptedAnswers": [
+            "The weather has been cold recently",
+            "The weather has been cold recently."
+          ],
+          "explanation": "The weather has been cold recently."
+        },
+        {
+          "id": "2",
+          "prompt": "(I / book / a hotel / last weekend)",
+          "input": "text",
+          "answer": "I booked a hotel last weekend.",
+          "acceptedAnswers": [
+            "I booked a hotel last weekend",
+            "I booked a hotel last weekend."
+          ],
+          "explanation": "I booked a hotel last weekend."
+        },
+        {
+          "id": "3",
+          "prompt": "(she / work remotely / for three years)",
+          "input": "text",
+          "answer": "She has worked remotely for three years.",
+          "acceptedAnswers": [
+            "She has worked remotely for three years",
+            "She has worked remotely for three years."
+          ],
+          "explanation": "She has worked remotely for three years."
+        },
+        {
+          "id": "4",
+          "prompt": "(we / not / meet / when we were at school)",
+          "input": "text",
+          "answer": "We didn't meet when we were at school.",
+          "acceptedAnswers": [
+            "We didn't meet when we were at school",
+            "We didn't meet when we were at school.",
+            "We did not meet when we were at school",
+            "We did not meet when we were at school."
+          ],
+          "explanation": "We didn't meet when we were at school."
+        },
+        {
+          "id": "5",
+          "prompt": "(you / ever / get / a promotion?)",
+          "input": "text",
+          "answer": "Have you ever got a promotion?",
+          "acceptedAnswers": [
+            "Have you ever got a promotion?",
+            "Have you ever gotten a promotion?"
+          ],
+          "explanation": "Have you ever got a promotion?"
+        },
+        {
+          "id": "6",
+          "prompt": "(my parents / live / in this town / all their lives)",
+          "input": "text",
+          "answer": "My parents have lived in this town all their lives.",
+          "acceptedAnswers": [
+            "My parents have lived in this town all their lives",
+            "My parents have lived in this town all their lives."
+          ],
+          "explanation": "My parents have lived in this town all their lives."
+        },
+        {
+          "id": "7",
+          "prompt": "(he / not / pass / the exam / yesterday)",
+          "input": "text",
+          "answer": "He didn't pass the exam yesterday.",
+          "acceptedAnswers": [
+            "He didn't pass the exam yesterday",
+            "He didn't pass the exam yesterday.",
+            "He did not pass the exam yesterday",
+            "He did not pass the exam yesterday."
+          ],
+          "explanation": "He didn't pass the exam yesterday."
+        },
+        {
+          "id": "8",
+          "prompt": "(you / speak / to the manager / today?)",
+          "input": "text",
+          "answer": "Have you spoken to the manager today?",
+          "acceptedAnswers": [
+            "Have you spoken to the manager today?"
+          ],
+          "explanation": "Have you spoken to the manager today?"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3",
+      "title": "Put the verbs into the correct form.",
+      "text": "Choose the Present Perfect or Past Simple from the context."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-3",
+      "title": "Complete the situations.",
+      "instructions": "Use the correct form of the verbs in brackets.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "gaps",
+          "segments": [
+            "I ",
+            " (not / eat) anything today, and I’m hungry."
+          ],
+          "exampleAnswers": [
+            "haven't eaten"
+          ]
+        },
+        {
+          "id": "1",
+          "segments": [
+            "I ",
+            " (not / see) Omar since January."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "haven't seen",
+              "have not seen"
+            ]
+          ],
+          "explanation": "haven't seen"
+        },
+        {
+          "id": "2",
+          "segments": [
+            "We ",
+            " (go) to the new café on Saturday."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "went"
+            ]
+          ],
+          "explanation": "went"
+        },
+        {
+          "id": "3",
+          "segments": [
+            "Maya ",
+            " (work) here for five years, and she still works here."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has worked",
+              "'s worked"
+            ]
+          ],
+          "explanation": "has worked"
+        },
+        {
+          "id": "4",
+          "segments": [
+            "My grandfather ",
+            " (work) in a factory for twenty years, but he retired in 2010."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "worked"
+            ]
+          ],
+          "explanation": "worked"
+        },
+        {
+          "id": "5",
+          "segments": [
+            "A: ",
+            " (you / finish) the report yet? B: No, not yet."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "Have you finished"
+            ]
+          ],
+          "explanation": "Have you finished"
+        },
+        {
+          "id": "6",
+          "segments": [
+            "A: What time ",
+            " (you / finish) work yesterday? B: At six."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "did you finish"
+            ]
+          ],
+          "explanation": "did you finish"
+        },
+        {
+          "id": "7",
+          "segments": [
+            "She ",
+            " (change) jobs twice this year."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "has changed",
+              "'s changed"
+            ]
+          ],
+          "explanation": "has changed"
+        },
+        {
+          "id": "8",
+          "segments": [
+            "She ",
+            " (change) jobs twice last year."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "changed"
+            ]
+          ],
+          "explanation": "changed"
+        },
+        {
+          "id": "9",
+          "segments": [
+            "I ",
+            " (never / be) to Canada, but I’d like to go."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "have never been",
+              "'ve never been"
+            ]
+          ],
+          "explanation": "have never been"
+        },
+        {
+          "id": "10",
+          "segments": [
+            "I ",
+            " (be) in Canada for two months when I was a student."
+          ],
+          "input": "gaps",
+          "answers": [
+            [
+              "was"
+            ]
+          ],
+          "explanation": "was"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 4",
+      "title": "Write about yourself.",
+      "text": "These answers are personal, so they are saved but not automatically scored."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-4",
+      "title": "Complete the sentences about your life.",
+      "instructions": "Write one complete sentence for each prompt.",
+      "items": [
+        {
+          "id": "example",
+          "example": true,
+          "exampleLabel": "Example",
+          "prompt": "Something you haven’t done this week",
+          "exampleTarget": "I haven’t cooked dinner this week."
+        },
+        {
+          "id": "1",
+          "prompt": "Something you’ve done today",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Write a complete sentence."
+        },
+        {
+          "id": "2",
+          "prompt": "Something you haven’t done recently",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Write a complete sentence."
+        },
+        {
+          "id": "3",
+          "prompt": "Something you did last weekend",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Write a complete sentence."
+        },
+        {
+          "id": "4",
+          "prompt": "Something you’ve never done in your life",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Write a complete sentence."
+        },
+        {
+          "id": "5",
+          "prompt": "Something you’ve done a lot this month",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Write a complete sentence."
+        },
+        {
+          "id": "6",
+          "prompt": "Something you did when you were a child",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": "Write a complete sentence."
+        }
+      ]
+    }
+  ]
+}
