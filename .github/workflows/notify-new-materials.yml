@@ -1,0 +1,42 @@
+name: 2 - Notify about new materials
+
+on:
+  workflow_dispatch:
+    inputs:
+      lesson_id:
+        description: 'Lesson ID, for example lesson-4.'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: ${{ vars.TELEGRAM_NOTIFICATIONS_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    env:
+      SITE_BASE_URL: ${{ vars.SITE_BASE_URL }}
+      STUDENT_ID: ${{ vars.STUDENT_ID }}
+      SUPABASE_PROJECT_ID: ${{ vars.SUPABASE_PROJECT_ID }}
+      NOTIFY_WEBHOOK_SECRET: ${{ secrets.NOTIFY_WEBHOOK_SECRET }}
+      LESSON_ID: ${{ inputs.lesson_id }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate notification settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SITE_BASE_URL" || (echo "Missing repository variable SITE_BASE_URL" && exit 1)
+          test "$STUDENT_ID" = "zakiya" || (echo "STUDENT_ID must be zakiya" && exit 1)
+          test -n "$SUPABASE_PROJECT_ID" || (echo "Missing repository variable SUPABASE_PROJECT_ID" && exit 1)
+          test -n "$NOTIFY_WEBHOOK_SECRET" || (echo "Missing repository secret NOTIFY_WEBHOOK_SECRET" && exit 1)
+
+      - name: Send Telegram notification
+        run: node scripts/prepare-notification.mjs
