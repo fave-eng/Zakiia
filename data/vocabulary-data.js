@@ -451,5 +451,256 @@ window.VOCABULARY_DATA = [
       }
     ],
     "linkedLessonId": "lesson-3"
+  },
+  {
+    "id": "describing-people-come",
+    "title": "Describing people & come",
+    "label": "Pre-Intermediate · Lesson 4",
+    "icon": "👤",
+    "type": "lesson",
+    "publishedAt": "2026-09-29",
+    "linkedLessonId": "lesson-4",
+    "words": [
+      {
+        "id": "describing-people-come-1-curly",
+        "en": "curly",
+        "ru": "кудрявый",
+        "transcription": "",
+        "exampleEn": "She has curly red hair.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-2-straight",
+        "en": "straight",
+        "ru": "прямой (о волосах)",
+        "transcription": "",
+        "exampleEn": "She has long straight hair.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-3-blonde",
+        "en": "blonde",
+        "ru": "светлый, блонд",
+        "transcription": "",
+        "exampleEn": "She has short blonde hair.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-4-beard",
+        "en": "beard",
+        "ru": "борода",
+        "transcription": "",
+        "exampleEn": "He has a beard.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-5-moustache",
+        "en": "moustache",
+        "ru": "усы",
+        "transcription": "",
+        "exampleEn": "He has a moustache.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-6-bald",
+        "en": "bald",
+        "ru": "лысый",
+        "transcription": "",
+        "exampleEn": "He’s bald.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-7-slim",
+        "en": "slim",
+        "ru": "стройный",
+        "transcription": "",
+        "exampleEn": "He’s medium height and very slim.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-8-overweight",
+        "en": "overweight",
+        "ru": "с избыточным весом",
+        "transcription": "",
+        "exampleEn": "He’s a bit overweight.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-9-medium-height",
+        "en": "medium height",
+        "ru": "среднего роста",
+        "transcription": "",
+        "exampleEn": "He’s medium height.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-10-good-looking",
+        "en": "good-looking",
+        "ru": "привлекательный, хорошо выглядящий",
+        "transcription": "",
+        "exampleEn": "He’s good-looking.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-11-attractive",
+        "en": "attractive",
+        "ru": "привлекательный",
+        "transcription": "",
+        "exampleEn": "She’s attractive.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-12-clever",
+        "en": "clever",
+        "ru": "умный, сообразительный",
+        "transcription": "",
+        "exampleEn": "She’s clever and learns quickly.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-13-generous",
+        "en": "generous",
+        "ru": "щедрый",
+        "transcription": "",
+        "exampleEn": "He’s generous with his friends.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-14-lazy",
+        "en": "lazy",
+        "ru": "ленивый",
+        "transcription": "",
+        "exampleEn": "He’s too lazy to do the job.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-15-shy",
+        "en": "shy",
+        "ru": "застенчивый",
+        "transcription": "",
+        "exampleEn": "She’s shy with new people.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-16-talkative",
+        "en": "talkative",
+        "ru": "разговорчивый",
+        "transcription": "",
+        "exampleEn": "He’s very talkative.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-17-extrovert",
+        "en": "extrovert",
+        "ru": "экстраверт",
+        "transcription": "",
+        "exampleEn": "She’s an extrovert and loves meeting people.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-18-hard-working",
+        "en": "hard-working",
+        "ru": "трудолюбивый",
+        "transcription": "",
+        "exampleEn": "He’s hard-working and reliable.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-19-mean",
+        "en": "mean",
+        "ru": "скупой, жадный",
+        "transcription": "",
+        "exampleEn": "Don’t be mean — share with the others.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-20-quiet",
+        "en": "quiet",
+        "ru": "тихий, неразговорчивый",
+        "transcription": "",
+        "exampleEn": "She’s quiet in large groups.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-21-serious",
+        "en": "serious",
+        "ru": "серьёзный",
+        "transcription": "",
+        "exampleEn": "He’s serious at work.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-22-unfriendly",
+        "en": "unfriendly",
+        "ru": "недружелюбный",
+        "transcription": "",
+        "exampleEn": "The receptionist seemed unfriendly.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-23-unkind",
+        "en": "unkind",
+        "ru": "недобрый",
+        "transcription": "",
+        "exampleEn": "That was an unkind comment.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-24-come-across",
+        "en": "come across",
+        "ru": "случайно встретить / наткнуться",
+        "transcription": "",
+        "exampleEn": "I came across an old photo yesterday.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-25-come-back",
+        "en": "come back",
+        "ru": "вернуться",
+        "transcription": "",
+        "exampleEn": "What time did you come back?",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-26-come-in",
+        "en": "come in",
+        "ru": "войти",
+        "transcription": "",
+        "exampleEn": "Please come in and sit down.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-27-come-on",
+        "en": "come on",
+        "ru": "давай; быстрее; ну же",
+        "transcription": "",
+        "exampleEn": "Come on! We’re going to be late.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-28-come-out",
+        "en": "come out",
+        "ru": "выйти, быть выпущенным / опубликованным",
+        "transcription": "",
+        "exampleEn": "Her new book comes out next month.",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-29-come-over",
+        "en": "come over",
+        "ru": "зайти в гости",
+        "transcription": "",
+        "exampleEn": "Do you want to come over for coffee?",
+        "exampleRu": ""
+      },
+      {
+        "id": "describing-people-come-30-come-up-with",
+        "en": "come up with",
+        "ru": "придумать",
+        "transcription": "",
+        "exampleEn": "Can you come up with a better idea?",
+        "exampleRu": ""
+      }
+    ]
   }
 ];

@@ -1,0 +1,798 @@
+{
+  "id": "lesson-4",
+  "number": 4,
+  "title": "Describing people · Phrasal verbs with come",
+  "subtitle": "Appearance, personality and useful phrasal verbs with come",
+  "status": "available",
+  "vocabularyId": "describing-people-come",
+  "grammarIds": [],
+  "publishedAt": "2026-09-29",
+  "notification": {
+    "enabled": true,
+    "version": 1
+  },
+  "totalPoints": 41,
+  "blocks": [
+    {
+      "type": "section",
+      "sectionNumber": 1,
+      "eyebrow": "APPEARANCE",
+      "title": "What does he / she look like?"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-1a",
+      "eyebrow": "1a",
+      "title": "Match the sentences and photos.",
+      "instructions": "Match the sentences and photos.",
+      "image": "images/lesson-4-describing-people.png",
+      "imageAlt": "Nine numbered photos of people for the appearance matching exercise.",
+      "stickyImage": true,
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "number": "",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "select",
+          "segments": [
+            "She has big blue eyes. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "1",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "She has curly red hair. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "2",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "She has long straight hair. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 2
+        },
+        {
+          "id": "3",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "She has short blonde hair. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 5
+        },
+        {
+          "id": "4",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "He has a beard and a moustache. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 4
+        },
+        {
+          "id": "5",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "He’s bald. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 3
+        },
+        {
+          "id": "6",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "He’s very tall and thin. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 6
+        },
+        {
+          "id": "7",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "He’s medium height and very slim. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 8
+        },
+        {
+          "id": "8",
+          "number": "",
+          "prompt": "",
+          "input": "select",
+          "segments": [
+            "He’s quite short and a bit overweight. Photo ",
+            ""
+          ],
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": 7
+        }
+      ]
+    },
+    {
+      "type": "info",
+      "title": "1c",
+      "text": "Cover the phrases and look at the photos. Test yourself or a partner."
+    },
+    {
+      "type": "info",
+      "title": "Using two adjectives together",
+      "text": "Adjectives go in this order: size → style → colour + noun. She has long straight blonde hair. He has big brown eyes.\n\nthin or slim? fat or overweight?\nThin and slim are both the opposite of fat, but slim = thin in an attractive way. Fat is not very polite. It is more polite to say someone is (a bit) overweight.\n\nhandsome or beautiful?\nHandsome is used for men, beautiful is used for women, and good-looking and attractive are used for both men and women."
+    },
+    {
+      "type": "section",
+      "sectionNumber": 2,
+      "eyebrow": "PERSONALITY",
+      "title": "What’s he / she like?"
+    },
+    {
+      "type": "exercise",
+      "id": "ex-2a",
+      "eyebrow": "2a",
+      "title": "Match the adjectives to the definitions.",
+      "instructions": "Match the adjectives to the definitions.",
+      "wordBankLabel": "Adjectives",
+      "wordBank": [
+        "clever",
+        "friendly",
+        "funny",
+        "generous",
+        "kind",
+        "lazy",
+        "shy",
+        "talkative"
+      ],
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "example": true,
+          "exampleMode": "gaps",
+          "segments": [
+            "A person who is open and warm is ",
+            "."
+          ],
+          "exampleAnswers": [
+            "friendly"
+          ]
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "A person who talks a lot is",
+          "input": "text",
+          "answer": "talkative",
+          "placeholder": "Type the adjective…"
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "A person who likes giving people things is",
+          "input": "text",
+          "answer": "generous",
+          "placeholder": "Type the adjective…"
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "A person who is friendly and good to other people is",
+          "input": "text",
+          "answer": "kind",
+          "placeholder": "Type the adjective…"
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "A person who doesn’t want to work is",
+          "input": "text",
+          "answer": "lazy",
+          "placeholder": "Type the adjective…"
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "A person who makes people laugh is",
+          "input": "text",
+          "answer": "funny",
+          "placeholder": "Type the adjective…"
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "A person who is quick at learning and understanding things is",
+          "input": "text",
+          "answer": "clever",
+          "placeholder": "Type the adjective…"
+        },
+        {
+          "id": "8",
+          "number": 8,
+          "prompt": "A person who can’t talk easily to people he / she doesn’t know is",
+          "input": "text",
+          "answer": "shy",
+          "placeholder": "Type the adjective…"
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "ex-2b",
+      "eyebrow": "2b",
+      "title": "Complete the Opposite column with an adjective from the list.",
+      "instructions": "Complete the Opposite column with an adjective from the list.",
+      "wordBankLabel": "Opposites",
+      "wordBank": [
+        "extrovert",
+        "hard-working",
+        "mean",
+        "quiet",
+        "serious",
+        "stupid",
+        "unfriendly",
+        "unkind"
+      ],
+      "requires": {
+        "blockId": "ex-2a",
+        "itemIds": [
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "message": "Complete all answers in 2a first. Your own answers will be used here."
+      },
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "friendly →",
+          "input": "text",
+          "answer": "unfriendly",
+          "placeholder": "Type the opposite…"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "→",
+          "input": "text",
+          "answer": "quiet",
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "2",
+            "suffix": " →"
+          }
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "→",
+          "input": "text",
+          "answer": "mean",
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "3",
+            "suffix": " →"
+          }
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "→",
+          "input": "text",
+          "answer": "unkind",
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "4",
+            "suffix": " →"
+          }
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "→",
+          "input": "text",
+          "answer": "hard-working",
+          "acceptedAnswers": [
+            "hard-working",
+            "hard working"
+          ],
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "5",
+            "suffix": " →"
+          }
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "→",
+          "input": "text",
+          "answer": "serious",
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "6",
+            "suffix": " →"
+          }
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "→",
+          "input": "text",
+          "answer": "stupid",
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "7",
+            "suffix": " →"
+          }
+        },
+        {
+          "id": "8",
+          "number": 8,
+          "prompt": "→",
+          "input": "text",
+          "answer": "extrovert",
+          "acceptedAnswers": [
+            "extrovert",
+            "an extrovert"
+          ],
+          "placeholder": "Type the opposite…",
+          "dependsOn": {
+            "blockId": "ex-2a",
+            "itemId": "8",
+            "suffix": " →"
+          }
+        }
+      ]
+    },
+    {
+      "type": "info",
+      "title": "2d",
+      "text": "Cover the adjectives and look at the definitions. Say the adjective and its opposite."
+    },
+    {
+      "type": "info",
+      "title": "What does she look like? What is she like?",
+      "text": "What does she look like? = Tell me about her appearance. (Is she tall / short? What colour hair does she have?)\n\nWhat is she like? = Tell me what kind of person she is. (Is she friendly? Is she shy?)"
+    },
+    {
+      "type": "section",
+      "sectionNumber": 3,
+      "eyebrow": "PHRASAL VERBS",
+      "title": "Phrasal verbs with come",
+      "text": "Practice useful phrasal verbs with come at Pre-Intermediate level."
+    },
+    {
+      "type": "exercise",
+      "id": "ex-3a",
+      "eyebrow": "3a",
+      "title": "Match the phrasal verbs to the meanings.",
+      "instructions": "Choose the correct meaning for each phrasal verb.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "number": "",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "select",
+          "segments": [
+            "come back = ",
+            ""
+          ],
+          "options": [
+            "return",
+            "enter",
+            "visit someone at home"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "1",
+          "prompt": "come across",
+          "input": "single",
+          "options": [
+            "find or meet by chance",
+            "leave a place",
+            "wait for someone"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "2",
+          "prompt": "come in",
+          "input": "single",
+          "options": [
+            "enter",
+            "return",
+            "be published"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "3",
+          "prompt": "come on",
+          "input": "single",
+          "options": [
+            "hurry / an expression of encouragement",
+            "visit someone",
+            "find by chance"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "4",
+          "prompt": "come out",
+          "input": "single",
+          "options": [
+            "be published or released",
+            "enter a room",
+            "return home"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "5",
+          "prompt": "come over",
+          "input": "single",
+          "options": [
+            "visit someone at their home",
+            "think of an idea",
+            "find something by chance"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "6",
+          "prompt": "come up with",
+          "input": "single",
+          "options": [
+            "think of an idea or plan",
+            "hurry",
+            "be published"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "ex-3b",
+      "eyebrow": "3b",
+      "title": "Complete the sentences with the correct phrasal verb.",
+      "instructions": "Complete the sentences with the correct phrasal verb. Change the form if necessary.",
+      "wordBankLabel": "Phrasal verbs",
+      "wordBank": [
+        "come across",
+        "come back",
+        "come in",
+        "come on",
+        "come out",
+        "come over",
+        "come up with"
+      ],
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "number": "",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "gaps",
+          "segments": [
+            "Please ",
+            " and sit down."
+          ],
+          "exampleAnswers": [
+            "come in"
+          ]
+        },
+        {
+          "id": "1",
+          "prompt": "I found this old photo by chance while I was cleaning my phone.",
+          "input": "gaps",
+          "segments": [
+            "I ",
+            " this old photo while I was cleaning my phone."
+          ],
+          "answers": [
+            [
+              "came across"
+            ]
+          ]
+        },
+        {
+          "id": "2",
+          "prompt": "What time did you return from work?",
+          "input": "gaps",
+          "segments": [
+            "What time did you ",
+            " from work?"
+          ],
+          "answers": [
+            [
+              "come back"
+            ]
+          ]
+        },
+        {
+          "id": "3",
+          "prompt": "Hurry! We’re going to be late.",
+          "input": "gaps",
+          "segments": [
+            "",
+            "! We’re going to be late."
+          ],
+          "answers": [
+            [
+              "Come on",
+              "come on"
+            ]
+          ]
+        },
+        {
+          "id": "4",
+          "prompt": "Her new book will be released next month.",
+          "input": "gaps",
+          "segments": [
+            "Her new book ",
+            " next month."
+          ],
+          "answers": [
+            [
+              "comes out",
+              "is coming out",
+              "will come out"
+            ]
+          ]
+        },
+        {
+          "id": "5",
+          "prompt": "Would you like to visit me for coffee tomorrow?",
+          "input": "gaps",
+          "segments": [
+            "Would you like to ",
+            " for coffee tomorrow?"
+          ],
+          "answers": [
+            [
+              "come over"
+            ]
+          ]
+        },
+        {
+          "id": "6",
+          "prompt": "Can you think of a better idea?",
+          "input": "gaps",
+          "segments": [
+            "Can you ",
+            " a better idea?"
+          ],
+          "answers": [
+            [
+              "come up with"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "ex-3c",
+      "eyebrow": "3c",
+      "title": "Choose the best phrasal verb for each situation.",
+      "instructions": "Choose the best phrasal verb for each situation.",
+      "hideAnswersOnError": true,
+      "items": [
+        {
+          "id": "example",
+          "number": "",
+          "example": true,
+          "exampleLabel": "Example",
+          "exampleMode": "choice",
+          "prompt": "I’ll return in ten minutes. → come back",
+          "exampleAnswer": "come back"
+        },
+        {
+          "id": "1",
+          "prompt": "You unexpectedly find an interesting old message on your phone.",
+          "input": "single",
+          "options": [
+            "come across",
+            "come over",
+            "come in"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "2",
+          "prompt": "You invite a friend to visit you at home this evening.",
+          "input": "single",
+          "options": [
+            "come over",
+            "come out",
+            "come on"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "3",
+          "prompt": "You tell someone they can enter the room.",
+          "input": "single",
+          "options": [
+            "come in",
+            "come back",
+            "come across"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "4",
+          "prompt": "You need a colleague to think of a new plan.",
+          "input": "single",
+          "options": [
+            "come up with",
+            "come on",
+            "come out"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "5",
+          "prompt": "A new film becomes available in cinemas next Friday.",
+          "input": "single",
+          "options": [
+            "come out",
+            "come over",
+            "come back"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "6",
+          "prompt": "Your friend is walking too slowly and you want them to hurry.",
+          "input": "single",
+          "options": [
+            "come on",
+            "come across",
+            "come in"
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

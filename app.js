@@ -1335,10 +1335,71 @@
     });
   }
 
+
+  function wireLessonDependencies(root, blocks) {
+    const readItemValue = (blockId, itemId) => {
+      const itemNode = root.querySelector(`[data-task="${CSS.escape(safeText(blockId))}"] [data-exercise-item="${CSS.escape(safeText(itemId))}"]`);
+      if (!itemNode) return '';
+      const inputType = safeText(itemNode.dataset.inputType, 'text');
+      if (inputType === 'select') {
+        const select = itemNode.querySelector('select');
+        if (!select || !select.value) return '';
+        return safeText(select.options[select.selectedIndex]?.textContent).trim();
+      }
+      if (inputType === 'single' || inputType === 'circle-or-tick') {
+        const checked = itemNode.querySelector('input:checked');
+        if (!checked) return '';
+        return safeText(checked.closest('label')?.textContent || checked.value).trim();
+      }
+      const input = itemNode.querySelector('input:not([type="radio"]):not([type="checkbox"]), textarea');
+      return safeText(input?.value).trim();
+    };
+
+    const updateBlock = (block) => {
+      if (!block?.requires || typeof block.requires !== 'object') return;
+      const blockId = safeText(block.id);
+      const target = root.querySelector(`[data-task="${CSS.escape(blockId)}"]`);
+      if (!target) return;
+      const sourceBlockId = safeText(block.requires.blockId);
+      const requiredIds = Array.isArray(block.requires.itemIds) ? block.requires.itemIds.map(safeText) : [];
+      const ready = requiredIds.length === 0 || requiredIds.every((itemId) => normalizeAnswer(readItemValue(sourceBlockId, itemId)) !== '');
+      target.classList.toggle('is-dependency-locked', !ready);
+      const message = target.querySelector('[data-dependency-message]');
+      if (message) message.hidden = ready;
+      target.querySelectorAll('input, textarea, select').forEach((control) => {
+        if (control.closest('.exercise-example')) return;
+        control.disabled = !ready;
+      });
+
+      target.querySelectorAll('[data-dependent-prompt]').forEach((node) => {
+        const value = readItemValue(node.dataset.sourceBlock, node.dataset.sourceItem);
+        const prefix = safeText(node.dataset.prefix);
+        const suffix = safeText(node.dataset.suffix);
+        node.textContent = value ? `${prefix}${value}${suffix}` : 'Your answer from 2a';
+      });
+    };
+
+    const dependentBlocks = (Array.isArray(blocks) ? blocks : []).filter((block) => block?.requires && typeof block.requires === 'object');
+    dependentBlocks.forEach((block) => {
+      const sourceBlockId = safeText(block.requires.blockId);
+      const source = root.querySelector(`[data-task="${CSS.escape(sourceBlockId)}"]`);
+      const update = () => updateBlock(block);
+      if (source) {
+        source.addEventListener('input', update);
+        source.addEventListener('change', update);
+      }
+      update();
+    });
+  }
+
   function renderExerciseItem(item, blockId, index, inlineNumberedItems = false) {
     const itemId = safeText(item.id, `${index + 1}`);
     const number = item.number === undefined ? index + 1 : item.number;
-    const prompt = escapeHtml(item.prompt || '');
+    const promptText = safeText(item.prompt || '');
+    const dependency = item.dependsOn && typeof item.dependsOn === 'object' ? item.dependsOn : null;
+    const prompt = dependency
+      ? `<span class="dependent-prompt" data-dependent-prompt data-source-block="${escapeHtml(safeText(dependency.blockId))}" data-source-item="${escapeHtml(safeText(dependency.itemId))}" data-prefix="${escapeHtml(safeText(dependency.prefix))}" data-suffix="${escapeHtml(safeText(dependency.suffix))}">${escapeHtml(promptText)}</span>`
+      : escapeHtml(promptText);
     const inputId = `exercise-${blockId}-${itemId}`.replace(/[^a-zA-Z0-9_-]/g, '-');
     const exampleLabel = item.example && item.exampleLabel ? safeText(item.exampleLabel) : '';
     const baseNumberMarkup = number === '' || number === null ? '' : `<span class="exercise-number">${escapeHtml(number)}</span>`;
@@ -1651,12 +1712,16 @@
               : block.layout === 'present-past-table'
                 ? renderPresentPastTable(block, id)
                 : `<div class="exercise-items">${items.map((item, itemIndex) => renderExerciseItem(item, id, itemIndex, block.inlineNumberedItems === true)).join('')}</div>`;
+      const dependencyNotice = block.requires && typeof block.requires === 'object'
+        ? `<div class="dependency-message" data-dependency-message>${escapeHtml(safeText(block.requires.message, 'Complete the previous part first.'))}</div>`
+        : '';
       const hasStickyImage = block.stickyImage === true && imageEntries.length === 1;
       const exerciseBody = hasStickyImage
         ? `<div class="exercise-sticky-layout"><div class="exercise-sticky-media">${image}</div><div class="exercise-sticky-content">${intro}${exerciseContent}</div></div>`
         : `${image}${intro}${exerciseContent}`;
       return `<article class="card lesson-block exercise-card${block.layout === 'dialogue' ? ' dialogue-card' : ''}${hasStickyImage ? ' has-sticky-image' : ''}" data-task="${escapeHtml(id)}" data-type="exercise">
         <div class="exercise-heading">${Object.prototype.hasOwnProperty.call(block, 'eyebrow') ? (safeText(block.eyebrow) ? `<span class="eyebrow">${escapeHtml(safeText(block.eyebrow))}</span>` : '') : '<span class="eyebrow">Exercise</span>'}<h3>${title}</h3>${block.instructions ? `<p class="muted exercise-instructions">${escapeHtml(block.instructions)}</p>` : ''}${player}${wordBank}${wordBanks}</div>
+        ${dependencyNotice}
         ${exerciseBody}
       </article>`;
     }
@@ -1971,6 +2036,7 @@
 
     restoreLessonAnswers(root, blocks, savedResult?.answers);
     wireLessonInteractiveInputs(root);
+    wireLessonDependencies(root, blocks);
 
     root.querySelectorAll('[data-reorder-source]').forEach((source) => {
       source.addEventListener('click', (event) => {

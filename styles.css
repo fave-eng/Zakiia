@@ -2912,3 +2912,19 @@ label.odd-option {
 .task-checkbox span {
   line-height: 1.45;
 }
+
+/* Lesson dependencies: a later part can use the student's own answers from an earlier part. */
+.dependency-message {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line, #d9ded9);
+  border-radius: 12px;
+  background: var(--surface-soft, #f6f8f6);
+  font-weight: 650;
+}
+.exercise-card.is-dependency-locked .exercise-items {
+  opacity: .55;
+}
+.dependent-prompt {
+  font-weight: 700;
+}
